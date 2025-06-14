@@ -45,11 +45,15 @@
     "packages/with-env": {
       "name": "@cjkihl/with-env",
       "version": "0.0.3",
+      "bin": {
+        "with-env": "./dist/bin/with-env.js",
+      },
       "dependencies": {
         "@cjkihl/find-root": "workspace:*",
         "dotenv": "^16.5.0",
       },
       "devDependencies": {
+        "@cjkihl/create-exports": "workspace:*",
         "@cjkihl/tsconfig": "workspace:*",
         "bun-types": "latest",
       },
