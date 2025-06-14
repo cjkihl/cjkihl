@@ -5,6 +5,18 @@
   "author": "@cjkihl",
   "license": "MIT",
   "type": "module",
+  "repository": {
+		"type": "git",
+		"url": "https://github.com/cjkihl/cjkihl.git"
+	},
+	"bugs": {
+		"url": "https://github.com/cjkihl/cjkihl/issues"
+	},
+	"homepage": "https://github.com/cjkihl/cjkihl#readme",
+	"funding": {
+		"type": "github",
+		"url": "https://github.com/sponsors/cjkihl"
+	},
   "files": [
     ".dist",
     "README.md"

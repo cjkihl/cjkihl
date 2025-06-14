@@ -1,15 +1,22 @@
 # @cjkihl/create-exports
 
-A tool to automatically generate exports and binary entries in your package.json based on your TypeScript files.
+[![npm version](https://img.shields.io/npm/v/@cjkihl/create-exports.svg)](https://www.npmjs.com/package/@cjkihl/create-exports)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/cjkihl/create-exports/blob/main/CONTRIBUTING.md)
+[![Sponsor](https://img.shields.io/badge/Sponsor-%E2%9D%A4-red.svg)](https://github.com/sponsors/cjkihl)
 
-## Features
+A powerful tool to automatically generate exports and binary entries in your package.json based on your TypeScript files. Streamline your TypeScript package configuration with zero manual effort.
 
-- Automatically finds and generates exports for public files (`.pub.ts`, `.pub.tsx`)
-- Automatically finds and generates binary entries for CLI files (`.bin.ts`, `.bin.tsx`)
-- Supports custom package.json and tsconfig.json paths
-- Dry run mode to preview changes
-- Sorts exports and binary entries alphabetically
-- Handles index files and nested directories correctly
+## ✨ Features
+
+- 🔍 Automatically finds and generates exports for public files (`.pub.ts`, `.pub.tsx`)
+- 🛠️ Automatically finds and generates binary entries for CLI files (`.bin.ts`, `.bin.tsx`)
+- ⚙️ Supports custom package.json and tsconfig.json paths
+- 🧪 Dry run mode to preview changes
+- 📝 Sorts exports and binary entries alphabetically
+- 📁 Handles index files and nested directories correctly
+- 🚀 Zero configuration needed
+- 📦 Works with any package manager (npm, yarn, pnpm, bun)
 
 ## Installation
 
@@ -119,6 +126,38 @@ Example output:
 - TypeScript project with tsconfig.json
 - package.json
 
-## License
+## 🤝 Contributing
 
-MIT
+Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/cjkihl/create-exports/issues).
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📝 License
+
+This project is [MIT](LICENSE) licensed.
+
+## 🙏 Acknowledgments
+
+- Thanks to all contributors who have helped shape this project
+- Inspired by the need for better TypeScript package configuration management
+
+## 📫 Contact
+
+- GitHub: [@cjkihl](https://github.com/cjkihl)
+- Twitter: [@cjkihl](https://twitter.com/cjkihl)
+
+## ⭐ Show your support
+
+Give a ⭐️ if this project helped you!
+
+## 💝 Sponsor
+
+If you find this project helpful, please consider sponsoring me on GitHub:
+
+[![Sponsor](https://img.shields.io/badge/Sponsor-%E2%9D%A4-red.svg)](https://github.com/sponsors/cjkihl)
+
+Your support helps me maintain and improve this project!

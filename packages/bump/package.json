@@ -1,7 +1,7 @@
 {
-	"name": "@cjkihl/create-exports",
+	"name": "@cjkihl/bump",
 	"version": "0.0.1",
-	"description": "Tool to generate package exports configuration for TypeScript packages",
+	"description": "Bump package versions in a monorepo",
 	"author": "@cjkihl",
 	"license": "MIT",
 	"type": "module",
@@ -23,32 +23,36 @@
 			"default": "./.dist/output/index.js"
 		}
 	},
-	"bin": {
-		"create-exports": "./.dist/output/index.bin.js"
-	},
 	"files": [
 		".dist",
 		"README.md"
 	],
 	"scripts": {
-		"build": "tsc && chmod +x .dist/output/index.bin.js"
+		"build": "tsc"
 	},
 	"keywords": [
-		"typescript",
-		"exports",
-		"package",
-		"configuration",
-		"build-tool"
+		"monorepo",
+		"root",
+		"find-root",
+		"workspace",
+		"lockfile",
+		"package-manager"
 	],
 	"dependencies": {
 		"@cjkihl/find-root": "workspace:*",
+		"@inquirer/prompts": "^7.5.3",
+		"commander": "^14.0.0",
 		"fast-glob": "^3.3.3",
-		"type-fest": "^4.41.0"
+		"find-up": "^7.0.0",
+		"inquirer": "^9.2.15",
+		"semver": "^7.7.2"
 	},
 	"devDependencies": {
 		"@cjkihl/tsconfig": "workspace:*",
+		"@types/inquirer": "^9.0.7",
+		"@types/semver": "^7.7.0",
 		"bun-types": "latest",
-		"typescript": "^5.0.0"
+		"type-fest": "^4.26.0"
 	},
 	"publishConfig": {
 		"access": "public"

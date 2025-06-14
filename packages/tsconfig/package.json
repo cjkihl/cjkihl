@@ -4,6 +4,18 @@
 	"description": "Shared TypeScript configurations for Node.js projects",
 	"author": "@cjkihl",
 	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/cjkihl/cjkihl.git"
+	},
+	"bugs": {
+		"url": "https://github.com/cjkihl/cjkihl/issues"
+	},
+	"homepage": "https://github.com/cjkihl/cjkihl#readme",
+	"funding": {
+		"type": "github",
+		"url": "https://github.com/sponsors/cjkihl"
+	},
 	"exports": {
 		"./tsconfig.base": "./tsconfig.base.json",
 		"./tsconfig.lib": "./tsconfig.lib.json"
