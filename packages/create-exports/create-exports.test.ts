@@ -44,7 +44,7 @@ import {
 	generateExports,
 	generateBin,
 	updatePackageJson,
-} from "./index";
+} from "./create-exports";
 
 const TEST_DIR = process.cwd();
 

@@ -22,7 +22,8 @@
 	"scripts": {
 		"build": "bun build ./index.ts --outdir ./dist --target node",
 		"clean": "rm -rf dist",
-		"prepublishOnly": "bun run build"
+		"prepublishOnly": "bun run build",
+		"test": "bun test"
 	},
 	"keywords": [
 		"typescript",
@@ -38,12 +39,16 @@
 	},
 	"devDependencies": {
 		"@cjkihl/tsconfig": "workspace:*",
-		"bun-types": "latest"
+		"bun-types": "latest",
+		"typescript": "^5.0.0"
 	},
 	"publishConfig": {
 		"access": "public"
 	},
 	"engines": {
 		"node": ">=18.0.0"
+	},
+	"bin": {
+		"create-exports": "./bin.ts"
 	}
 }

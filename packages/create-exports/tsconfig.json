@@ -1,4 +1,4 @@
 {
 	"extends": "@cjkihl/tsconfig/tsconfig.lib",
-	"include": ["index.ts"]
+	"include": ["create-exports.ts"]
 }
