@@ -1,0 +1,4 @@
+{
+	"extends": "@cjkihl/tsconfig/tsconfig.lib",
+	"include": ["index.ts"]
+}

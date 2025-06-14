@@ -1,0 +1,18 @@
+{
+  "name": "@cjkihl/monorepo",
+  "version": "0.0.1",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "bun run --cwd packages/tsconfig build && bun run --cwd packages/find-root build && bun run --cwd packages/create-exports build",
+    "test": "bun test",
+    "clean": "rm -rf .dist node_modules packages/*/node_modules packages/*/.dist"
+  },
+  "devDependencies": {
+    "bun-types": "latest",
+    "typescript": "^5.0.0"
+  },
+  "packageManager": "bun@1.0.0"
+}

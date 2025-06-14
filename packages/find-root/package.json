@@ -1,0 +1,48 @@
+{
+	"name": "@cjkihl/find-root",
+	"version": "0.0.3",
+	"description": "Find monorepo root directory by detecting lockfiles",
+	"author": "@cjkihl",
+	"license": "MIT",
+	"type": "module",
+	"main": "./dist/index.js",
+	"module": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.js",
+			"require": "./dist/index.cjs"
+		}
+	},
+	"files": [
+		"dist",
+		"README.md"
+	],
+	"scripts": {
+		"build": "bun build ./index.ts --outdir ./dist --target node",
+		"clean": "rm -rf dist",
+		"prepublishOnly": "bun run build"
+	},
+	"keywords": [
+		"monorepo",
+		"root",
+		"find-root",
+		"workspace",
+		"lockfile",
+		"package-manager"
+	],
+	"dependencies": {
+		"find-up": "^7.0.0"
+	},
+	"devDependencies": {
+		"@cjkihl/tsconfig": "workspace:*",
+		"bun-types": "latest"
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"engines": {
+		"node": ">=18.0.0"
+	}
+}

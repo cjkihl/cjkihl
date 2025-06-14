@@ -1,0 +1,49 @@
+{
+	"name": "@cjkihl/create-exports",
+	"version": "0.0.1",
+	"description": "Tool to generate package exports configuration for TypeScript packages",
+	"author": "@cjkihl",
+	"license": "MIT",
+	"type": "module",
+	"main": "./dist/index.js",
+	"module": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.js",
+			"require": "./dist/index.cjs"
+		}
+	},
+	"files": [
+		"dist",
+		"README.md"
+	],
+	"scripts": {
+		"build": "bun build ./index.ts --outdir ./dist --target node",
+		"clean": "rm -rf dist",
+		"prepublishOnly": "bun run build"
+	},
+	"keywords": [
+		"typescript",
+		"exports",
+		"package",
+		"configuration",
+		"build-tool"
+	],
+	"dependencies": {
+		"@cjkihl/find-root": "workspace:*",
+		"fast-glob": "^3.3.3",
+		"type-fest": "^4.41.0"
+	},
+	"devDependencies": {
+		"@cjkihl/tsconfig": "workspace:*",
+		"bun-types": "latest"
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"engines": {
+		"node": ">=18.0.0"
+	}
+}
