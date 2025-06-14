@@ -1,0 +1,55 @@
+{
+	"name": "@cjkihl/with-env",
+	"version": "0.0.3",
+	"description": "Load environment variables in a monorepo",
+	"author": "@cjkihl",
+	"license": "MIT",
+	"type": "module",
+	"main": "./dist/index.js",
+	"module": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"bin": {
+		"with-env": "./dist/bin/with-env.js"
+	},
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.js",
+			"require": "./dist/index.cjs"
+		}
+	},
+	"files": [
+		"dist",
+		"README.md"
+	],
+	"scripts": {
+		"build": "tsc && create-exports",
+		"test": "bun test",
+		"clean": "git clean -fxd -e .env.local",
+		"lint": "biome check .",
+		"lint-fix": "biome check --write --unsafe ."
+	},
+	"keywords": [
+		"monorepo",
+		"root",
+		"find-root",
+		"workspace",
+		"lockfile",
+		"package-manager"
+	],
+	"dependencies": {
+		"dotenv": "^16.5.0",
+		"@cjkihl/find-root": "workspace:*"
+	},
+	"devDependencies": {
+		"@cjkihl/tsconfig": "workspace:*",
+		"@cjkihl/create-exports": "workspace:*",
+		"bun-types": "latest"
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"engines": {
+		"node": ">=18.0.0"
+	}
+}

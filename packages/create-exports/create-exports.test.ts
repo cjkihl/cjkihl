@@ -24,8 +24,6 @@ mock.module("typescript", () => ({
 	}),
 	parseJsonConfigFileContent: (
 		config: { compilerOptions: { outDir: string; declarationDir: string } },
-		sys: { readFile: () => string },
-		basePath: string
 	) => ({
 		options: config.compilerOptions,
 	}),
@@ -37,7 +35,6 @@ mock.module("typescript", () => ({
 import { describe, expect, test } from "bun:test";
 import type { PackageJson } from "type-fest";
 import {
-	readPackageJson,
 	readTsConfig,
 	parseExportPath,
 	parseBinaryPath,

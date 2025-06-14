@@ -5,14 +5,11 @@
 	"author": "@cjkihl",
 	"license": "MIT",
 	"type": "module",
-	"main": "./dist/index.js",
-	"module": "./dist/index.js",
-	"types": "./dist/index.d.ts",
+	
 	"exports": {
 		".": {
-			"types": "./dist/index.d.ts",
-			"import": "./dist/index.js",
-			"require": "./dist/index.cjs"
+			"types": "./dist/types/index.d.ts",
+			"import": "./dist/output/index.js"
 		}
 	},
 	"files": [
@@ -20,8 +17,7 @@
 		"README.md"
 	],
 	"scripts": {
-		"build": "bun build ./index.ts --outdir ./dist --target node",
-		"clean": "rm -rf dist",
+		"build": "tsc",
 		"test": "bun test"
 	},
 	"keywords": [

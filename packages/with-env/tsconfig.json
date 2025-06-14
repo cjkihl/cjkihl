@@ -1,4 +1,5 @@
 {
 	"extends": "@cjkihl/tsconfig/tsconfig.lib",
-	"include": ["**/*.ts", "!**/*.test.ts"]
+	"include": ["**/*.ts"]
 }
+
