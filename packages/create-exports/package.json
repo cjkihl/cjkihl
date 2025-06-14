@@ -16,9 +16,7 @@
 		"README.md"
 	],
 	"scripts": {
-		"build": "tsc",
-		"clean": "rm -rf dist",
-		"test": "bun test"
+		"build": "tsc"
 	},
 	"keywords": [
 		"typescript",

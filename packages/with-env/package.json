@@ -23,11 +23,7 @@
 		"README.md"
 	],
 	"scripts": {
-		"build": "tsc && create-exports",
-		"test": "bun test",
-		"clean": "git clean -fxd -e .env.local",
-		"lint": "biome check .",
-		"lint-fix": "biome check --write --unsafe ."
+		"build": "tsc && create-exports"
 	},
 	"keywords": [
 		"monorepo",

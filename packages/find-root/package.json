@@ -17,8 +17,7 @@
 		"README.md"
 	],
 	"scripts": {
-		"build": "tsc",
-		"test": "bun test"
+		"build": "tsc"
 	},
 	"keywords": [
 		"monorepo",
