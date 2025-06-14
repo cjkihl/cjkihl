@@ -2,7 +2,7 @@
   "lockfileVersion": 1,
   "workspaces": {
     "": {
-      "name": "cjkihl",
+      "name": "@cjkihl/monorepo",
       "devDependencies": {
         "@biomejs/biome": "^1.9.4",
         "bun-types": "latest",
@@ -14,7 +14,7 @@
       "name": "@cjkihl/create-exports",
       "version": "0.0.1",
       "bin": {
-        "create-exports": "./bin.ts",
+        "create-exports": "./.dist/output/index.bin.js",
       },
       "dependencies": {
         "@cjkihl/find-root": "workspace:*",
@@ -46,7 +46,7 @@
       "name": "@cjkihl/with-env",
       "version": "0.0.3",
       "bin": {
-        "with-env": "./dist/bin/with-env.js",
+        "index": "./.dist/output/index.bin.js",
       },
       "dependencies": {
         "@cjkihl/find-root": "workspace:*",

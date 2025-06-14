@@ -138,8 +138,8 @@ describe("generateExports", () => {
 		const isIndex2 = rel2.split("/").pop() === "index";
 		const name2 = isIndex2 ? (rel2.split("/").length === 1 ? "." : `./${rel2.split("/").slice(0, -1).join("/")}`) : `./${rel2}`;
 		const expected: Record<string, { default: string; types: string }> = {};
-		expected[name1] = { default: `dist/${rel1}.pub.js`, types: `types/${rel1}.pub.d.ts` };
-		expected[name2] = { default: `dist/${rel2}.pub.js`, types: `types/${rel2}.pub.d.ts` };
+		expected[name1] = { default: `./dist/${rel1}.pub.js`, types: `./types/${rel1}.pub.d.ts` };
+		expected[name2] = { default: `./dist/${rel2}.pub.js`, types: `./types/${rel2}.pub.d.ts` };
 		const sorted = Object.fromEntries(Object.entries(expected).sort(([a], [b]) => a.localeCompare(b)));
 		expect(result).toEqual(sorted);
 	});
@@ -168,8 +168,8 @@ describe("generateBin", () => {
 		const name1 = rel1.split("/").pop()?.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "") || "";
 		const name2 = rel2.split("/").pop()?.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "") || "";
 		const expected: Record<string, string> = {};
-		expected[name1] = `dist/${rel1}.bin.js`;
-		expected[name2] = `dist/${rel2}.bin.js`;
+		expected[name1] = `./dist/${rel1}.bin.js`;
+		expected[name2] = `./dist/${rel2}.bin.js`;
 		const sorted = Object.fromEntries(Object.entries(expected).sort(([a], [b]) => a.localeCompare(b)));
 		expect(result).toEqual(sorted);
 	});

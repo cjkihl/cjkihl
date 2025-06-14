@@ -137,8 +137,8 @@ export function generateExports(
 	for (const file of files) {
 		const { parsedPath, name } = parseExportPath(file, cwd);
 		exports[name] = {
-			types: `${declarationDir}/${parsedPath}.pub.d.ts`,
-			default: `${outDir}/${parsedPath}.pub.js`,
+			types: `./${declarationDir}/${parsedPath}.pub.d.ts`,
+			default: `./${outDir}/${parsedPath}.pub.js`,
 		};
 	}
 
@@ -159,7 +159,7 @@ export function generateBin(
 	
 	for (const file of files) {
 		const { parsedPath, name } = parseBinaryPath(file, cwd);
-		bin[name] = `${outDir}/${parsedPath}.bin.js`;
+		bin[name] = `./${outDir}/${parsedPath}.bin.js`;
 	}
 
 	return Object.fromEntries(
@@ -181,6 +181,10 @@ export function updatePackageJson(
 	return updatedPkg;
 }
 
+
+const defaultOutDir = "dist";
+const defaultDeclarationDir = "dist";
+
 /**
  * Creates exports configuration for a TypeScript package
  */
@@ -193,9 +197,9 @@ export async function createExports(options: CreateExportsOptions = {}) {
 	const pkg = readPackageJson(pkgPath);
 	const parsedTsConfig = readTsConfig(tsconfigPath);
 
-	// Get output directories
-	const outDir = parsedTsConfig.options.outDir || "dist";
-	const declarationDir = parsedTsConfig.options.declarationDir || "dist";
+	// Get output directories and make them relative to the current working directory
+	const outDir = node_path.relative(cwd, parsedTsConfig.options.outDir || defaultOutDir);
+	const declarationDir = node_path.relative(cwd, parsedTsConfig.options.declarationDir || defaultDeclarationDir);
 	
 	// Find files
 	const publicFiles = await findPublicFiles(cwd);

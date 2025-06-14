@@ -19,7 +19,7 @@
 		"README.md"
 	],
 	"scripts": {
-		"build": "tsc"
+		"build": "tsc && chmod +x .dist/output/index.bin.js"
 	},
 	"keywords": [
 		"typescript",
