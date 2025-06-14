@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { createExports } from "./create-exports";
 
 // Parse command line arguments

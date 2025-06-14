@@ -5,15 +5,14 @@
 	"author": "@cjkihl",
 	"license": "MIT",
 	"type": "module",
-	
 	"exports": {
 		".": {
-			"types": "./dist/types/index.d.ts",
-			"import": "./dist/output/index.js"
+			"types": "./.dist/types/index.d.ts",
+			"default": "./.dist/output/index.js"
 		}
 	},
 	"files": [
-		"dist",
+		".dist",
 		"README.md"
 	],
 	"scripts": {

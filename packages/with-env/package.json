@@ -9,17 +9,10 @@
 	"module": "./dist/index.js",
 	"types": "./dist/index.d.ts",
 	"bin": {
-		"with-env": "./dist/bin/with-env.js"
-	},
-	"exports": {
-		".": {
-			"types": "./dist/index.d.ts",
-			"import": "./dist/index.js",
-			"require": "./dist/index.cjs"
-		}
+		"with-env": "./.dist/bin/with-env.js"
 	},
 	"files": [
-		"dist",
+		".dist",
 		"README.md"
 	],
 	"scripts": {

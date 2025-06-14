@@ -7,12 +7,15 @@
 	"type": "module",
 	"exports": {
 		".": {
-			"types": "./dist/index.d.ts",
-			"require": "./dist/index.js"
+			"types": "./.dist/types/index.d.ts",
+			"default": "./.dist/output/index.js"
 		}
 	},
+	"bin": {
+		"create-exports": "./.dist/output/index.bin.js"
+	},
 	"files": [
-		"dist",
+		".dist",
 		"README.md"
 	],
 	"scripts": {
@@ -40,8 +43,5 @@
 	},
 	"engines": {
 		"node": ">=18.0.0"
-	},
-	"bin": {
-		"create-exports": "./bin.ts"
 	}
 }
