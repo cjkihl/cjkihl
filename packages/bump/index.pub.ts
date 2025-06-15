@@ -101,15 +101,14 @@ export async function updateVersions(
 
 	// Update all package.json files
 	for (const pkg of packages) {
-		const updatedPackageJson = {
-			...pkg.contents,
-			version: newVersion,
-		};
-
-		node_fs.writeFileSync(
-			pkg.path,
-			`${JSON.stringify(updatedPackageJson, null, "\t")}\n`,
+		const content = node_fs.readFileSync(pkg.path, "utf8");
+		// Use regex to replace only the version field while preserving formatting
+		const updatedContent = content.replace(
+			/"version":\s*"[^"]*"/,
+			`"version": "${newVersion}"`,
 		);
+
+		node_fs.writeFileSync(pkg.path, updatedContent);
 
 		console.log(`✅ Updated ${pkg.contents.name} to version ${newVersion}`);
 	}
@@ -310,24 +309,6 @@ function filterSelectedPackages(
 }
 
 /**
- * Run lint-fix to format package.json files
- */
-async function runLintFix(dryRun: boolean): Promise<void> {
-	if (dryRun) {
-		console.log("🔍 Dry run: Would run lint-fix");
-		return;
-	}
-
-	try {
-		console.log("🔧 Running lint-fix to format package.json files...");
-		await execAsync("bun run lint-fix");
-		console.log("✅ Successfully ran lint-fix");
-	} catch (error) {
-		throw new Error(`Failed to run lint-fix: ${error}`);
-	}
-}
-
-/**
  * Main deployment workflow
  */
 export async function deploy(options: DeployOptions): Promise<void> {
@@ -374,9 +355,6 @@ export async function deploy(options: DeployOptions): Promise<void> {
 
 		const newVersion = calculateNewVersion(currentVersion, options.releaseType);
 		await updateVersions(packages, newVersion, options.dryRun);
-
-		// Run lint-fix to format package.json files
-		await runLintFix(options.dryRun);
 
 		// Git operations
 		if (!options.skipGit) {
