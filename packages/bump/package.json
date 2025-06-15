@@ -1,6 +1,6 @@
 {
 	"name": "@cjkihl/bump",
-	"version": "0.0.1",
+	"version": "0.0.4",
 	"description": "Bump package versions in a monorepo",
 	"author": "@cjkihl",
 	"license": "MIT",

@@ -1,58 +1,58 @@
 {
-  "name": "@cjkihl/with-env",
-  "version": "0.0.3",
-  "description": "Load environment variables in a monorepo",
-  "author": "@cjkihl",
-  "license": "MIT",
-  "type": "module",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/cjkihl/cjkihl.git"
-  },
-  "bugs": {
-    "url": "https://github.com/cjkihl/cjkihl/issues"
-  },
-  "homepage": "https://github.com/cjkihl/cjkihl#readme",
-  "funding": {
-    "type": "github",
-    "url": "https://github.com/sponsors/cjkihl"
-  },
-  "files": [
-    ".dist",
-    "README.md"
-  ],
-  "scripts": {
-    "build": "tsc"
-  },
-  "keywords": [
-    "monorepo",
-    "root",
-    "find-root",
-    "workspace",
-    "lockfile",
-    "package-manager"
-  ],
-  "dependencies": {
-    "dotenv": "^16.5.0",
-    "@cjkihl/find-root": "workspace:*"
-  },
-  "devDependencies": {
-    "@cjkihl/tsconfig": "workspace:*",
-    "bun-types": "latest"
-  },
-  "publishConfig": {
-    "access": "public"
-  },
-  "engines": {
-    "node": ">=18.0.0"
-  },
-  "exports": {
-    ".": {
-      "types": "./.dist/types/index.pub.d.ts",
-      "default": "./.dist/output/index.pub.js"
-    }
-  },
-  "bin": {
-    "index": "./.dist/output/index.bin.js"
-  }
+	"name": "@cjkihl/with-env",
+	"version": "0.0.4",
+	"description": "Load environment variables in a monorepo",
+	"author": "@cjkihl",
+	"license": "MIT",
+	"type": "module",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/cjkihl/cjkihl.git"
+	},
+	"bugs": {
+		"url": "https://github.com/cjkihl/cjkihl/issues"
+	},
+	"homepage": "https://github.com/cjkihl/cjkihl#readme",
+	"funding": {
+		"type": "github",
+		"url": "https://github.com/sponsors/cjkihl"
+	},
+	"files": [
+		".dist",
+		"README.md"
+	],
+	"scripts": {
+		"build": "tsc"
+	},
+	"keywords": [
+		"monorepo",
+		"root",
+		"find-root",
+		"workspace",
+		"lockfile",
+		"package-manager"
+	],
+	"dependencies": {
+		"dotenv": "^16.5.0",
+		"@cjkihl/find-root": "workspace:*"
+	},
+	"devDependencies": {
+		"@cjkihl/tsconfig": "workspace:*",
+		"bun-types": "latest"
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"engines": {
+		"node": ">=18.0.0"
+	},
+	"exports": {
+		".": {
+			"types": "./.dist/types/index.pub.d.ts",
+			"default": "./.dist/output/index.pub.js"
+		}
+	},
+	"bin": {
+		"index": "./.dist/output/index.bin.js"
+	}
 }

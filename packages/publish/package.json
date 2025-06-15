@@ -1,62 +1,62 @@
 {
-  "name": "@cjkihl/publish",
-  "version": "0.0.2",
-  "description": "Smart package publishing tool",
-  "author": "@cjkihl",
-  "license": "MIT",
-  "type": "module",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/cjkihl/cjkihl.git"
-  },
-  "bugs": {
-    "url": "https://github.com/cjkihl/cjkihl/issues"
-  },
-  "homepage": "https://github.com/cjkihl/cjkihl#readme",
-  "funding": {
-    "type": "github",
-    "url": "https://github.com/sponsors/cjkihl"
-  },
-  "exports": {
-    ".": {
-      "types": "./.dist/types/index.d.ts",
-      "default": "./.dist/output/index.js"
-    },
-    "./bin": {
-      "types": "./.dist/types/index.bin.d.ts",
-      "default": "./.dist/output/index.bin.js"
-    }
-  },
-  "bin": {
-    "publish": "./.dist/output/index.bin.js"
-  },
-  "files": [
-    ".dist",
-    "README.md"
-  ],
-  "scripts": {
-    "build": "tsc",
-    "publish": "bun ./index.bin.ts"
-  },
-  "keywords": [
-    "publish",
-    "npm",
-    "package",
-    "version"
-  ],
-  "dependencies": {
-    "@cjkihl/find-root": "workspace:*",
-    "semver": "^7.7.2"
-  },
-  "devDependencies": {
-    "@cjkihl/tsconfig": "workspace:*",
-    "@types/semver": "^7.7.0",
-    "type-fest": "^4.0.0"
-  },
-  "publishConfig": {
-    "access": "public"
-  },
-  "engines": {
-    "node": ">=18.0.0"
-  }
-} 
+	"name": "@cjkihl/publish",
+	"version": "0.0.4",
+	"description": "Smart package publishing tool",
+	"author": "@cjkihl",
+	"license": "MIT",
+	"type": "module",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/cjkihl/cjkihl.git"
+	},
+	"bugs": {
+		"url": "https://github.com/cjkihl/cjkihl/issues"
+	},
+	"homepage": "https://github.com/cjkihl/cjkihl#readme",
+	"funding": {
+		"type": "github",
+		"url": "https://github.com/sponsors/cjkihl"
+	},
+	"exports": {
+		".": {
+			"types": "./.dist/types/index.d.ts",
+			"default": "./.dist/output/index.js"
+		},
+		"./bin": {
+			"types": "./.dist/types/index.bin.d.ts",
+			"default": "./.dist/output/index.bin.js"
+		}
+	},
+	"bin": {
+		"publish": "./.dist/output/index.bin.js"
+	},
+	"files": [
+		".dist",
+		"README.md"
+	],
+	"scripts": {
+		"build": "tsc",
+		"publish": "bun ./index.bin.ts"
+	},
+	"keywords": [
+		"publish",
+		"npm",
+		"package",
+		"version"
+	],
+	"dependencies": {
+		"@cjkihl/find-root": "workspace:*",
+		"semver": "^7.7.2"
+	},
+	"devDependencies": {
+		"@cjkihl/tsconfig": "workspace:*",
+		"@types/semver": "^7.7.0",
+		"type-fest": "^4.0.0"
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"engines": {
+		"node": ">=18.0.0"
+	}
+}
