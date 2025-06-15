@@ -99,7 +99,7 @@ export async function updateVersions(
 			version: newVersion
 		};	
 
-		node_fs.writeFileSync(join(pkg.path, "package.json"), `${JSON.stringify(updatedPackageJson, null, "\t")}\n`);
+		node_fs.writeFileSync(pkg.path, `${JSON.stringify(updatedPackageJson, null, "\t")}\n`);
 
 		console.log(`✅ Updated ${pkg.contents.name} to version ${newVersion}`);
 	}
