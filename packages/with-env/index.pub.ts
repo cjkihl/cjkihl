@@ -1,8 +1,8 @@
+import { type ChildProcess, spawn } from "node:child_process";
+import { readFile } from "node:fs/promises";
 import node_path from "node:path";
 import { findRoot } from "@cjkihl/find-root";
 import dotenv, { type DotenvParseOutput } from "dotenv";
-import { spawn, type ChildProcess } from "node:child_process";
-import { readFile } from "node:fs/promises";
 
 export interface WithEnvConfig {
 	envFile?: string;

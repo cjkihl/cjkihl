@@ -20,18 +20,8 @@
 		"./tsconfig.base": "./tsconfig.base.json",
 		"./tsconfig.lib": "./tsconfig.lib.json"
 	},
-	"files": [
-		"tsconfig.base.json",
-		"tsconfig.lib.json",
-		"README.md"
-	],
-	"keywords": [
-		"typescript",
-		"tsconfig",
-		"configuration",
-		"node",
-		"types"
-	],
+	"files": ["tsconfig.base.json", "tsconfig.lib.json", "README.md"],
+	"keywords": ["typescript", "tsconfig", "configuration", "node", "types"],
 	"publishConfig": {
 		"access": "public"
 	},

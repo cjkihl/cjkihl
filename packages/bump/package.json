@@ -28,17 +28,14 @@
 	"type": "module",
 	"exports": {
 		".": {
-			"types": "./.dist/types/index.d.ts",
-			"default": "./.dist/output/index.js"
+			"types": "./.dist/types/index.pub.d.ts",
+			"default": "./.dist/output/index.pub.js"
 		}
 	},
 	"bin": {
-		"bump-version": "./.dist/output/index.bin.js"
+		"index": "./.dist/output/index.bin.js"
 	},
-	"files": [
-		".dist",
-		"README.md"
-	],
+	"files": [".dist", "README.md"],
 	"scripts": {
 		"build": "tsc && bun ../create-exports/index.bin.ts",
 		"publish": "bun  ../publish/index.bin.ts"

@@ -5,6 +5,6 @@ const packagePath = process.argv[2] || process.cwd();
 
 // Run publish
 publish(packagePath).catch((error) => {
-  console.error("❌ Publish failed:", error);
-  process.exit(1);
-}); 
+	console.error("❌ Publish failed:", error);
+	process.exit(1);
+});

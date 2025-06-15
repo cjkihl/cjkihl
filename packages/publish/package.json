@@ -2,12 +2,7 @@
 	"name": "@cjkihl/publish",
 	"version": "0.0.4",
 	"description": "Smart package publishing tool",
-	"keywords": [
-		"publish",
-		"npm",
-		"package",
-		"version"
-	],
+	"keywords": ["publish", "npm", "package", "version"],
 	"homepage": "https://github.com/cjkihl/cjkihl#readme",
 	"bugs": {
 		"url": "https://github.com/cjkihl/cjkihl/issues"
@@ -25,21 +20,14 @@
 	"type": "module",
 	"exports": {
 		".": {
-			"types": "./.dist/types/index.d.ts",
-			"default": "./.dist/output/index.js"
-		},
-		"./bin": {
-			"types": "./.dist/types/index.bin.d.ts",
-			"default": "./.dist/output/index.bin.js"
+			"types": "./.dist/types/index.pub.d.ts",
+			"default": "./.dist/output/index.pub.js"
 		}
 	},
 	"bin": {
-		"publish": "./.dist/output/index.bin.js"
+		"index": "./.dist/output/index.bin.js"
 	},
-	"files": [
-		".dist",
-		"README.md"
-	],
+	"files": [".dist", "README.md"],
 	"scripts": {
 		"build": "tsc && bun ../create-exports/index.bin.ts",
 		"publish": "bun ./index.bin.ts"

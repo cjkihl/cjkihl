@@ -24,21 +24,13 @@
 	"license": "MIT",
 	"author": "@cjkihl",
 	"type": "module",
-	"exports": {
-		".": {
-			"types": "./.dist/types/index.d.ts",
-			"default": "./.dist/output/index.js"
-		}
-	},
+	"exports": {},
 	"bin": {
-		"create-exports": "./.dist/output/index.bin.js"
+		"index": "./.dist/output/index.bin.js"
 	},
-	"files": [
-		".dist",
-		"README.md"
-	],
+	"files": [".dist", "README.md"],
 	"scripts": {
-		"build": "tsc && bun ../publish/index.bin.ts",
+		"build": "tsc && bun ./index.bin.ts",
 		"publish": "bun ../publish/index.bin.ts"
 	},
 	"dependencies": {

@@ -1,18 +1,18 @@
+import { exec } from "node:child_process";
+import node_fs from "node:fs";
 import { join } from "node:path";
-import type { PackageJson } from "type-fest";
+import { promisify } from "node:util";
 import { findRoot } from "@cjkihl/find-root";
 import fg from "fast-glob";
-import node_fs from "node:fs";
 import * as semver from "semver";
-import { exec } from "node:child_process";
-import { promisify } from "node:util";
+import type { PackageJson } from "type-fest";
 
 const execAsync = promisify(exec);
 
 export type Package = {
 	contents: PackageJson;
 	path: string;
-}
+};
 
 /**
  * Reads and parses package.json file
@@ -24,27 +24,29 @@ export function readPackageJson(pkgPath: string): PackageJson {
 	return JSON.parse(node_fs.readFileSync(pkgPath, "utf8"));
 }
 
-async function findWorkspacePackageJsons(root: PackageJson): Promise<Package[]> {
+async function findWorkspacePackageJsons(
+	root: PackageJson,
+): Promise<Package[]> {
 	// Check if workspaces is an array
-	if(!root.workspaces || !Array.isArray(root.workspaces)) {
+	if (!root.workspaces || !Array.isArray(root.workspaces)) {
 		throw new Error("Workspaces field must be an array");
 	}
 
 	const packages: Package[] = [];
-  
+
 	for (const pattern of root.workspaces) {
-	  // Glob each workspace pattern to find matching package.jsons
-	  const paths = await fg(join(pattern, "package.json"));
-	  for await (const path of paths) {
-		const packageJson = readPackageJson(path);
+		// Glob each workspace pattern to find matching package.jsons
+		const paths = await fg(join(pattern, "package.json"));
+		for await (const path of paths) {
+			const packageJson = readPackageJson(path);
 			packages.push({
 				contents: packageJson,
-				path
+				path,
 			});
-	  }
+		}
 	}
 	return packages;
-  }
+}
 
 /**
  * Get all packages in the workspace
@@ -52,20 +54,25 @@ async function findWorkspacePackageJsons(root: PackageJson): Promise<Package[]> 
 export async function getPackages(): Promise<Package[]> {
 	// Find root directory
 	const root = await findRoot();
-	if(root.packageManager !== "bun") {
+	if (root.packageManager !== "bun") {
 		throw new Error("Bump can only be run with bun");
 	}
 
 	// Read root package.json
 	const rootPkgPath = join(root.root, "package.json");
 	const pkgJson = readPackageJson(rootPkgPath);
-	return (await findWorkspacePackageJsons(pkgJson)).filter(pkg => !pkg.contents.private);
+	return (await findWorkspacePackageJsons(pkgJson)).filter(
+		(pkg) => !pkg.contents.private,
+	);
 }
 
 /**
  * Calculate new version based on current version and release type
  */
-export function calculateNewVersion(currentVersion: string, releaseType: "major" | "minor" | "patch"): string {
+export function calculateNewVersion(
+	currentVersion: string,
+	releaseType: "major" | "minor" | "patch",
+): string {
 	const newVersion = semver.inc(currentVersion, releaseType);
 	if (!newVersion) {
 		throw new Error(`Failed to increment version from ${currentVersion}`);
@@ -79,7 +86,7 @@ export function calculateNewVersion(currentVersion: string, releaseType: "major"
 export async function updateVersions(
 	packages: Package[],
 	newVersion: string,
-	dryRun: boolean
+	dryRun: boolean,
 ): Promise<void> {
 	if (packages.length === 0) {
 		throw new Error("No packages to version");
@@ -96,10 +103,13 @@ export async function updateVersions(
 	for (const pkg of packages) {
 		const updatedPackageJson = {
 			...pkg.contents,
-			version: newVersion
-		};	
+			version: newVersion,
+		};
 
-		node_fs.writeFileSync(pkg.path, `${JSON.stringify(updatedPackageJson, null, "\t")}\n`);
+		node_fs.writeFileSync(
+			pkg.path,
+			`${JSON.stringify(updatedPackageJson, null, "\t")}\n`,
+		);
 
 		console.log(`✅ Updated ${pkg.contents.name} to version ${newVersion}`);
 	}
@@ -112,7 +122,9 @@ export async function checkGitStatus(): Promise<void> {
 	try {
 		const { stdout } = await execAsync("git status --porcelain");
 		if (stdout.trim() !== "") {
-			throw new Error("Git working directory is not clean. Please commit or stash your changes.");
+			throw new Error(
+				"Git working directory is not clean. Please commit or stash your changes.",
+			);
 		}
 	} catch (error) {
 		throw new Error(`Failed to check git status: ${error}`);
@@ -122,7 +134,10 @@ export async function checkGitStatus(): Promise<void> {
 /**
  * Commit and push changes to git
  */
-export async function commitAndPush(version: string, dryRun: boolean): Promise<void> {
+export async function commitAndPush(
+	version: string,
+	dryRun: boolean,
+): Promise<void> {
 	if (dryRun) {
 		console.log("🔍 Dry run: Would commit and push changes");
 		return;
@@ -143,7 +158,10 @@ export async function commitAndPush(version: string, dryRun: boolean): Promise<v
 /**
  * Create git tag
  */
-export async function createTag(version: string, dryRun: boolean): Promise<void> {
+export async function createTag(
+	version: string,
+	dryRun: boolean,
+): Promise<void> {
 	if (dryRun) {
 		console.log(`🔍 Dry run: Would create tag v${version}`);
 		return;
@@ -164,13 +182,13 @@ export async function createTag(version: string, dryRun: boolean): Promise<void>
 export function generateReleaseNotes(
 	version: string,
 	packages: Package[],
-	releaseType: "major" | "minor" | "patch"
+	releaseType: "major" | "minor" | "patch",
 ): string {
-	const packageNames = packages.map(p => p.contents.name).join(", ");
+	const packageNames = packages.map((p) => p.contents.name).join(", ");
 	return `## Release v${version}
 
 ### Packages Updated
-${packages.map(p => `- ${p.contents.name}@${version}`).join("\n")}
+${packages.map((p) => `- ${p.contents.name}@${version}`).join("\n")}
 
 ### Changes
 This release includes ${releaseType} version updates to ${packageNames}.
@@ -186,7 +204,7 @@ export async function createGitHubRelease(
 	version: string,
 	packages: Package[],
 	releaseType: "major" | "minor" | "patch",
-	dryRun: boolean
+	dryRun: boolean,
 ): Promise<void> {
 	if (dryRun) {
 		console.log(`🔍 Dry run: Would create GitHub release for v${version}`);
@@ -196,9 +214,11 @@ export async function createGitHubRelease(
 	try {
 		// Get the repository info from git remote
 		const { stdout: remoteUrl } = await execAsync("git remote get-url origin");
-		
+
 		// Extract repo info (handles both SSH and HTTPS URLs)
-		const repoMatch = remoteUrl.trim().match(/github\.com[/:](.+?)\/(.+?)(?:\.git)?$/);
+		const repoMatch = remoteUrl
+			.trim()
+			.match(/github\.com[/:](.+?)\/(.+?)(?:\.git)?$/);
 		if (!repoMatch) {
 			throw new Error("Could not parse GitHub repository from remote URL");
 		}
@@ -207,12 +227,21 @@ export async function createGitHubRelease(
 		const releaseBody = generateReleaseNotes(version, packages, releaseType);
 
 		console.log(`🎉 Creating GitHub release v${version}...`);
-		await execAsync(`gh release create v${version} --title "Release v${version}" --notes "${releaseBody}"`);
-		
-		console.log(`✅ Created GitHub release: https://github.com/${owner}/${repo}/releases/tag/v${version}`);
+		await execAsync(
+			`gh release create v${version} --title "Release v${version}" --notes "${releaseBody}"`,
+		);
+
+		console.log(
+			`✅ Created GitHub release: https://github.com/${owner}/${repo}/releases/tag/v${version}`,
+		);
 	} catch (error) {
-		if (error instanceof Error && error.message.includes("gh command not found")) {
-			throw new Error("GitHub CLI (gh) is not installed. Please install it from https://cli.github.com/");
+		if (
+			error instanceof Error &&
+			error.message.includes("gh command not found")
+		) {
+			throw new Error(
+				"GitHub CLI (gh) is not installed. Please install it from https://cli.github.com/",
+			);
 		}
 		throw new Error(`Failed to create GitHub release: ${error}`);
 	}
@@ -239,27 +268,42 @@ function validatePackageVersions(packages: Package[]): void {
 		throw new Error("First package has no version");
 	}
 
-	const mismatchedPackages = packages.filter(pkg => pkg.contents.version !== firstVersion);
+	const mismatchedPackages = packages.filter(
+		(pkg) => pkg.contents.version !== firstVersion,
+	);
 	if (mismatchedPackages.length > 0) {
-		const packageList = mismatchedPackages.map(p => `${p.contents.name}@${p.contents.version}`).join(", ");
-		console.warn(`Packages have different versions. Expected ${firstVersion}, found: ${packageList}`);
+		const packageList = mismatchedPackages
+			.map((p) => `${p.contents.name}@${p.contents.version}`)
+			.join(", ");
+		console.warn(
+			`Packages have different versions. Expected ${firstVersion}, found: ${packageList}`,
+		);
 	}
 }
 
 /**
  * Filter packages based on selection
  */
-function filterSelectedPackages(packages: Package[], selectedPackages?: string[]): Package[] {
+function filterSelectedPackages(
+	packages: Package[],
+	selectedPackages?: string[],
+): Package[] {
 	if (!selectedPackages) {
 		return packages;
 	}
 
-	const filtered = packages.filter(pkg => pkg.contents.name && selectedPackages.includes(pkg.contents.name));
-	
+	const filtered = packages.filter(
+		(pkg) => pkg.contents.name && selectedPackages.includes(pkg.contents.name),
+	);
+
 	// Validate all selected packages exist
-	const missingPackages = selectedPackages.filter(name => !packages.some(p => p.contents.name === name));
+	const missingPackages = selectedPackages.filter(
+		(name) => !packages.some((p) => p.contents.name === name),
+	);
 	if (missingPackages.length > 0) {
-		throw new Error(`Selected packages not found: ${missingPackages.join(", ")}`);
+		throw new Error(
+			`Selected packages not found: ${missingPackages.join(", ")}`,
+		);
 	}
 
 	return filtered;
@@ -270,7 +314,9 @@ function filterSelectedPackages(packages: Package[], selectedPackages?: string[]
  */
 export async function deploy(options: DeployOptions): Promise<void> {
 	try {
-		console.log(`🚀 Starting deployment with ${options.releaseType} version bump...`);
+		console.log(
+			`🚀 Starting deployment with ${options.releaseType} version bump...`,
+		);
 
 		// Get packages to publish
 		const allPackages = await getPackages();
@@ -280,7 +326,10 @@ export async function deploy(options: DeployOptions): Promise<void> {
 		}
 
 		// Filter packages if selection is specified
-		const packages = filterSelectedPackages(allPackages, options.selectedPackages);
+		const packages = filterSelectedPackages(
+			allPackages,
+			options.selectedPackages,
+		);
 		if (packages.length === 0) {
 			console.log("📝 No selected packages to deploy");
 			return;
@@ -316,7 +365,12 @@ export async function deploy(options: DeployOptions): Promise<void> {
 
 		// Create GitHub release
 		if (!options.skipRelease) {
-			await createGitHubRelease(newVersion, packages, options.releaseType, options.dryRun);
+			await createGitHubRelease(
+				newVersion,
+				packages,
+				options.releaseType,
+				options.dryRun,
+			);
 		}
 
 		console.log(`🎉 Successfully bumped version to v${newVersion}!`);

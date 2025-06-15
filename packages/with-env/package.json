@@ -34,10 +34,7 @@
 	"bin": {
 		"index": "./.dist/output/index.bin.js"
 	},
-	"files": [
-		".dist",
-		"README.md"
-	],
+	"files": [".dist", "README.md"],
 	"scripts": {
 		"build": "tsc && bun ../create-exports/index.bin.ts",
 		"publish": "bun ../publish/index.bin.ts"

@@ -4,7 +4,7 @@ import node_fs from "node:fs";
 import node_path from "node:path";
 import fg from "fast-glob";
 import type { PackageJson } from "type-fest";
-import { readConfigFile, parseJsonConfigFileContent, sys } from "typescript";
+import { sys, parseJsonConfigFileContent, readConfigFile } from "typescript";
 
 /**
  * Options for configuring the exports generation
@@ -43,7 +43,7 @@ export function readPackageJson(pkgPath: string): PackageJson {
  */
 export function readTsConfig(tsconfigPath: string) {
 	const configFile = readConfigFile(tsconfigPath, sys.readFile);
-    
+
 	if (configFile.error) {
 		throw new Error(`Error reading tsconfig: ${configFile.error.messageText}`);
 	}
@@ -51,7 +51,7 @@ export function readTsConfig(tsconfigPath: string) {
 	return parseJsonConfigFileContent(
 		configFile.config,
 		sys,
-		node_path.dirname(tsconfigPath)
+		node_path.dirname(tsconfigPath),
 	);
 }
 
@@ -130,10 +130,10 @@ export function generateExports(
 	files: string[],
 	cwd: string,
 	outDir: string,
-	declarationDir: string
+	declarationDir: string,
 ): Record<string, { types: string; default: string }> {
 	const exports: Record<string, { types: string; default: string }> = {};
-	
+
 	for (const file of files) {
 		const { parsedPath, name } = parseExportPath(file, cwd);
 		exports[name] = {
@@ -143,7 +143,7 @@ export function generateExports(
 	}
 
 	return Object.fromEntries(
-		Object.entries(exports).sort(([a], [b]) => a.localeCompare(b))
+		Object.entries(exports).sort(([a], [b]) => a.localeCompare(b)),
 	);
 }
 
@@ -153,17 +153,17 @@ export function generateExports(
 export function generateBin(
 	files: string[],
 	cwd: string,
-	outDir: string
+	outDir: string,
 ): Record<string, string> {
 	const bin: Record<string, string> = {};
-	
+
 	for (const file of files) {
 		const { parsedPath, name } = parseBinaryPath(file, cwd);
 		bin[name] = `./${outDir}/${parsedPath}.bin.js`;
 	}
 
 	return Object.fromEntries(
-		Object.entries(bin).sort(([a], [b]) => a.localeCompare(b))
+		Object.entries(bin).sort(([a], [b]) => a.localeCompare(b)),
 	);
 }
 
@@ -173,14 +173,13 @@ export function generateBin(
 export function updatePackageJson(
 	pkg: PackageJson,
 	exports: Record<string, { types: string; default: string }>,
-	bin: Record<string, string>
+	bin: Record<string, string>,
 ): PackageJson {
 	const updatedPkg = { ...pkg };
 	updatedPkg.exports = exports;
 	updatedPkg.bin = Object.keys(bin).length ? bin : undefined;
 	return updatedPkg;
 }
-
 
 const defaultOutDir = "dist";
 const defaultDeclarationDir = "dist";
@@ -190,17 +189,25 @@ const defaultDeclarationDir = "dist";
  */
 export async function createExports(options: CreateExportsOptions = {}) {
 	const cwd = process.cwd();
-	const pkgPath = options.packageJsonPath ?? node_path.join(cwd, "package.json");
-	const tsconfigPath = options.tsconfigPath ?? node_path.join(cwd, "tsconfig.json");
+	const pkgPath =
+		options.packageJsonPath ?? node_path.join(cwd, "package.json");
+	const tsconfigPath =
+		options.tsconfigPath ?? node_path.join(cwd, "tsconfig.json");
 
 	// Read configuration files
 	const pkg = readPackageJson(pkgPath);
 	const parsedTsConfig = readTsConfig(tsconfigPath);
 
 	// Get output directories and make them relative to the current working directory
-	const outDir = node_path.relative(cwd, parsedTsConfig.options.outDir || defaultOutDir);
-	const declarationDir = node_path.relative(cwd, parsedTsConfig.options.declarationDir || defaultDeclarationDir);
-	
+	const outDir = node_path.relative(
+		cwd,
+		parsedTsConfig.options.outDir || defaultOutDir,
+	);
+	const declarationDir = node_path.relative(
+		cwd,
+		parsedTsConfig.options.declarationDir || defaultDeclarationDir,
+	);
+
 	// Find files
 	const publicFiles = await findPublicFiles(cwd);
 	const binFiles = await findBinaryFiles(cwd);
@@ -218,25 +225,29 @@ export async function createExports(options: CreateExportsOptions = {}) {
 		for (const file of publicFiles) {
 			console.log(`- ${file}`);
 		}
-		
+
 		console.log("\nFound binary files:");
 		for (const file of binFiles) {
 			console.log(`- ${file}`);
 		}
-		
+
 		console.log("\nExports that would be added:");
 		console.log(JSON.stringify(exports, null, 2));
-		
+
 		if (Object.keys(bin).length) {
 			console.log("\nBin entries that would be added:");
 			console.log(JSON.stringify(bin, null, 2));
 		}
 
 		// Compare with existing package.json
-		const currentExports = pkg.exports ? JSON.stringify(pkg.exports, null, 2) : "{}";
+		const currentExports = pkg.exports
+			? JSON.stringify(pkg.exports, null, 2)
+			: "{}";
 		const newExports = JSON.stringify(exports, null, 2);
 		const currentBin = pkg.bin ? JSON.stringify(pkg.bin, null, 2) : "{}";
-		const newBin = Object.keys(bin).length ? JSON.stringify(bin, null, 2) : "{}";
+		const newBin = Object.keys(bin).length
+			? JSON.stringify(bin, null, 2)
+			: "{}";
 
 		if (currentExports !== newExports || currentBin !== newBin) {
 			console.log("\nChanges that would be made to package.json:");
@@ -257,7 +268,11 @@ export async function createExports(options: CreateExportsOptions = {}) {
 	}
 
 	// Write updated package.json back to disk
-	node_fs.writeFileSync(pkgPath, `${JSON.stringify(updatedPkg, null, 2)}\n`, "utf8");
+	node_fs.writeFileSync(
+		pkgPath,
+		`${JSON.stringify(updatedPkg, null, 2)}\n`,
+		"utf8",
+	);
 
 	console.log("Exports and binaries generated successfully");
 }
