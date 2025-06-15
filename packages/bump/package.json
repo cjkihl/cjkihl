@@ -1,64 +1,64 @@
 {
-  "name": "@cjkihl/bump",
-  "version": "0.0.4",
-  "description": "Bump package versions in a monorepo",
-  "keywords": [
-    "bump",
-    "monorepo",
-    "root",
-    "find-root",
-    "workspace",
-    "lockfile",
-    "package-manager"
-  ],
-  "homepage": "https://github.com/cjkihl/cjkihl#readme",
-  "bugs": {
-    "url": "https://github.com/cjkihl/cjkihl/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/cjkihl/cjkihl.git"
-  },
-  "funding": {
-    "type": "github",
-    "url": "https://github.com/sponsors/cjkihl"
-  },
-  "license": "MIT",
-  "author": "@cjkihl",
-  "type": "module",
-  "exports": {
-    ".": {
-      "types": "./.dist/types/index.pub.d.ts",
-      "default": "./.dist/output/index.pub.js"
-    }
-  },
-  "bin": {
-    "index": "./.dist/output/index.bin.js"
-  },
-  "files": [
-    ".dist",
-    "README.md"
-  ],
-  "scripts": {
-    "build": "tsc && bun ../create-exports/index.bin.ts",
-    "publish": "bun  ../publish/index.bin.ts"
-  },
-  "dependencies": {
-    "@cjkihl/find-root": "workspace:*",
-    "@inquirer/prompts": "^7.5.3",
-    "commander": "^14.0.0",
-    "fast-glob": "^3.3.3",
-    "semver": "^7.7.2"
-  },
-  "devDependencies": {
-    "@types/inquirer": "^9.0.8",
-    "@types/semver": "^7.7.0",
-    "type-fest": "^4.41.0"
-  },
-  "engines": {
-    "node": ">=18.0.0"
-  },
-  "publishConfig": {
-    "access": "public"
-  }
+	"name": "@cjkihl/bump",
+	"version": "0.0.5",
+	"description": "Bump package versions in a monorepo",
+	"keywords": [
+		"bump",
+		"monorepo",
+		"root",
+		"find-root",
+		"workspace",
+		"lockfile",
+		"package-manager"
+	],
+	"homepage": "https://github.com/cjkihl/cjkihl#readme",
+	"bugs": {
+		"url": "https://github.com/cjkihl/cjkihl/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/cjkihl/cjkihl.git"
+	},
+	"funding": {
+		"type": "github",
+		"url": "https://github.com/sponsors/cjkihl"
+	},
+	"license": "MIT",
+	"author": "@cjkihl",
+	"type": "module",
+	"exports": {
+		".": {
+			"types": "./.dist/types/index.pub.d.ts",
+			"default": "./.dist/output/index.pub.js"
+		}
+	},
+	"bin": {
+		"index": "./.dist/output/index.bin.js"
+	},
+	"files": [
+		".dist",
+		"README.md"
+	],
+	"scripts": {
+		"build": "tsc && bun ../create-exports/index.bin.ts",
+		"publish": "bun  ../publish/index.bin.ts"
+	},
+	"dependencies": {
+		"@cjkihl/find-root": "workspace:*",
+		"@inquirer/prompts": "^7.5.3",
+		"commander": "^14.0.0",
+		"fast-glob": "^3.3.3",
+		"semver": "^7.7.2"
+	},
+	"devDependencies": {
+		"@types/inquirer": "^9.0.8",
+		"@types/semver": "^7.7.0",
+		"type-fest": "^4.41.0"
+	},
+	"engines": {
+		"node": ">=18.0.0"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
 }

@@ -1,6 +1,6 @@
 {
 	"name": "@cjkihl/tsconfig",
-	"version": "0.0.4",
+	"version": "0.0.5",
 	"description": "Shared TypeScript configurations for Node.js projects",
 	"author": "@cjkihl",
 	"license": "MIT",
@@ -20,8 +20,18 @@
 		"./tsconfig.base": "./tsconfig.base.json",
 		"./tsconfig.lib": "./tsconfig.lib.json"
 	},
-	"files": ["tsconfig.base.json", "tsconfig.lib.json", "README.md"],
-	"keywords": ["typescript", "tsconfig", "configuration", "node", "types"],
+	"files": [
+		"tsconfig.base.json",
+		"tsconfig.lib.json",
+		"README.md"
+	],
+	"keywords": [
+		"typescript",
+		"tsconfig",
+		"configuration",
+		"node",
+		"types"
+	],
 	"publishConfig": {
 		"access": "public"
 	},
