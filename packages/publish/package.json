@@ -1,6 +1,6 @@
 {
   "name": "@cjkihl/publish",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Smart package publishing tool",
   "author": "@cjkihl",
   "license": "MIT",
@@ -36,7 +36,7 @@
   ],
   "scripts": {
     "build": "tsc",
-    "bump": "bump-version",
+    "bump": "bun ../bump/index.bin.ts",
     "publish": "bun ./index.bin.ts"
   },
   "keywords": [
@@ -51,7 +51,6 @@
   },
   "devDependencies": {
     "@cjkihl/tsconfig": "workspace:*",
-    "@cjkihl/bump": "workspace:*",
     "@types/semver": "^7.7.0",
     "type-fest": "^4.0.0"
   },

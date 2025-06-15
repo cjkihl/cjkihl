@@ -6,23 +6,23 @@
   "license": "MIT",
   "type": "module",
   "repository": {
-		"type": "git",
-		"url": "https://github.com/cjkihl/cjkihl.git"
-	},
-	"bugs": {
-		"url": "https://github.com/cjkihl/cjkihl/issues"
-	},
-	"homepage": "https://github.com/cjkihl/cjkihl#readme",
-	"funding": {
-		"type": "github",
-		"url": "https://github.com/sponsors/cjkihl"
-	},
+    "type": "git",
+    "url": "https://github.com/cjkihl/cjkihl.git"
+  },
+  "bugs": {
+    "url": "https://github.com/cjkihl/cjkihl/issues"
+  },
+  "homepage": "https://github.com/cjkihl/cjkihl#readme",
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/cjkihl"
+  },
   "files": [
     ".dist",
     "README.md"
   ],
   "scripts": {
-    "build": "tsc && create-exports"
+    "build": "tsc"
   },
   "keywords": [
     "monorepo",
@@ -38,7 +38,6 @@
   },
   "devDependencies": {
     "@cjkihl/tsconfig": "workspace:*",
-    "@cjkihl/create-exports": "workspace:*",
     "bun-types": "latest"
   },
   "publishConfig": {

@@ -91,7 +91,6 @@
         "dotenv": "^16.5.0",
       },
       "devDependencies": {
-        "@cjkihl/create-exports": "workspace:*",
         "@cjkihl/tsconfig": "workspace:*",
         "bun-types": "latest",
       },
