@@ -14,8 +14,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0  # Fetch all history for comparing versions
 
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
@@ -27,6 +25,9 @@ jobs:
 
       - name: Publish to NPM
         id: publish
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_CONFIG_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           # Run the publish command and capture its output
           PUBLISH_OUTPUT=$(bun run publish-npm)
