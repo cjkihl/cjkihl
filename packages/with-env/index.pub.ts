@@ -3,17 +3,22 @@ import { readFile } from "node:fs/promises";
 import node_path from "node:path";
 import { findRoot } from "@cjkihl/find-root";
 import dotenv, { type DotenvParseOutput } from "dotenv";
+import { existsSync } from "node:fs";
 
 export interface WithEnvConfig {
-	envFile?: string;
+	envFile?: string[];
 	skipInProduction?: boolean;
 	inheritStdio?: boolean;
+	command?: string;
+	args?: string[];
 }
 
 const defaultConfig: Required<WithEnvConfig> = {
-	envFile: ".env.local",
+	envFile: [".env.local", ".env"],
 	skipInProduction: true,
 	inheritStdio: true,
+	command: "",
+	args: [],
 };
 
 /**
@@ -43,38 +48,67 @@ export async function loadEnv(config: WithEnvConfig = {}) {
 		}
 	}
 
-	const args = process.argv.slice(2);
-	if (!args[0]) {
+	const command = finalConfig.command;
+	if (!command) {
 		throw new Error("No command provided to execute");
 	}
 
-	const command = args[0];
-	console.log("Spawning process with arguments:", command, args.slice(1));
+	console.log("Spawning process with arguments:", command, finalConfig.args);
 
 	return new Promise<void>((resolve, reject) => {
-		const proc: ChildProcess = spawn(command, args.slice(1), {
+		let stderrOutput = '';
+		const proc: ChildProcess = spawn(command, finalConfig.args ?? [], {
 			env: process.env,
 			stdio: finalConfig.inheritStdio ? "inherit" : "pipe",
 			shell: true,
 		});
 
+		if (!finalConfig.inheritStdio) {
+			proc.stderr?.on('data', (data) => {
+				stderrOutput += data.toString();
+			});
+		}
+
 		proc.on("exit", (code: number | null) => {
 			if (code === 0) {
 				resolve();
 			} else {
-				reject(new Error(`Process exited with code ${code}`));
+				const errorMessage = [
+					`Command failed with exit code ${code}`,
+					`Command: ${command} ${finalConfig.args?.join(' ') || ''}`,
+					stderrOutput ? `Error output:\n${stderrOutput}` : 'No error output available'
+				].join('\n');
+				reject(new Error(errorMessage));
 			}
 		});
 
 		proc.on("error", (err: Error) => {
-			reject(err);
+			const errorMessage = [
+				`Failed to execute command: ${err.message}`,
+				`Command: ${command} ${finalConfig.args?.join(' ') || ''}`,
+				stderrOutput ? `Error output:\n${stderrOutput}` : 'No error output available'
+			].join('\n');
+			reject(new Error(errorMessage));
 		});
 	});
 }
 
-async function getEnvs(envFile: string): Promise<DotenvParseOutput | null> {
+async function getEnvs(envFile: string[]): Promise<DotenvParseOutput | null> {
 	const { root } = await findRoot();
-	const envPath = node_path.join(root, envFile);
+
+	let envPath: string | null = null;
+	for (const env of envFile) {
+		
+		if (existsSync(node_path.join(root, env))) {
+			envPath = node_path.join(root, env);
+			break;
+		}
+	}
+
+	if (!envPath) {
+		return null;
+	}
+
 	try {
 		const content = await readFile(envPath, "utf-8");
 		if (content) {

@@ -1,50 +1,50 @@
 {
-	"name": "@cjkihl/create-exports",
-	"version": "0.0.6",
-	"description": "Tool to generate package exports configuration for TypeScript packages",
-	"keywords": [
-		"typescript",
-		"exports",
-		"package",
-		"configuration",
-		"build-tool"
-	],
-	"homepage": "https://github.com/cjkihl/cjkihl#readme",
-	"bugs": {
-		"url": "https://github.com/cjkihl/cjkihl/issues"
-	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/cjkihl/cjkihl.git"
-	},
-	"funding": {
-		"type": "github",
-		"url": "https://github.com/sponsors/cjkihl"
-	},
-	"license": "MIT",
-	"author": "@cjkihl",
-	"type": "module",
-	"exports": {},
-	"bin": {
-		"index": "./.dist/output/index.bin.js"
-	},
-	"files": [
-		".dist",
-		"README.md"
-	],
-	"scripts": {
-		"build": "tsc && bun ./index.bin.ts",
-		"publish": "bun ../publish/index.bin.ts"
-	},
-	"dependencies": {
-		"@cjkihl/find-root": "workspace:*",
-		"fast-glob": "^3.3.3",
-		"type-fest": "^4.41.0"
-	},
-	"engines": {
-		"node": ">=18.0.0"
-	},
-	"publishConfig": {
-		"access": "public"
-	}
+  "name": "@cjkihl/create-exports",
+  "version": "0.0.6",
+  "description": "Tool to generate package exports configuration for TypeScript packages",
+  "keywords": [
+    "typescript",
+    "exports",
+    "package",
+    "configuration",
+    "build-tool"
+  ],
+  "homepage": "https://github.com/cjkihl/cjkihl#readme",
+  "bugs": {
+    "url": "https://github.com/cjkihl/cjkihl/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cjkihl/cjkihl.git"
+  },
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/cjkihl"
+  },
+  "license": "MIT",
+  "author": "@cjkihl",
+  "type": "module",
+  "exports": {},
+  "bin": {
+    "index": "./.dist/output/index.bin.js"
+  },
+  "files": [
+    ".dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc && bun ./index.bin.ts",
+    "publish-npm": "bun ../publish/index.bin.ts"
+  },
+  "dependencies": {
+    "@cjkihl/find-root": "workspace:*",
+    "fast-glob": "^3.3.3",
+    "type-fest": "^4.41.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
 }

@@ -1,4 +1,4 @@
-import { exec, spawn } from "node:child_process";
+import { exec } from "node:child_process";
 import node_fs from "node:fs";
 import { join } from "node:path";
 import { promisify } from "node:util";
@@ -154,7 +154,7 @@ async function canPublish(packageJson: PackageJson): Promise<boolean> {
 function getAuthToken(packageManager: string): string | undefined {
 	switch (packageManager) {
 		case "bun":
-			return process.env.NPM_CONFIG_TOKEN;
+			return process.env.NPM_CONFIG_TOKEN || process.env.NPM_TOKEN;
 		default:
 			return process.env.NPM_TOKEN;
 	}
@@ -192,14 +192,8 @@ async function executeCommand(
 	command: string,
 	cwd: string,
 ): Promise<{ stdout: string; stderr: string }> {
-	return new Promise((resolve, reject) => {
-		const [cmd, ...args] = command.split(" ");
-		if (!cmd) {
-			reject(new Error("Invalid command"));
-			return;
-		}
-
-		const child = spawn(cmd, args, {
+	try {
+		const { stdout, stderr } = await execAsync(command, {
 			cwd,
 			env: {
 				...process.env,
@@ -208,34 +202,19 @@ async function executeCommand(
 				NODE_ENV: "production",
 			},
 		});
-
-		let stdout = "";
-		let stderr = "";
-
-		child.stdout?.on("data", (data: Buffer) => {
-			const chunk = data.toString();
-			stdout += chunk;
-			console.log(chunk);
-		});
-
-		child.stderr?.on("data", (data: Buffer) => {
-			const chunk = data.toString();
-			stderr += chunk;
-			console.error(chunk);
-		});
-
-		child.on("error", (error: Error) => {
-			reject(error);
-		});
-
-		child.on("close", (code: number | null) => {
-			if (code === 0) {
-				resolve({ stdout, stderr });
-			} else {
-				reject(new Error(`Command failed with exit code ${code}`));
-			}
-		});
-	});
+		
+		// Log output in real-time
+		if (stdout) console.log(stdout);
+		if (stderr) console.error(stderr);
+		
+		return { stdout, stderr };
+	} catch (error) {
+		const execError = error as { stdout?: string; stderr?: string };
+		// Log any output that was captured before the error
+		if (execError.stdout) console.log(execError.stdout);
+		if (execError.stderr) console.error(execError.stderr);
+		throw error;
+	}
 }
 
 /**
@@ -292,7 +271,7 @@ export async function publish(
 			);
 		});
 
-		try {
+		
 			// Execute the command with timeout
 			await Promise.race([
 				executeCommand(publishCommand, packagePath),
@@ -304,39 +283,6 @@ export async function publish(
 					`✅ Successfully published ${packageJson.name}@${packageJson.version}`,
 				);
 			}
-		} catch (execError) {
-			// Handle specific error cases
-			const errorMessage =
-				execError instanceof Error ? execError.message : String(execError);
-
-			if (errorMessage.includes("E403")) {
-				console.error(
-					"❌ Permission denied: You don't have permission to publish this package",
-				);
-				console.error("This could be because:");
-				console.error("1. You're not logged in to npm");
-				console.error("2. You don't have access to publish this package");
-				console.error("3. The package name is already taken");
-				throw new Error(`Permission denied: ${errorMessage}`);
-			}
-
-			if (errorMessage.includes("E401")) {
-				console.error("❌ Authentication error: You need to log in to npm");
-				console.error("Run 'npm login' to authenticate");
-				throw new Error(`Authentication error: ${errorMessage}`);
-			}
-
-			if (errorMessage.includes("E404")) {
-				console.error("❌ Package not found: The package doesn't exist on npm");
-				throw new Error(`Package not found: ${errorMessage}`);
-			}
-
-			console.error("❌ Command failed:", errorMessage);
-			if (execError instanceof Error && execError.stack) {
-				console.error("Stack trace:", execError.stack);
-			}
-			throw execError;
-		}
 	} catch (error) {
 		const errorMessage = error instanceof Error ? error.message : String(error);
 		console.error(`❌ Failed to publish package: ${errorMessage}`);

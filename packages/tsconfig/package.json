@@ -11,6 +11,9 @@
 	"bugs": {
 		"url": "https://github.com/cjkihl/cjkihl/issues"
 	},
+	"scripts": {
+		"publish-npm": "bun ../publish/index.bin.ts"
+	},
 	"homepage": "https://github.com/cjkihl/cjkihl#readme",
 	"funding": {
 		"type": "github",

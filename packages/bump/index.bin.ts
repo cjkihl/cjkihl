@@ -1,4 +1,4 @@
-import { Separator, checkbox } from "@inquirer/prompts";
+import { Separator, checkbox, select } from "@inquirer/prompts";
 import { Command } from "commander";
 import {
 	type DeployOptions,
@@ -51,8 +51,6 @@ if (bumpTypes.length > 1) {
 	process.exit(1);
 }
 
-const releaseType = options.major ? "major" : options.minor ? "minor" : "patch";
-
 async function selectPackages() {
 	// If packages are specified via CLI, use those
 	if (options.packages) {
@@ -66,19 +64,12 @@ async function selectPackages() {
 		process.exit(0);
 	}
 
-	// Calculate new version for display
-	const currentVersion = packages[0]?.contents.version;
-	if (!currentVersion) {
-		throw new Error("No version found in package.json");
-	}
-	const newVersion = calculateNewVersion(currentVersion, releaseType);
-
 	// Create choices for inquirer
 	const choices = [
 		{ name: "Select All", value: "all", checked: true },
 		new Separator(),
 		...packages.map((pkg: Package) => ({
-			name: `${pkg.contents.name} (${pkg.contents.version} → ${newVersion})`,
+			name: `${pkg.contents.name} (${pkg.contents.version})`,
 			value: pkg.contents.name,
 			checked: true,
 		})),
@@ -99,17 +90,58 @@ async function selectPackages() {
 	return selectedPackages;
 }
 
+async function selectVersion(packages: Package[], selectedPackageNames: string[]) {
+	// Find the highest version among selected packages
+	const selectedPackages = packages.filter(p => p.contents.name && selectedPackageNames.includes(p.contents.name));
+	const highestVersion = selectedPackages.reduce((highest, pkg) => {
+		const version = pkg.contents.version || "0.0.0";
+		return version > highest ? version : highest;
+	}, "0.0.0");
+
+	// Calculate possible new versions
+	const patchVersion = calculateNewVersion(highestVersion, "patch");
+	const minorVersion = calculateNewVersion(highestVersion, "minor");
+	const majorVersion = calculateNewVersion(highestVersion, "major");
+
+	const choices = [
+		{
+			name: `Patch (${highestVersion} → ${patchVersion})`,
+			value: "patch" as const,
+			description: "For backwards-compatible bug fixes",
+		},
+		{
+			name: `Minor (${highestVersion} → ${minorVersion})`,
+			value: "minor" as const,
+			description: "For new backwards-compatible functionality",
+		},
+		{
+			name: `Major (${highestVersion} → ${majorVersion})`,
+			value: "major" as const,
+			description: "For breaking changes",
+		},
+	];
+
+	const selectedVersion = await select({
+		message: "Select version bump type:",
+		choices,
+	});
+
+	return selectedVersion;
+}
+
 // Run the main function
 async function main() {
 	try {
-		const selectedPackages = await selectPackages();
+		const packages = await getPackages();
+		const selectedPackageNames = await selectPackages();
+		const releaseType = await selectVersion(packages, selectedPackageNames);
 
 		const deployOptions: DeployOptions = {
 			releaseType,
 			dryRun: options.dryRun ?? false,
 			skipGit: options.skipGit ?? false,
 			skipRelease: options.skipRelease ?? false,
-			selectedPackages,
+			selectedPackages: selectedPackageNames,
 		};
 
 		await deploy(deployOptions);

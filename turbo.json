@@ -9,7 +9,7 @@
 			"dependsOn": ["^build"],
 			"outputs": [".dist"]
 		},
-		"publish": {
+		"publish-npm": {
 			"cache": false,
 			"dependsOn": ["^build", "^lint", "^test"]
 		},

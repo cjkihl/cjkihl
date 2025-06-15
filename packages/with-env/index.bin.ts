@@ -28,13 +28,17 @@ for (let i = 0; i < args.length; i++) {
 
 // Convert options to WithEnvConfig
 const config = {
-	envFile: options["env-file"] as string | undefined,
+	envFile: options["env-file"] as string[] | undefined,
 	skipInProduction: options["skip-production"] !== false,
 	inheritStdio: options["inherit-stdio"] !== false,
 };
 
 // Execute loadEnv with the parsed config and remaining command
-loadEnv(config).catch((error) => {
+loadEnv({
+	...config,
+	command: command[0],
+	args: command.slice(1),
+}).catch((error) => {
 	console.error(error);
 	process.exit(1);
 });
