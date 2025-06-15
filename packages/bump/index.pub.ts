@@ -319,10 +319,10 @@ export async function deploy(options: DeployOptions): Promise<void> {
 			await createGitHubRelease(newVersion, packages, options.releaseType, options.dryRun);
 		}
 
-		console.log(`🎉 Successfully deployed v${newVersion}!`);
-		console.log("🔄 GitHub Actions will now handle npm publishing");
+		console.log(`🎉 Successfully bumped version to v${newVersion}!`);
+		console.log("🔄 GitHub Actions will handle package deployment");
 	} catch (error) {
-		console.error("❌ Deployment failed:", error);
+		console.error("❌ Version bump failed:", error);
 		process.exit(1);
 	}
 }

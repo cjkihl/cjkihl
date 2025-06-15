@@ -23,6 +23,9 @@
 			"default": "./.dist/output/index.js"
 		}
 	},
+	"bin": {
+		"bump-version": "./.dist/output/index.bin.js"
+	},
 	"files": [
 		".dist",
 		"README.md"
@@ -31,6 +34,7 @@
 		"build": "tsc"
 	},
 	"keywords": [
+		"bump",
 		"monorepo",
 		"root",
 		"find-root",
@@ -43,8 +47,6 @@
 		"@inquirer/prompts": "^7.5.3",
 		"commander": "^14.0.0",
 		"fast-glob": "^3.3.3",
-		"find-up": "^7.0.0",
-		"inquirer": "^9.2.15",
 		"semver": "^7.7.2"
 	},
 	"devDependencies": {

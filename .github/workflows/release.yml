@@ -1,0 +1,92 @@
+name: Release and Publish
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write  # Required for npm provenance
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Fetch all history for comparing versions
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Get previous version
+        id: prev-version
+        run: |
+          PREV_TAG=$(git describe --tags --abbrev=0 ${{ github.event.release.tag_name }}^)
+          echo "previous_tag=$PREV_TAG" >> $GITHUB_OUTPUT
+
+      - name: Find packages with version bumps
+        id: bumped-packages
+        run: |
+          # Get all package.json files
+          PACKAGES=$(find . -name "package.json" -not -path "*/node_modules/*" -not -path "*/dist/*")
+          
+          # Create a temporary file to store bumped packages
+          echo "bumped_packages=" > $GITHUB_OUTPUT
+          
+          # Check each package for version changes
+          for pkg in $PACKAGES; do
+            # Get current version
+            CURRENT_VERSION=$(jq -r '.version' $pkg)
+            
+            # Get previous version
+            git checkout ${{ steps.prev-version.outputs.previous_tag }} -- $pkg
+            PREV_VERSION=$(jq -r '.version' $pkg)
+            git checkout ${{ github.event.release.tag_name }} -- $pkg
+            
+            # If version changed, add to bumped packages
+            if [ "$CURRENT_VERSION" != "$PREV_VERSION" ]; then
+              PKG_NAME=$(jq -r '.name' $pkg)
+              echo "Found version bump in $PKG_NAME: $PREV_VERSION -> $CURRENT_VERSION"
+              echo "$PKG_NAME" >> $GITHUB_OUTPUT
+            fi
+          done
+
+      - name: Build packages
+        run: bun run build-pkg
+
+      - name: Publish to NPM
+        run: |
+          # Read bumped packages
+          BUMPED_PACKAGES=$(cat $GITHUB_OUTPUT | grep -v "bumped_packages=")
+          
+          if [ -z "$BUMPED_PACKAGES" ]; then
+            echo "No packages had version bumps, skipping publish"
+            exit 0
+          fi
+          
+          # Publish only bumped packages
+          for pkg in $BUMPED_PACKAGES; do
+            echo "Publishing $pkg..."
+            cd $(find . -name "package.json" -exec grep -l "\"name\": \"$pkg\"" {} \; | head -n 1 | xargs dirname)
+            bun run publish
+            cd $GITHUB_WORKSPACE
+          done
+        env:
+          NPM_CONFIG_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_CONFIG_REGISTRY: https://registry.npmjs.org/
+
+      - name: Create deployment summary
+        run: |
+          echo "## 🚀 Packages Published Successfully!" >> $GITHUB_STEP_SUMMARY
+          echo "Release: ${{ github.event.release.tag_name }}" >> $GITHUB_STEP_SUMMARY
+          echo "### Published Packages:" >> $GITHUB_STEP_SUMMARY
+          cat $GITHUB_OUTPUT | grep -v "bumped_packages=" | while read pkg; do
+            echo "- $pkg" >> $GITHUB_STEP_SUMMARY
+          done 
