@@ -2,7 +2,7 @@
 	"$schema": "https://turbo.build/schema.json",
 	"globalDependencies": ["**/.env.*local"],
 	"globalEnv": ["NODE_ENV"],
-	"globalPassThroughEnv": ["CI", "VERCEL"],
+	"globalPassThroughEnv": ["CI", "VERCEL", "GITHUB_TOKEN", "NPM_TOKEN"],
 	"ui": "stream",
 	"tasks": {
 		"build": {

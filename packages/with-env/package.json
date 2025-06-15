@@ -1,55 +1,55 @@
 {
-	"name": "@cjkihl/with-env",
-	"version": "0.1.1",
-	"description": "Load environment variables in a monorepo",
-	"keywords": [
-		"monorepo",
-		"root",
-		"find-root",
-		"workspace",
-		"lockfile",
-		"package-manager"
-	],
-	"homepage": "https://github.com/cjkihl/cjkihl#readme",
-	"bugs": {
-		"url": "https://github.com/cjkihl/cjkihl/issues"
-	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/cjkihl/cjkihl.git"
-	},
-	"funding": {
-		"type": "github",
-		"url": "https://github.com/sponsors/cjkihl"
-	},
-	"license": "MIT",
-	"author": "@cjkihl",
-	"type": "module",
-	"exports": {
-		".": {
-			"types": "./.dist/types/index.pub.d.ts",
-			"default": "./.dist/output/index.pub.js"
-		}
-	},
-	"bin": {
-		"index": "./.dist/output/index.bin.js"
-	},
-	"files": [
-		".dist",
-		"README.md"
-	],
-	"scripts": {
-		"build": "tsc && bun ../create-exports/index.bin.ts",
-		"publish-npm": "bun ./index.bin.ts bun ../publish/index.bin.ts"
-	},
-	"dependencies": {
-		"@cjkihl/find-root": "workspace:*",
-		"dotenv": "^16.5.0"
-	},
-	"engines": {
-		"node": ">=18.0.0"
-	},
-	"publishConfig": {
-		"access": "public"
-	}
+  "name": "@cjkihl/with-env",
+  "version": "0.1.1",
+  "description": "Load environment variables in a monorepo",
+  "keywords": [
+    "monorepo",
+    "root",
+    "find-root",
+    "workspace",
+    "lockfile",
+    "package-manager"
+  ],
+  "homepage": "https://github.com/cjkihl/cjkihl#readme",
+  "bugs": {
+    "url": "https://github.com/cjkihl/cjkihl/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cjkihl/cjkihl.git"
+  },
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/cjkihl"
+  },
+  "license": "MIT",
+  "author": "@cjkihl",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./.dist/types/index.pub.d.ts",
+      "default": "./.dist/output/index.pub.js"
+    }
+  },
+  "bin": {
+    "index": "./.dist/output/index.bin.js"
+  },
+  "files": [
+    ".dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc && bun ../create-exports/index.bin.ts",
+    "publish-npm": "bun ./index.bin.ts bun ../publish/index.bin.ts"
+  },
+  "dependencies": {
+    "@cjkihl/find-root": "workspace:*",
+    "dotenv": "^16.5.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
 }
