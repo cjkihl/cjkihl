@@ -320,7 +320,6 @@ export async function deploy(options: DeployOptions): Promise<void> {
 		}
 
 		console.log(`🎉 Successfully bumped version to v${newVersion}!`);
-		console.log("🔄 GitHub Actions will handle package deployment");
 	} catch (error) {
 		console.error("❌ Version bump failed:", error);
 		process.exit(1);

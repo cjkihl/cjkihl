@@ -1,54 +1,46 @@
 {
-	"name": "@cjkihl/find-root",
-	"version": "0.0.4",
-	"description": "Find monorepo root directory by detecting lockfiles",
-	"author": "@cjkihl",
-	"license": "MIT",
-	"type": "module",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/cjkihl/cjkihl.git"
-	},
-	"bugs": {
-		"url": "https://github.com/cjkihl/cjkihl/issues"
-	},
-	"homepage": "https://github.com/cjkihl/cjkihl#readme",
-	"funding": {
-		"type": "github",
-		"url": "https://github.com/sponsors/cjkihl"
-	},
-	"exports": {
-		".": {
-			"types": "./.dist/types/index.d.ts",
-			"default": "./.dist/output/index.js"
-		}
-	},
-	"files": [
-		".dist",
-		"README.md"
-	],
-	"scripts": {
-		"build": "tsc"
-	},
-	"keywords": [
-		"monorepo",
-		"root",
-		"find-root",
-		"workspace",
-		"lockfile",
-		"package-manager"
-	],
-	"dependencies": {
-		"find-up": "^7.0.0"
-	},
-	"devDependencies": {
-		"@cjkihl/tsconfig": "workspace:*",
-		"bun-types": "latest"
-	},
-	"publishConfig": {
-		"access": "public"
-	},
-	"engines": {
-		"node": ">=18.0.0"
-	}
+  "name": "@cjkihl/find-root",
+  "version": "0.0.4",
+  "description": "Find monorepo root directory by detecting lockfiles",
+  "keywords": [
+    "monorepo",
+    "root",
+    "find-root",
+    "workspace",
+    "lockfile",
+    "package-manager"
+  ],
+  "homepage": "https://github.com/cjkihl/cjkihl#readme",
+  "bugs": {
+    "url": "https://github.com/cjkihl/cjkihl/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cjkihl/cjkihl.git"
+  },
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/cjkihl"
+  },
+  "license": "MIT",
+  "author": "@cjkihl",
+  "type": "module",
+  "exports": {},
+  "files": [
+    ".dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc && bun ../create-exports/index.bin.ts",
+    "publish": "bun ../publish/index.bin.ts"
+  },
+  "dependencies": {
+    "find-up": "^7.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
 }

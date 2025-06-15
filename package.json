@@ -8,17 +8,16 @@
   "scripts": {
     "build": "turbo build",
     "bump": "bun ./packages/bump/index.bin.ts",
-    "test": "bun test",
-		"clean": "git clean -fxd -e .env.local",
-		"lint": "biome check .",
-		"lint-fix": "biome check --write --unsafe ."
-    
+    "clean": "git clean -fxd -e .env.local",
+    "lint": "biome check .",
+    "lint-fix": "biome check --write --unsafe .",
+    "test": "bun test"
   },
   "devDependencies": {
-    "bun-types": "latest",
-    "typescript": "^5.0.0",
     "@biomejs/biome": "^1.9.4",
-		"turbo": "^2.5.4"
+    "bun-types": "latest",
+    "turbo": "^2.5.4",
+    "typescript": "^5.0.0"
   },
   "packageManager": "bun@1.0.0"
 }

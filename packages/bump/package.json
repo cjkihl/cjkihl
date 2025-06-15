@@ -2,21 +2,30 @@
 	"name": "@cjkihl/bump",
 	"version": "0.0.4",
 	"description": "Bump package versions in a monorepo",
-	"author": "@cjkihl",
-	"license": "MIT",
-	"type": "module",
+	"keywords": [
+		"bump",
+		"monorepo",
+		"root",
+		"find-root",
+		"workspace",
+		"lockfile",
+		"package-manager"
+	],
+	"homepage": "https://github.com/cjkihl/cjkihl#readme",
+	"bugs": {
+		"url": "https://github.com/cjkihl/cjkihl/issues"
+	},
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/cjkihl/cjkihl.git"
 	},
-	"bugs": {
-		"url": "https://github.com/cjkihl/cjkihl/issues"
-	},
-	"homepage": "https://github.com/cjkihl/cjkihl#readme",
 	"funding": {
 		"type": "github",
 		"url": "https://github.com/sponsors/cjkihl"
 	},
+	"license": "MIT",
+	"author": "@cjkihl",
+	"type": "module",
 	"exports": {
 		".": {
 			"types": "./.dist/types/index.d.ts",
@@ -31,17 +40,9 @@
 		"README.md"
 	],
 	"scripts": {
-		"build": "tsc"
+		"build": "tsc && bun ../create-exports/index.bin.ts",
+		"publish": "bun  ../publish/index.bin.ts"
 	},
-	"keywords": [
-		"bump",
-		"monorepo",
-		"root",
-		"find-root",
-		"workspace",
-		"lockfile",
-		"package-manager"
-	],
 	"dependencies": {
 		"@cjkihl/find-root": "workspace:*",
 		"@inquirer/prompts": "^7.5.3",
@@ -50,16 +51,14 @@
 		"semver": "^7.7.2"
 	},
 	"devDependencies": {
-		"@cjkihl/tsconfig": "workspace:*",
 		"@types/inquirer": "^9.0.7",
 		"@types/semver": "^7.7.0",
-		"bun-types": "latest",
 		"type-fest": "^4.26.0"
-	},
-	"publishConfig": {
-		"access": "public"
 	},
 	"engines": {
 		"node": ">=18.0.0"
+	},
+	"publishConfig": {
+		"access": "public"
 	}
 }

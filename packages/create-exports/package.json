@@ -2,21 +2,28 @@
 	"name": "@cjkihl/create-exports",
 	"version": "0.0.4",
 	"description": "Tool to generate package exports configuration for TypeScript packages",
-	"author": "@cjkihl",
-	"license": "MIT",
-	"type": "module",
+	"keywords": [
+		"typescript",
+		"exports",
+		"package",
+		"configuration",
+		"build-tool"
+	],
+	"homepage": "https://github.com/cjkihl/cjkihl#readme",
+	"bugs": {
+		"url": "https://github.com/cjkihl/cjkihl/issues"
+	},
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/cjkihl/cjkihl.git"
 	},
-	"bugs": {
-		"url": "https://github.com/cjkihl/cjkihl/issues"
-	},
-	"homepage": "https://github.com/cjkihl/cjkihl#readme",
 	"funding": {
 		"type": "github",
 		"url": "https://github.com/sponsors/cjkihl"
 	},
+	"license": "MIT",
+	"author": "@cjkihl",
+	"type": "module",
 	"exports": {
 		".": {
 			"types": "./.dist/types/index.d.ts",
@@ -31,30 +38,18 @@
 		"README.md"
 	],
 	"scripts": {
-		"build": "tsc && chmod +x .dist/output/index.bin.js",
-		"publish": "publish"
+		"build": "tsc && bun ../publish/index.bin.ts",
+		"publish": "bun ../publish/index.bin.ts"
 	},
-	"keywords": [
-		"typescript",
-		"exports",
-		"package",
-		"configuration",
-		"build-tool"
-	],
 	"dependencies": {
 		"@cjkihl/find-root": "workspace:*",
 		"fast-glob": "^3.3.3",
 		"type-fest": "^4.41.0"
 	},
-	"devDependencies": {
-		"@cjkihl/tsconfig": "workspace:*",
-		"bun-types": "latest",
-		"typescript": "^5.0.0"
+	"engines": {
+		"node": ">=18.0.0"
 	},
 	"publishConfig": {
 		"access": "public"
-	},
-	"engines": {
-		"node": ">=18.0.0"
 	}
 }

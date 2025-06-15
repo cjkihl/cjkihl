@@ -12,9 +12,9 @@
     },
     "packages/bump": {
       "name": "@cjkihl/bump",
-      "version": "0.0.1",
+      "version": "0.0.4",
       "bin": {
-        "bump": "./.dist/output/index.bin.js",
+        "bump-version": "./.dist/output/index.bin.js",
       },
       "dependencies": {
         "@cjkihl/find-root": "workspace:*",
@@ -24,16 +24,14 @@
         "semver": "^7.7.2",
       },
       "devDependencies": {
-        "@cjkihl/tsconfig": "workspace:*",
         "@types/inquirer": "^9.0.7",
         "@types/semver": "^7.7.0",
-        "bun-types": "latest",
         "type-fest": "^4.26.0",
       },
     },
     "packages/create-exports": {
       "name": "@cjkihl/create-exports",
-      "version": "0.0.1",
+      "version": "0.0.4",
       "bin": {
         "create-exports": "./.dist/output/index.bin.js",
       },
@@ -42,26 +40,17 @@
         "fast-glob": "^3.3.3",
         "type-fest": "^4.41.0",
       },
-      "devDependencies": {
-        "@cjkihl/tsconfig": "workspace:*",
-        "bun-types": "latest",
-        "typescript": "^5.0.0",
-      },
     },
     "packages/find-root": {
       "name": "@cjkihl/find-root",
-      "version": "0.0.3",
+      "version": "0.0.4",
       "dependencies": {
         "find-up": "^7.0.0",
-      },
-      "devDependencies": {
-        "@cjkihl/tsconfig": "workspace:*",
-        "bun-types": "latest",
       },
     },
     "packages/publish": {
       "name": "@cjkihl/publish",
-      "version": "0.0.1",
+      "version": "0.0.4",
       "bin": {
         "publish": "./.dist/output/index.bin.js",
       },
@@ -70,29 +59,23 @@
         "semver": "^7.7.2",
       },
       "devDependencies": {
-        "@cjkihl/bump": "workspace:*",
-        "@cjkihl/tsconfig": "workspace:*",
         "@types/semver": "^7.7.0",
         "type-fest": "^4.0.0",
       },
     },
     "packages/tsconfig": {
       "name": "@cjkihl/tsconfig",
-      "version": "0.0.3",
+      "version": "0.0.4",
     },
     "packages/with-env": {
       "name": "@cjkihl/with-env",
-      "version": "0.0.3",
+      "version": "0.0.4",
       "bin": {
         "index": "./.dist/output/index.bin.js",
       },
       "dependencies": {
         "@cjkihl/find-root": "workspace:*",
         "dotenv": "^16.5.0",
-      },
-      "devDependencies": {
-        "@cjkihl/tsconfig": "workspace:*",
-        "bun-types": "latest",
       },
     },
   },
