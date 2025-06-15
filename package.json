@@ -5,6 +5,7 @@
 	"workspaces": ["packages/*"],
 	"scripts": {
 		"build": "turbo build",
+		"publish": "turbo publish",
 		"up": "bunx npm-check-updates -ws --root --format group -u",
 		"bump": "bun ./packages/bump/index.bin.ts",
 		"clean": "git clean -fxd -e .env.local",
