@@ -1,9 +1,9 @@
 import { type ChildProcess, spawn } from "node:child_process";
+import { existsSync } from "node:fs";
 import { readFile } from "node:fs/promises";
 import node_path from "node:path";
 import { findRoot } from "@cjkihl/find-root";
 import dotenv, { type DotenvParseOutput } from "dotenv";
-import { existsSync } from "node:fs";
 
 export interface WithEnvConfig {
 	envFile?: string[];
@@ -56,7 +56,7 @@ export async function loadEnv(config: WithEnvConfig = {}) {
 	console.log("Spawning process with arguments:", command, finalConfig.args);
 
 	return new Promise<void>((resolve, reject) => {
-		let stderrOutput = '';
+		let stderrOutput = "";
 		const proc: ChildProcess = spawn(command, finalConfig.args ?? [], {
 			env: process.env,
 			stdio: finalConfig.inheritStdio ? "inherit" : "pipe",
@@ -64,7 +64,7 @@ export async function loadEnv(config: WithEnvConfig = {}) {
 		});
 
 		if (!finalConfig.inheritStdio) {
-			proc.stderr?.on('data', (data) => {
+			proc.stderr?.on("data", (data) => {
 				stderrOutput += data.toString();
 			});
 		}
@@ -75,9 +75,11 @@ export async function loadEnv(config: WithEnvConfig = {}) {
 			} else {
 				const errorMessage = [
 					`Command failed with exit code ${code}`,
-					`Command: ${command} ${finalConfig.args?.join(' ') || ''}`,
-					stderrOutput ? `Error output:\n${stderrOutput}` : 'No error output available'
-				].join('\n');
+					`Command: ${command} ${finalConfig.args?.join(" ") || ""}`,
+					stderrOutput
+						? `Error output:\n${stderrOutput}`
+						: "No error output available",
+				].join("\n");
 				reject(new Error(errorMessage));
 			}
 		});
@@ -85,9 +87,11 @@ export async function loadEnv(config: WithEnvConfig = {}) {
 		proc.on("error", (err: Error) => {
 			const errorMessage = [
 				`Failed to execute command: ${err.message}`,
-				`Command: ${command} ${finalConfig.args?.join(' ') || ''}`,
-				stderrOutput ? `Error output:\n${stderrOutput}` : 'No error output available'
-			].join('\n');
+				`Command: ${command} ${finalConfig.args?.join(" ") || ""}`,
+				stderrOutput
+					? `Error output:\n${stderrOutput}`
+					: "No error output available",
+			].join("\n");
 			reject(new Error(errorMessage));
 		});
 	});
@@ -98,7 +102,6 @@ async function getEnvs(envFile: string[]): Promise<DotenvParseOutput | null> {
 
 	let envPath: string | null = null;
 	for (const env of envFile) {
-		
 		if (existsSync(node_path.join(root, env))) {
 			envPath = node_path.join(root, env);
 			break;

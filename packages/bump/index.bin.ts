@@ -90,9 +90,14 @@ async function selectPackages() {
 	return selectedPackages;
 }
 
-async function selectVersion(packages: Package[], selectedPackageNames: string[]) {
+async function selectVersion(
+	packages: Package[],
+	selectedPackageNames: string[],
+) {
 	// Find the highest version among selected packages
-	const selectedPackages = packages.filter(p => p.contents.name && selectedPackageNames.includes(p.contents.name));
+	const selectedPackages = packages.filter(
+		(p) => p.contents.name && selectedPackageNames.includes(p.contents.name),
+	);
 	const highestVersion = selectedPackages.reduce((highest, pkg) => {
 		const version = pkg.contents.version || "0.0.0";
 		return version > highest ? version : highest;

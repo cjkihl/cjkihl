@@ -202,11 +202,11 @@ async function executeCommand(
 				NODE_ENV: "production",
 			},
 		});
-		
+
 		// Log output in real-time
 		if (stdout) console.log(stdout);
 		if (stderr) console.error(stderr);
-		
+
 		return { stdout, stderr };
 	} catch (error) {
 		const execError = error as { stdout?: string; stderr?: string };
@@ -271,18 +271,17 @@ export async function publish(
 			);
 		});
 
-		
-			// Execute the command with timeout
-			await Promise.race([
-				executeCommand(publishCommand, packagePath),
-				timeoutPromise,
-			]);
+		// Execute the command with timeout
+		await Promise.race([
+			executeCommand(publishCommand, packagePath),
+			timeoutPromise,
+		]);
 
-			if (!options.dryRun) {
-				console.log(
-					`✅ Successfully published ${packageJson.name}@${packageJson.version}`,
-				);
-			}
+		if (!options.dryRun) {
+			console.log(
+				`✅ Successfully published ${packageJson.name}@${packageJson.version}`,
+			);
+		}
 	} catch (error) {
 		const errorMessage = error instanceof Error ? error.message : String(error);
 		console.error(`❌ Failed to publish package: ${errorMessage}`);
