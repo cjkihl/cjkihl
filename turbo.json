@@ -9,7 +9,7 @@
 		},
 		"publish": {
 			"cache": false,
-			"dependsOn": ["^build", "^publish"]
+			"dependsOn": ["^build"]
 		},
 		"type-check": {
 			"cache": false,

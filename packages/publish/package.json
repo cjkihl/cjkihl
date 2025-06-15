@@ -1,49 +1,57 @@
 {
-	"name": "@cjkihl/publish",
-	"version": "0.0.4",
-	"description": "Smart package publishing tool",
-	"keywords": ["publish", "npm", "package", "version"],
-	"homepage": "https://github.com/cjkihl/cjkihl#readme",
-	"bugs": {
-		"url": "https://github.com/cjkihl/cjkihl/issues"
-	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/cjkihl/cjkihl.git"
-	},
-	"funding": {
-		"type": "github",
-		"url": "https://github.com/sponsors/cjkihl"
-	},
-	"license": "MIT",
-	"author": "@cjkihl",
-	"type": "module",
-	"exports": {
-		".": {
-			"types": "./.dist/types/index.pub.d.ts",
-			"default": "./.dist/output/index.pub.js"
-		}
-	},
-	"bin": {
-		"index": "./.dist/output/index.bin.js"
-	},
-	"files": [".dist", "README.md"],
-	"scripts": {
-		"build": "tsc && bun ../create-exports/index.bin.ts",
-		"publish": "bun ./index.bin.ts"
-	},
-	"dependencies": {
-		"@cjkihl/find-root": "workspace:*",
-		"semver": "^7.7.2"
-	},
-	"devDependencies": {
-		"@types/semver": "^7.7.0",
-		"type-fest": "^4.0.0"
-	},
-	"engines": {
-		"node": ">=18.0.0"
-	},
-	"publishConfig": {
-		"access": "public"
-	}
+  "name": "@cjkihl/publish",
+  "version": "0.0.4",
+  "description": "Smart package publishing tool",
+  "keywords": [
+    "publish",
+    "npm",
+    "package",
+    "version"
+  ],
+  "homepage": "https://github.com/cjkihl/cjkihl#readme",
+  "bugs": {
+    "url": "https://github.com/cjkihl/cjkihl/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cjkihl/cjkihl.git"
+  },
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/cjkihl"
+  },
+  "license": "MIT",
+  "author": "@cjkihl",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./.dist/types/index.pub.d.ts",
+      "default": "./.dist/output/index.pub.js"
+    }
+  },
+  "bin": {
+    "index": "./.dist/output/index.bin.js"
+  },
+  "files": [
+    ".dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc && bun ../create-exports/index.bin.ts",
+    "publish": "bun ./index.bin.ts"
+  },
+  "dependencies": {
+    "@cjkihl/find-root": "workspace:*",
+    "semver": "^7.7.2"
+  },
+  "devDependencies": {
+    "@types/semver": "^7.7.0",
+    "type-fest": "^4.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
 }
