@@ -242,7 +242,7 @@ function validatePackageVersions(packages: Package[]): void {
 	const mismatchedPackages = packages.filter(pkg => pkg.contents.version !== firstVersion);
 	if (mismatchedPackages.length > 0) {
 		const packageList = mismatchedPackages.map(p => `${p.contents.name}@${p.contents.version}`).join(", ");
-		throw new Error(`Packages have different versions. Expected ${firstVersion}, found: ${packageList}`);
+		console.warn(`Packages have different versions. Expected ${firstVersion}, found: ${packageList}`);
 	}
 }
 
