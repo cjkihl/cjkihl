@@ -23,6 +23,15 @@ jobs:
       - name: Install dependencies
         run: bun install --frozen-lockfile
 
+      - name: Build packages
+        run: bun run build
+
+      - name: Run linting
+        run: bun run lint
+
+      - name: Run tests
+        run: bun run test
+
       - name: Publish to NPM
         id: publish
         env:
@@ -30,7 +39,11 @@ jobs:
           NPM_CONFIG_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           # Run the publish command and capture its output
-          PUBLISH_OUTPUT=$(bun run publish-npm)
+          if ! PUBLISH_OUTPUT=$(bun run publish-npm 2>&1); then
+            echo "Error output:"
+            echo "$PUBLISH_OUTPUT"
+            exit 1
+          fi
           echo "publish_output<<EOF" >> $GITHUB_OUTPUT
           echo "$PUBLISH_OUTPUT" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
