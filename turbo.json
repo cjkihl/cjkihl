@@ -1,6 +1,8 @@
 {
 	"$schema": "https://turbo.build/schema.json",
 	"globalDependencies": ["**/.env.*local"],
+	"globalEnv": ["NODE_ENV"],
+	"globalPassThroughEnv": ["CI", "VERCEL"],
 	"ui": "stream",
 	"tasks": {
 		"build": {
@@ -9,19 +11,23 @@
 		},
 		"publish": {
 			"cache": false,
+			"dependsOn": ["^build", "^lint", "^test"]
+		},
+		"test": {
+			"cache": false,
 			"dependsOn": ["^build"]
 		},
-		"type-check": {
+		"lint": {
 			"cache": false,
-			"dependsOn": ["^type-check"]
+			"outputs": []
 		},
-		"//#lint": {},
-		"//#lint-fix": {
-			"cache": false
+		"lint-fix": {
+			"cache": false,
+			"outputs": []
 		},
-		"//#format": {
-			"cache": false
+		"format": {
+			"cache": false,
+			"outputs": []
 		}
-	},
-	"globalPassThroughEnv": []
+	}
 }
