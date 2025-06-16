@@ -45,7 +45,7 @@
     "test": "bun test"
   },
   "dependencies": {
-    "@cjkihl/find-root": "catalog:",
+    "@cjkihl/find-root": "workspace:*",
     "@inquirer/prompts": "^7.5.3",
     "commander": "^14.0.0",
     "fast-glob": "catalog:",

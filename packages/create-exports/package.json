@@ -43,7 +43,7 @@
     "test": "bun test"
   },
   "dependencies": {
-    "@cjkihl/find-root": "catalog:",
+    "@cjkihl/find-root": "workspace:*",
     "fast-glob": "catalog:",
     "type-fest": "catalog:"
   },
