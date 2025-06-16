@@ -16,16 +16,18 @@
 	},
 	"scripts": {
 		"build": "turbo build",
-		"bump": "bun ./packages/bump/bump.bin.ts",
+		"changeset": "changeset",
+		"version": "changeset version",
+		"release": "turbo build --filter=./packages/* && changeset publish",
 		"clean": "git clean -fxd -e .env.local",
 		"lint": "biome check .",
 		"lint-fix": "biome check --write --unsafe .",
-		"publish-npm": "turbo publish-npm",
 		"test": "bun test",
 		"up": "bunx npm-check-updates -ws --root --format group -u"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^1.9.4",
+		"@changesets/cli": "^2.27.1",
 		"bun-types": "latest",
 		"turbo": "^2.5.4",
 		"typescript": "^5.8.3"
