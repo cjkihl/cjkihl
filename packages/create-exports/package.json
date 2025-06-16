@@ -1,6 +1,6 @@
 {
   "name": "@cjkihl/create-exports",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Tool to generate package exports configuration for TypeScript packages",
   "keywords": [
     "typescript",
