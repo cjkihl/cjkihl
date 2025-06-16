@@ -7,7 +7,7 @@ import {
 	test,
 } from "bun:test";
 import { realpathSync } from "node:fs";
-import { mkdir, rm, unlink, writeFile } from "node:fs/promises";
+import { mkdir, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, normalize } from "node:path";
 import { findRoot } from "./index.pub";

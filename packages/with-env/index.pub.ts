@@ -1,6 +1,5 @@
 import { type ChildProcess, spawn } from "node:child_process";
-import { existsSync } from "node:fs";
-import { readFile } from "node:fs/promises";
+import { readFile, stat } from "node:fs/promises";
 import node_path from "node:path";
 import { findRoot } from "@cjkihl/find-root";
 import dotenv, { type DotenvParseOutput } from "dotenv";
@@ -102,7 +101,8 @@ async function getEnvs(envFile: string[]): Promise<DotenvParseOutput | null> {
 
 	let envPath: string | null = null;
 	for (const env of envFile) {
-		if (existsSync(node_path.join(root, env))) {
+		const stats = await stat(node_path.join(root, env));
+		if (stats.isFile()) {
 			envPath = node_path.join(root, env);
 			break;
 		}

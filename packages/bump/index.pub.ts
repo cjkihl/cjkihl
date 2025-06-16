@@ -249,7 +249,8 @@ export async function createGitHubRelease(
 export interface DeployOptions {
 	releaseType: "major" | "minor" | "patch";
 	dryRun: boolean;
-	skipGit: boolean;
+	skipGitCheck: boolean;
+	skipTag: boolean;
 	skipRelease: boolean;
 	selectedPackages?: string[];
 }
@@ -343,7 +344,7 @@ export async function deploy(options: DeployOptions): Promise<void> {
 		validatePackageVersions(packages);
 
 		// Check git status
-		if (!options.skipGit) {
+		if (!options.skipGitCheck) {
 			await checkGitStatus();
 		}
 
@@ -357,13 +358,13 @@ export async function deploy(options: DeployOptions): Promise<void> {
 		await updateVersions(packages, newVersion, options.dryRun);
 
 		// Git operations
-		if (!options.skipGit) {
+		if (!options.skipTag) {
 			await commitAndPush(newVersion, options.dryRun);
 			await createTag(newVersion, options.dryRun);
 		}
 
 		// Create GitHub release
-		if (!options.skipRelease) {
+		if (!options.skipTag && !options.skipRelease) {
 			await createGitHubRelease(
 				newVersion,
 				packages,

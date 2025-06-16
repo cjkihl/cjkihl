@@ -144,7 +144,8 @@ async function main() {
 		const deployOptions: DeployOptions = {
 			releaseType,
 			dryRun: options.dryRun ?? false,
-			skipGit: options.skipGit ?? false,
+			skipGitCheck: options.skipGitCheck ?? true,
+			skipTag: options.skipTag ?? false,
 			skipRelease: options.skipRelease ?? false,
 			selectedPackages: selectedPackageNames,
 		};

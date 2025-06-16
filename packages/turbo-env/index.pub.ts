@@ -1,4 +1,4 @@
-import { access, exists, readFile, writeFile } from "node:fs/promises";
+import { access, readFile, stat, writeFile } from "node:fs/promises";
 import node_path from "node:path";
 import path from "node:path";
 import { findRoot } from "@cjkihl/find-root";
@@ -83,7 +83,8 @@ async function getEnvs(envFile: string[]): Promise<DotenvParseOutput | null> {
 	let envPath: string | null = null;
 	for (const env of envFile) {
 		const fullPath = node_path.join(root, env);
-		if (await exists(fullPath)) {
+		const stats = await stat(fullPath);
+		if (stats.isFile()) {
 			envPath = fullPath;
 			break;
 		}
