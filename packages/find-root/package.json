@@ -37,7 +37,8 @@
   ],
   "scripts": {
     "build": "tsc && bun ../create-exports/index.bin.ts",
-    "publish-npm": "bun ../publish/index.bin.ts"
+    "publish-npm": "bun ../publish/index.bin.ts",
+    "test": "bun test"
   },
   "dependencies": {
     "find-up": "^7.0.0"

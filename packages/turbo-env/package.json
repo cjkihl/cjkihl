@@ -1,15 +1,18 @@
 {
-  "name": "@cjkihl/bump",
+  "name": "@cjkihl/turbo-env",
   "version": "0.1.6",
-  "description": "Bump package versions in a monorepo",
+  "description": "Set environment variables for a turbo build from a .env file",
   "keywords": [
-    "bump",
     "monorepo",
-    "root",
-    "find-root",
-    "workspace",
-    "lockfile",
-    "package-manager"
+    "turbo",
+    "env",
+    "environment",
+    "variables",
+    "load",
+    "dotenv",
+    "process",
+    "node",
+    "nodejs"
   ],
   "homepage": "https://github.com/cjkihl/cjkihl#readme",
   "bugs": {
@@ -41,20 +44,11 @@
   ],
   "scripts": {
     "build": "tsc && bun ../create-exports/index.bin.ts",
-    "publish-npm": "bun ../publish/index.bin.ts",
-    "test": "bun test"
+    "publish-npm": "bun ../publish/index.bin.ts"
   },
   "dependencies": {
     "@cjkihl/find-root": "workspace:*",
-    "@inquirer/prompts": "^7.5.3",
-    "commander": "^14.0.0",
-    "fast-glob": "^3.3.3",
-    "semver": "^7.7.2"
-  },
-  "devDependencies": {
-    "@types/inquirer": "^9.0.8",
-    "@types/semver": "^7.7.0",
-    "type-fest": "^4.41.0"
+    "dotenv": "^16.5.0"
   },
   "engines": {
     "node": ">=18.0.0"

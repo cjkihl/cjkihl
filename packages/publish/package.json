@@ -38,7 +38,7 @@
   ],
   "scripts": {
     "build": "tsc && bun ../create-exports/index.bin.ts",
-    "publish-npm": "bun ./index.bin.ts"
+    "publish-npm": "../publish/index.bin.ts"
   },
   "dependencies": {
     "@cjkihl/find-root": "workspace:*",

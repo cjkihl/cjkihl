@@ -33,8 +33,9 @@
     "README.md"
   ],
   "scripts": {
-    "build": "tsc && bun ./index.bin.ts",
-    "publish-npm": "bun ../publish/index.bin.ts"
+    "build": "tsc && bun ../create-exports/index.bin.ts",
+    "publish-npm": "bun ../publish/index.bin.ts",
+    "test": "bun test"
   },
   "dependencies": {
     "@cjkihl/find-root": "workspace:*",
