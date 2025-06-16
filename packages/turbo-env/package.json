@@ -36,15 +36,15 @@
     }
   },
   "bin": {
-    "index": "./.dist/output/index.bin.js"
+    "turbo-env": "./.dist/output/turbo-env.bin.js"
   },
   "files": [
     ".dist",
     "README.md"
   ],
   "scripts": {
-    "build": "tsc && bun ../create-exports/index.bin.ts",
-    "publish-npm": "bun ../publish/index.bin.ts"
+    "build": "tsc && bun ../create-exports/create-exports.bin.ts",
+    "publish-npm": "bun ../publish/safe-publish.bin.ts"
   },
   "dependencies": {
     "@cjkihl/find-root": "workspace:*",

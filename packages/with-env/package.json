@@ -32,14 +32,14 @@
     }
   },
   "bin": {
-    "index": "./.dist/output/index.bin.js"
+    "with-env": "./.dist/output/with-env.bin.js"
   },
   "files": [
     ".dist",
     "README.md"
   ],
   "scripts": {
-    "build": "tsc && bun ../create-exports/index.bin.ts",
+    "build": "tsc && bun ../create-exports/create-exports.bin.ts",
     "publish-npm": "../publish/index.bin.ts"
   },
   "dependencies": {

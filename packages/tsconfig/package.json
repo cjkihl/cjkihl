@@ -12,7 +12,7 @@
 		"url": "https://github.com/cjkihl/cjkihl/issues"
 	},
 	"scripts": {
-		"publish-npm": "bun ../publish/index.bin.ts"
+		"publish-npm": "bun ../publish/safe-publish.bin.ts"
 	},
 	"homepage": "https://github.com/cjkihl/cjkihl#readme",
 	"funding": {

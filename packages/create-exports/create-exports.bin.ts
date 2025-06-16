@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { createExports } from "./create-exports.js";
+import { createExports } from "./create-exports.pub.js";
 
 // Parse command line arguments
 const args = process.argv.slice(2);

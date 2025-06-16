@@ -41,7 +41,7 @@ import {
 	parseExportPath,
 	readTsConfig,
 	updatePackageJson,
-} from "./create-exports";
+} from "./create-exports.pub";
 
 const TEST_DIR = process.cwd();
 
