@@ -1,6 +1,6 @@
 {
   "name": "@cjkihl/with-env",
-  "version": "0.1.11",
+  "version": "0.1.12",
   "description": "Load environment variables in a monorepo",
   "keywords": [
     "monorepo",
@@ -40,7 +40,7 @@
   ],
   "scripts": {
     "build": "tsc && bun ../create-exports/create-exports.bin.ts",
-    "publish-npm": "../publish/index.bin.ts"
+    "publish-npm": "bun ../publish/safe-publish.bin.ts"
   },
   "dependencies": {
     "@cjkihl/find-root": "workspace:*",
