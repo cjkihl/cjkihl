@@ -12,83 +12,90 @@
     },
     "packages/bump": {
       "name": "@cjkihl/bump",
-      "version": "0.1.7",
+      "version": "0.1.12",
       "bin": {
-        "index": "./.dist/output/index.bin.js",
+        "bump": "./.dist/output/bump.bin.js",
       },
       "dependencies": {
-        "@cjkihl/find-root": "workspace:*",
+        "@cjkihl/find-root": "catalog:",
         "@inquirer/prompts": "^7.5.3",
         "commander": "^14.0.0",
-        "fast-glob": "^3.3.3",
-        "semver": "^7.7.2",
+        "fast-glob": "catalog:",
+        "semver": "catalog:",
       },
       "devDependencies": {
         "@types/inquirer": "^9.0.8",
-        "@types/semver": "^7.7.0",
-        "type-fest": "^4.41.0",
+        "@types/semver": "catalog:",
+        "type-fest": "catalog:",
       },
     },
     "packages/create-exports": {
       "name": "@cjkihl/create-exports",
-      "version": "0.1.7",
+      "version": "0.1.12",
       "bin": {
-        "create-exports": "./.dist/output/index.bin.js",
+        "create-exports": "./.dist/output/create-exports.bin.js",
       },
       "dependencies": {
-        "@cjkihl/find-root": "workspace:*",
-        "fast-glob": "^3.3.3",
-        "type-fest": "^4.41.0",
+        "@cjkihl/find-root": "catalog:",
+        "fast-glob": "catalog:",
+        "type-fest": "catalog:",
       },
     },
     "packages/find-root": {
       "name": "@cjkihl/find-root",
-      "version": "0.1.7",
+      "version": "0.1.12",
       "dependencies": {
         "find-up": "^7.0.0",
       },
     },
     "packages/publish": {
       "name": "@cjkihl/publish",
-      "version": "0.1.7",
+      "version": "0.1.12",
       "bin": {
-        "index": "./.dist/output/index.bin.js",
+        "safe-publish": "./.dist/output/safe-publish.bin.js",
       },
       "dependencies": {
-        "@cjkihl/find-root": "workspace:*",
-        "semver": "^7.7.2",
+        "@cjkihl/find-root": "catalog:",
+        "semver": "catalog:",
       },
       "devDependencies": {
-        "@types/semver": "^7.7.0",
-        "type-fest": "^4.41.0",
+        "@types/semver": "catalog:",
+        "type-fest": "catalog:",
       },
     },
     "packages/tsconfig": {
       "name": "@cjkihl/tsconfig",
-      "version": "0.1.7",
+      "version": "0.1.12",
     },
     "packages/turbo-env": {
       "name": "@cjkihl/turbo-env",
-      "version": "0.1.7",
+      "version": "0.1.12",
       "bin": {
         "turbo-env": "./.dist/output/turbo-env.bin.js",
       },
       "dependencies": {
-        "@cjkihl/find-root": "workspace:*",
+        "@cjkihl/find-root": "catalog:",
         "dotenv": "^16.5.0",
       },
     },
     "packages/with-env": {
       "name": "@cjkihl/with-env",
-      "version": "0.1.7",
+      "version": "0.1.12",
       "bin": {
-        "index": "./.dist/output/index.bin.js",
+        "with-env": "./.dist/output/with-env.bin.js",
       },
       "dependencies": {
-        "@cjkihl/find-root": "workspace:*",
+        "@cjkihl/find-root": "catalog:",
         "dotenv": "^16.5.0",
       },
     },
+  },
+  "catalog": {
+    "@cjkihl/find-root": "workspace:*",
+    "@types/semver": "^7.7.0",
+    "fast-glob": "^3.3.3",
+    "semver": "^7.7.2",
+    "type-fest": "^4.41.0",
   },
   "packages": {
     "@biomejs/biome": ["@biomejs/biome@1.9.4", "", { "optionalDependencies": { "@biomejs/cli-darwin-arm64": "1.9.4", "@biomejs/cli-darwin-x64": "1.9.4", "@biomejs/cli-linux-arm64": "1.9.4", "@biomejs/cli-linux-arm64-musl": "1.9.4", "@biomejs/cli-linux-x64": "1.9.4", "@biomejs/cli-linux-x64-musl": "1.9.4", "@biomejs/cli-win32-arm64": "1.9.4", "@biomejs/cli-win32-x64": "1.9.4" }, "bin": { "biome": "bin/biome" } }, "sha512-1rkd7G70+o9KkTn5KLmDYXihGoTaIGO9PIIN2ZB7UJxFrWw04CZHPYiMRjYsaDvVV7hP1dYNRLxSANLaBFGpog=="],

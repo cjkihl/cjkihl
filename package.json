@@ -2,29 +2,33 @@
 	"name": "@cjkihl/monorepo",
 	"version": "0.0.1",
 	"private": true,
-	"workspaces": ["packages/*"],
+	"workspaces": {
+		"packages": [
+			"packages/*"
+		],
+		"catalog": {
+			"type-fest": "^4.41.0",
+			"semver": "^7.7.2",
+			"@types/semver": "^7.7.0",
+			"fast-glob": "^3.3.3",
+			"@cjkihl/find-root": "workspace:*"
+		}
+	},
 	"scripts": {
 		"build": "turbo build",
-		"publish-npm": "turbo publish-npm",
-		"up": "bunx npm-check-updates -ws --root --format group -u",
 		"bump": "bun ./packages/bump/bump.bin.ts",
 		"clean": "git clean -fxd -e .env.local",
 		"lint": "biome check .",
 		"lint-fix": "biome check --write --unsafe .",
-		"test": "bun test"
+		"publish-npm": "turbo publish-npm",
+		"test": "bun test",
+		"up": "bunx npm-check-updates -ws --root --format group -u"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^1.9.4",
 		"bun-types": "latest",
 		"turbo": "^2.5.4",
 		"typescript": "^5.8.3"
-	},
-	"catalog": {
-		"type-fest": "^4.41.0",
-		"semver": "^7.7.2",
-		"@types/semver": "^7.7.0",
-		"fast-glob": "^3.3.3",
-		"@cjkihl/find-root": "workspace:*"
 	},
 	"packageManager": "bun@1.2.17"
 }
