@@ -1,6 +1,6 @@
 {
   "name": "@cjkihl/bump",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "Bump package versions in a monorepo",
   "keywords": [
     "bump",
