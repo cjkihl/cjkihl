@@ -67,7 +67,6 @@ export default async function setTurboEnv(config: WithEnvConfig) {
 
 	// Write back the updated configuration
 	await writeFile(turboPath, JSON.stringify(turboConfig, null, 2));
-
 }
 
 /**
