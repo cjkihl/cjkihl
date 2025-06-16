@@ -1,6 +1,6 @@
 {
   "name": "@cjkihl/find-root",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "Find monorepo root directory by detecting lockfiles",
   "keywords": [
     "monorepo",

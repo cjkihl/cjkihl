@@ -1,6 +1,6 @@
 {
   "name": "@cjkihl/publish",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "Smart package publishing tool",
   "keywords": [
     "publish",
