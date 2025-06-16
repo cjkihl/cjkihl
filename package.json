@@ -11,7 +11,8 @@
 			"semver": "^7.7.2",
 			"@types/semver": "^7.7.0",
 			"fast-glob": "^3.3.3",
-			"@cjkihl/find-root": "workspace:*"
+			"@cjkihl/find-root": "workspace:*",
+			"commander": "^14.0.0"
 		}
 	},
 	"scripts": {

@@ -30,21 +30,6 @@
         "find-up": "^7.0.0",
       },
     },
-    "packages/publish": {
-      "name": "@cjkihl/publish",
-      "version": "0.1.12",
-      "bin": {
-        "safe-publish": "./.dist/output/safe-publish.bin.js",
-      },
-      "dependencies": {
-        "@cjkihl/find-root": "workspace:*",
-        "semver": "catalog:",
-      },
-      "devDependencies": {
-        "@types/semver": "catalog:",
-        "type-fest": "catalog:",
-      },
-    },
     "packages/tsconfig": {
       "name": "@cjkihl/tsconfig",
       "version": "0.1.12",
@@ -57,6 +42,7 @@
       },
       "dependencies": {
         "@cjkihl/find-root": "workspace:*",
+        "commander": "catalog:",
         "dotenv": "^16.5.0",
       },
     },
@@ -75,6 +61,7 @@
   "catalog": {
     "@cjkihl/find-root": "workspace:*",
     "@types/semver": "^7.7.0",
+    "commander": "^14.0.0",
     "fast-glob": "^3.3.3",
     "semver": "^7.7.2",
     "type-fest": "^4.41.0",
@@ -138,8 +125,6 @@
 
     "@cjkihl/find-root": ["@cjkihl/find-root@workspace:packages/find-root"],
 
-    "@cjkihl/publish": ["@cjkihl/publish@workspace:packages/publish"],
-
     "@cjkihl/tsconfig": ["@cjkihl/tsconfig@workspace:packages/tsconfig"],
 
     "@cjkihl/turbo-env": ["@cjkihl/turbo-env@workspace:packages/turbo-env"],
@@ -158,8 +143,6 @@
 
     "@types/node": ["@types/node@24.0.1", "", { "dependencies": { "undici-types": "~7.8.0" } }, "sha512-MX4Zioh39chHlDJbKmEgydJDS3tspMP/lnQC67G3SWsTnb9NeYVWOjkxpOSy4oMfPs4StcWHwBrvUb4ybfnuaw=="],
 
-    "@types/semver": ["@types/semver@7.7.0", "", {}, "sha512-k107IF4+Xr7UHjwDc7Cfd6PRQfbdkiRabXGRjo07b4WyPahFBZCZ1sE+BNxYIJPPg73UkfOsVOLwqVc/6ETrIA=="],
-
     "ansi-colors": ["ansi-colors@4.1.3", "", {}, "sha512-/6w/C21Pm1A7aZitlI5Ni/2J6FFQN8i1Cvz3kHABAAbw93v/NlvKdVOqz7CCWz/3iv/JplRSEEZ83XION15ovw=="],
 
     "ansi-regex": ["ansi-regex@5.0.1", "", {}, "sha512-quJQXlTSUGL2LH9SUXo8VwsY4soanhgo6LNSm84E1LBcE8s3O0wpdiRzyR9z/ZZJMlMWv37qOOb9pdJlMUEKFQ=="],
@@ -177,6 +160,8 @@
     "chardet": ["chardet@0.7.0", "", {}, "sha512-mT8iDcrh03qDGRRmoA2hmBJnxpllMR+0/0qlzjqZES6NdiWDcZkCNAk4rPFZ9Q85r27unkiNNg8ZOiwZXBHwcA=="],
 
     "ci-info": ["ci-info@3.9.0", "", {}, "sha512-NIxF55hv4nSqQswkAeiOi1r83xy8JldOFDTWiug55KBu9Jnblncd2U6ViHmYgHf01TPZS77NJBhBMKdWj9HQMQ=="],
+
+    "commander": ["commander@14.0.0", "", {}, "sha512-2uM9rYjPvyq39NwLRqaiLtWHyDC1FvryJDa2ATTVims5YAS4PupsEQsDvP14FqhFr0P49CYDugi59xaxJlTXRA=="],
 
     "cross-spawn": ["cross-spawn@7.0.6", "", { "dependencies": { "path-key": "^3.1.0", "shebang-command": "^2.0.0", "which": "^2.0.1" } }, "sha512-uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA=="],
 
