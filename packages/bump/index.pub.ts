@@ -27,14 +27,16 @@ export function readPackageJson(pkgPath: string): PackageJson {
 async function findWorkspacePackageJsons(
 	root: PackageJson,
 ): Promise<Package[]> {
-	// Check if workspaces is an array
-	if (!root.workspaces || !Array.isArray(root.workspaces)) {
-		throw new Error("Workspaces field must be an array");
-	}
-
+	
 	const packages: Package[] = [];
 
-	for (const pattern of root.workspaces) {
+	const workspaces  = Array.isArray(root.workspaces) ? root.workspaces : root.workspaces?.packages;
+
+	if (!workspaces) {
+		throw new Error("Workspace packages must be defined");
+	}
+
+	for (const pattern of workspaces) {
 		// Glob each workspace pattern to find matching package.jsons
 		const paths = await fg(join(pattern, "package.json"));
 		for await (const path of paths) {
