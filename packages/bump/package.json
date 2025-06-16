@@ -45,16 +45,16 @@
     "test": "bun test"
   },
   "dependencies": {
-    "@cjkihl/find-root": "workspace:*",
+    "@cjkihl/find-root": "catalog:",
     "@inquirer/prompts": "^7.5.3",
     "commander": "^14.0.0",
-    "fast-glob": "^3.3.3",
-    "semver": "^7.7.2"
+    "fast-glob": "catalog:",
+    "semver": "catalog:"
   },
   "devDependencies": {
     "@types/inquirer": "^9.0.8",
-    "@types/semver": "^7.7.0",
-    "type-fest": "^4.41.0"
+    "@types/semver": "catalog:",
+    "type-fest": "catalog:"
   },
   "engines": {
     "node": ">=18.0.0"

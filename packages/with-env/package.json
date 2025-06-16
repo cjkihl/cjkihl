@@ -43,7 +43,7 @@
     "publish-npm": "bun ../publish/safe-publish.bin.ts"
   },
   "dependencies": {
-    "@cjkihl/find-root": "workspace:*",
+    "@cjkihl/find-root": "catalog:",
     "dotenv": "^16.5.0"
   },
   "engines": {

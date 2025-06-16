@@ -41,12 +41,12 @@
     "publish-npm": "bun ../publish/safe-publish.bin.ts"
   },
   "dependencies": {
-    "@cjkihl/find-root": "workspace:*",
-    "semver": "^7.7.2"
+    "@cjkihl/find-root": "catalog:",
+    "semver": "catalog:"
   },
   "devDependencies": {
-    "@types/semver": "^7.7.0",
-    "type-fest": "^4.41.0"
+    "@types/semver": "catalog:",
+    "type-fest": "catalog:"
   },
   "engines": {
     "node": ">=18.0.0"

@@ -43,9 +43,9 @@
     "test": "bun test"
   },
   "dependencies": {
-    "@cjkihl/find-root": "workspace:*",
-    "fast-glob": "^3.3.3",
-    "type-fest": "^4.41.0"
+    "@cjkihl/find-root": "catalog:",
+    "fast-glob": "catalog:",
+    "type-fest": "catalog:"
   },
   "engines": {
     "node": ">=18.0.0"
