@@ -7,7 +7,7 @@
 		"build": "turbo build",
 		"publish-npm": "turbo publish-npm",
 		"up": "bunx npm-check-updates -ws --root --format group -u",
-		"bump": "bun ./packages/bump/index.bin.ts",
+		"bump": "bun ./packages/bump/bump.bin.ts",
 		"clean": "git clean -fxd -e .env.local",
 		"lint": "biome check .",
 		"lint-fix": "biome check --write --unsafe .",

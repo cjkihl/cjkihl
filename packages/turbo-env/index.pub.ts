@@ -3,6 +3,10 @@ import node_path from "node:path";
 import path from "node:path";
 import { findRoot } from "@cjkihl/find-root";
 import dotenv, { type DotenvParseOutput } from "dotenv";
+import { exec } from "node:child_process";
+import { promisify } from "node:util";
+
+const execAsync = promisify(exec);
 
 /**
  * Configuration options for the setTurboEnv function
@@ -17,12 +21,48 @@ const defaultConfig: Required<WithEnvConfig> = {
 };
 
 /**
+ * Runs the appropriate install command based on the detected package manager
+ * @throws {Error} If the package manager is not supported or if the install command fails
+ */
+async function runInstall(): Promise<void> {
+	const { packageManager } = await findRoot();
+	console.log(`📦 Detected package manager: ${packageManager}`);
+
+	const command = (() => {
+		switch (packageManager) {
+			case "bun":
+				return "bun install";
+			case "yarn":
+				return "yarn install";
+			case "pnpm":
+				return "pnpm install";
+			case "npm":
+				return "npm install";
+			default:
+				throw new Error(`Unsupported package manager: ${packageManager}`);
+		}
+	})();
+
+	try {
+		console.log(`🚀 Running ${command}...`);
+		await execAsync(command);
+		console.log("✅ Dependencies installed successfully");
+	} catch (error) {
+		console.error("❌ Failed to install dependencies:", error);
+		throw new Error(
+			`Failed to install dependencies: ${error instanceof Error ? error.message : String(error)}`,
+		);
+	}
+}
+
+/**
  * Sets up Turborepo environment variables by reading from .env files and updating turbo.json
  *
  * This function:
  * 1. Reads environment variables from specified .env files
  * 2. Extracts unique environment variable keys
  * 3. Updates the turbo.json configuration with these keys in the globalEnv array
+ * 4. Runs the appropriate package manager install command
  *
  * @param config - Configuration options for environment file paths
  * @throws {Error} If no environment variables are found or if turbo.json doesn't exist
@@ -66,6 +106,9 @@ export default async function setTurboEnv(config: WithEnvConfig) {
 
 	// Write back the updated configuration
 	await writeFile(turboPath, JSON.stringify(turboConfig, null, 2));
+
+	// Run install command to update dependencies
+	await runInstall();
 }
 
 /**
