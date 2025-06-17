@@ -31,11 +31,6 @@ jobs:
       - name: Configure npm
         run: |
           echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
-          echo "registry=https://registry.npmjs.org/" >> ~/.npmrc
-          echo "@cjkihl:registry=https://registry.npmjs.org/" >> ~/.npmrc
-          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> ~/.npmrc
-          echo "always-auth=true" >> ~/.npmrc
-          echo "NPM_TOKEN=${NPM_TOKEN}" >> ~/.npmrc
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
@@ -50,12 +45,6 @@ jobs:
 
       - name: Run tests
         run: bun run test
-
-      - name: Verify npm authentication
-        run: |
-          npm whoami
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Version and Publish
         id: publish
