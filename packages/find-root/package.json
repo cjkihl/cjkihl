@@ -36,7 +36,7 @@
     "README.md"
   ],
   "scripts": {
-    "build": "tsc && bun ../create-exports/create-exports.bin.ts",
+    "build": "tsc",
     "publish-npm": "bun ../publish/safe-publish.bin.ts",
     "test": "bun test"
   },
