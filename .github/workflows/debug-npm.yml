@@ -35,17 +35,34 @@ jobs:
 
       - name: Configure npm
         run: |
+          # Create .npmrc with the token
           echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+          echo "registry=https://registry.npmjs.org/" >> ~/.npmrc
+          echo "always-auth=true" >> ~/.npmrc
+          
+          # Set npm configs explicitly
+          npm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN}
+          npm config set registry https://registry.npmjs.org/
+          npm config set always-auth true
+          
           echo "=== NPM Configuration Step ==="
           echo "Created .npmrc file with token"
           echo "Token length in environment: ${#NPM_TOKEN}"
-          echo "Contents of .npmrc:"
-          cat ~/.npmrc
+          echo "Contents of .npmrc (redacted):"
+          cat ~/.npmrc | sed 's/_authToken=.*/_authToken=***/'
+          
+          # Verify npm can access the registry
+          echo "=== Testing Registry Access ==="
+          npm ping || echo "Registry ping failed"
         env:
           NPM_TOKEN: ${{ secrets.NPMTOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPMTOKEN }}
 
       - name: Install Dependencies
         run: bun install
+        env:
+          NPM_TOKEN: ${{ secrets.NPMTOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPMTOKEN }}
 
       - name: Check TEST Secret
         run: |
@@ -94,12 +111,12 @@ jobs:
           fi
           
           echo "=== Testing Token Format ==="
-          # Check if token looks like a valid npm token (should be base64-like)
-          if [[ "$NPM_TOKEN" =~ ^[A-Za-z0-9+/=]+$ ]]; then
-            echo "✅ Token format looks valid (base64-like)"
+          # Check if token looks like a valid npm token (more permissive regex)
+          if [[ "$NPM_TOKEN" =~ ^[A-Za-z0-9+/=_-]+$ ]]; then
+            echo "✅ Token format looks valid (npm token format)"
           else
             echo "❌ Token format may be invalid"
-            echo "Token should be base64-like characters only"
+            echo "Token should contain only alphanumeric, +, /, =, -, and _ characters"
           fi
         env:
           NPM_TOKEN: ${{ secrets.NPMTOKEN }}
@@ -108,34 +125,97 @@ jobs:
         if: inputs.debug_type == 'all' || inputs.debug_type == 'auth'
         run: |
           echo "=== NPM Authentication Debug ==="
-          echo "Checking npm whoami..."
-          npm whoami || echo "npm whoami failed"
           
-          echo "=== Checking npm config ==="
-          npm config list
+          echo "=== Environment Check ==="
+          echo "NPM_TOKEN length: ${#NPM_TOKEN}"
+          echo "NODE_AUTH_TOKEN length: ${#NODE_AUTH_TOKEN}"
+          echo "HOME directory: $HOME"
+          echo ".npmrc location: $(which npm)"
           
-          echo "=== Checking npm token permissions ==="
-          echo "Token starts with: ${NPM_TOKEN:0:10}..."
-          echo "Token length: ${#NPM_TOKEN}"
+          echo "=== NPM Config Check ==="
+          echo "Global .npmrc:"
+          [ -f ~/.npmrc ] && cat ~/.npmrc | sed 's/_authToken=.*/_authToken=***/' || echo "No global .npmrc"
+          echo "Project .npmrc:"
+          [ -f ./.npmrc ] && cat ./.npmrc | sed 's/_authToken=.*/_authToken=***/' || echo "No project .npmrc"
           
-          echo "=== Testing npm token with curl ==="
+          echo "=== NPM Registry Check ==="
+          npm config get registry
+          
+          echo "=== Testing Authentication ==="
+          # Try different auth methods
+          echo "Method 1: npm whoami"
+          npm whoami --verbose || echo "npm whoami failed"
+          
+          echo "Method 2: npm token list"
+          npm token list --verbose || echo "npm token list failed"
+          
+          echo "Method 3: curl with Bearer token"
           curl -H "Authorization: Bearer ${NPM_TOKEN}" \
+               -H "Accept: application/json" \
                -H "Content-Type: application/json" \
-               "https://registry.npmjs.org/-/npm/v1/user" | jq '.name, .orgs' || echo "Token test failed"
+               "https://registry.npmjs.org/-/npm/v1/user" | jq '.' || echo "curl auth failed"
           
-          echo "=== Testing npm token with curl (verbose) ==="
-          curl -v -H "Authorization: Bearer ${NPM_TOKEN}" \
+          echo "Method 4: curl with basic auth"
+          echo -n ":${NPM_TOKEN}" | base64 | xargs -I {} \
+          curl -H "Authorization: Basic {}" \
+               -H "Accept: application/json" \
+               "https://registry.npmjs.org/-/npm/v1/user" | jq '.' || echo "basic auth failed"
+          
+          echo "=== Organization Access Check ==="
+          echo "Testing access to @cjkihl organization..."
+          npm access ls-packages @cjkihl || echo "org access check failed"
+          
+          echo "=== Package Access Check ==="
+          echo "Testing package read access..."
+          npm view @cjkihl/create-exports || echo "package view failed"
+        env:
+          NPM_TOKEN: ${{ secrets.NPMTOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPMTOKEN }}
+
+      - name: Test Token Directly
+        if: inputs.debug_type == 'all' || inputs.debug_type == 'auth'
+        run: |
+          echo "=== Direct Token Testing ==="
+          
+          echo "=== Testing token with npm token command ==="
+          npm token list || echo "npm token list failed"
+          
+          echo "=== Testing token with npm profile ==="
+          npm profile get || echo "npm profile get failed"
+          
+          echo "=== Testing token with curl (detailed) ==="
+          response=$(curl -s -w "\n%{http_code}" -H "Authorization: Bearer ${NPM_TOKEN}" \
                -H "Content-Type: application/json" \
-               "https://registry.npmjs.org/-/npm/v1/user" 2>&1 | head -20 || echo "Verbose token test failed"
+               "https://registry.npmjs.org/-/npm/v1/user")
           
-          echo "=== Testing npm whoami with verbose output ==="
-          npm whoami --verbose || echo "npm whoami verbose failed"
+          http_code=$(echo "$response" | tail -n1)
+          body=$(echo "$response" | head -n -1)
           
-          echo "=== Checking current user's organizations ==="
-          npm org ls || echo "npm org ls failed"
+          echo "HTTP Status Code: $http_code"
+          echo "Response Body:"
+          echo "$body" | jq '.' || echo "$body"
           
-          echo "=== Checking specific organization access ==="
-          npm org ls cjkihl || echo "npm org ls cjkihl failed"
+          if [ "$http_code" = "200" ]; then
+            echo "✅ Token is valid and working"
+            username=$(echo "$body" | jq -r '.name // "unknown"')
+            echo "Username: $username"
+          else
+            echo "❌ Token validation failed with status $http_code"
+          fi
+          
+          echo "=== Testing organization access directly ==="
+          org_response=$(curl -s -w "\n%{http_code}" -H "Authorization: Bearer ${NPM_TOKEN}" \
+               -H "Content-Type: application/json" \
+               "https://registry.npmjs.org/-/org/cjkihl/user")
+          
+          org_http_code=$(echo "$org_response" | tail -n1)
+          org_body=$(echo "$org_response" | head -n -1)
+          
+          echo "Organization HTTP Status Code: $org_http_code"
+          echo "Organization Response:"
+          echo "$org_body" | jq '.' || echo "$org_body"
+        env:
+          NPM_TOKEN: ${{ secrets.NPMTOKEN }}
 
       - name: Debug Package Configuration
         if: inputs.debug_type == 'all' || inputs.debug_type == 'packages'
@@ -162,6 +242,8 @@ jobs:
           
           echo "=== Checking if @cjkihl scope exists ==="
           curl -s "https://registry.npmjs.org/@cjkihl" | jq '.error // "Scope exists"' || echo "Failed to check scope"
+        env:
+          NPM_TOKEN: ${{ secrets.NPMTOKEN }}
 
       - name: Debug Publish Process
         if: inputs.debug_type == 'all' || inputs.debug_type == 'publish'
@@ -177,6 +259,8 @@ jobs:
           
           echo "=== Testing changeset publish dry-run ==="
           bun run changeset publish --dry-run || echo "Changeset dry-run failed"
+        env:
+          NPM_TOKEN: ${{ secrets.NPMTOKEN }}
 
       - name: Generate Debug Summary
         run: |
