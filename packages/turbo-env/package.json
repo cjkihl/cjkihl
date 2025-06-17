@@ -1,6 +1,6 @@
 {
   "name": "@cjkihl/turbo-env",
-  "version": "0.1.14",
+  "version": "0.1.15",
   "description": "Set environment variables for a turbo build from a .env file",
   "keywords": [
     "monorepo",
