@@ -38,12 +38,10 @@ jobs:
           # Create .npmrc with the token
           echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
           echo "registry=https://registry.npmjs.org/" >> ~/.npmrc
-          echo "always-auth=true" >> ~/.npmrc
           
           # Set npm configs explicitly
           npm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN}
           npm config set registry https://registry.npmjs.org/
-          npm config set always-auth true
           
           echo "=== NPM Configuration Step ==="
           echo "Created .npmrc file with token"
@@ -51,9 +49,17 @@ jobs:
           echo "Contents of .npmrc (redacted):"
           cat ~/.npmrc | sed 's/_authToken=.*/_authToken=***/'
           
-          # Verify npm can access the registry
+          # Verify npm configuration
+          echo "=== NPM Config Verification ==="
+          npm config list || echo "Config list failed"
+          
+          # Test registry access
           echo "=== Testing Registry Access ==="
-          npm ping || echo "Registry ping failed"
+          curl -H "Authorization: Bearer ${NPM_TOKEN}" \
+               -H "Accept: application/json" \
+               -H "Content-Type: application/json" \
+               -f \
+               "https://registry.npmjs.org/-/npm/v1/user" || echo "Registry access test failed"
         env:
           NPM_TOKEN: ${{ secrets.NPMTOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPMTOKEN }}
