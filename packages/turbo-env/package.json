@@ -1,6 +1,6 @@
 {
   "name": "@cjkihl/turbo-env",
-  "version": "0.1.12",
+  "version": "0.1.14",
   "description": "Set environment variables for a turbo build from a .env file",
   "keywords": [
     "monorepo",
@@ -47,9 +47,9 @@
     "publish-npm": "bun ../publish/safe-publish.bin.ts"
   },
   "dependencies": {
-    "@cjkihl/find-root": "workspace:*",
     "commander": "catalog:",
-    "dotenv": "^16.5.0"
+    "dotenv": "^16.5.0",
+    "@cjkihl/find-root": "0.1.13"
   },
   "engines": {
     "node": ">=18.0.0"

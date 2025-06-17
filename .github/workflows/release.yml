@@ -52,6 +52,9 @@ jobs:
         run: |
           echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
           echo "registry=https://registry.npmjs.org/" >> ~/.npmrc
+          echo "@cjkihl:registry=https://registry.npmjs.org/" >> ~/.npmrc
+          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> ~/.npmrc
+          echo "always-auth=true" >> ~/.npmrc
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
@@ -62,7 +65,7 @@ jobs:
           NPM_CONFIG_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           # Run the publish command and capture its output
-          if ! PUBLISH_OUTPUT=$(bun run publish-npm 2>&1); then
+          if ! PUBLISH_OUTPUT=$(bun run release 2>&1); then
             echo "Error output:"
             echo "$PUBLISH_OUTPUT"
             exit 1

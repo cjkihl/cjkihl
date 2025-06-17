@@ -1,6 +1,6 @@
 {
   "name": "@cjkihl/with-env",
-  "version": "0.1.12",
+  "version": "0.1.13",
   "description": "Load environment variables in a monorepo",
   "keywords": [
     "monorepo",
@@ -43,7 +43,7 @@
     "publish-npm": "bun ../publish/safe-publish.bin.ts"
   },
   "dependencies": {
-    "@cjkihl/find-root": "workspace:*",
+    "@cjkihl/find-root": "0.1.13",
     "dotenv": "^16.5.0"
   },
   "engines": {
