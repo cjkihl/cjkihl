@@ -28,26 +28,6 @@ jobs:
         with:
           bun-version: latest
 
-      - name: Install Dependencies
-        run: bun install
-
-      - name: Build packages
-        run: bun run build
-
-      - name: Version and Publish
-        run: |
-          bun run version
-          bun run release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: Run linting
-        run: bun run lint
-
-      - name: Run tests
-        run: bun run test
-
       - name: Configure npm
         run: |
           echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
@@ -55,15 +35,34 @@ jobs:
           echo "@cjkihl:registry=https://registry.npmjs.org/" >> ~/.npmrc
           echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> ~/.npmrc
           echo "always-auth=true" >> ~/.npmrc
+          echo "NPM_TOKEN=${NPM_TOKEN}" >> ~/.npmrc
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - name: Publish to NPM
-        id: publish
+      - name: Install Dependencies
+        run: bun install
+
+      - name: Build packages
+        run: bun run build
+
+      - name: Run linting
+        run: bun run lint
+
+      - name: Run tests
+        run: bun run test
+
+      - name: Verify npm authentication
+        run: |
+          npm whoami
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-          NPM_CONFIG_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Version and Publish
+        id: publish
         run: |
+          # Run the version command first
+          bun run version
+          
           # Run the publish command and capture its output
           if ! PUBLISH_OUTPUT=$(bun run release 2>&1); then
             echo "Error output:"
@@ -73,6 +72,10 @@ jobs:
           echo "publish_output<<EOF" >> $GITHUB_OUTPUT
           echo "$PUBLISH_OUTPUT" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_CONFIG_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Create deployment summary
         run: |

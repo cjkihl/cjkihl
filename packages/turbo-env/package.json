@@ -49,7 +49,7 @@
   "dependencies": {
     "commander": "catalog:",
     "dotenv": "^16.5.0",
-    "@cjkihl/find-root": "0.1.13"
+    "@cjkihl/find-root": "workspace:*"
   },
   "engines": {
     "node": ">=18.0.0"
