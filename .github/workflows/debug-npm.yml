@@ -18,7 +18,6 @@ jobs:
   debug:
     name: Debug NPM
     runs-on: ubuntu-latest
-    environment: main
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
@@ -47,6 +46,19 @@ jobs:
 
       - name: Install Dependencies
         run: bun install
+
+      - name: Check TEST Secret
+        run: |
+          echo "=== TEST Secret Check ==="
+          if [ -z "$TEST" ]; then
+            echo "❌ TEST secret is empty or not set"
+            exit 1
+          else
+            echo "✅ TEST secret exists"
+            echo "Value: $TEST"
+          fi
+        env:
+          TEST: ${{ secrets.TEST }}
 
       - name: Check NPM Token Secret
         run: |
