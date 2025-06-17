@@ -13,78 +13,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+        uses: actions/checkout@v3
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - name: Setup Node.js 20.x
+        uses: actions/setup-node@v3
         with:
           node-version: 20.x
-          registry-url: 'https://registry.npmjs.org'
-
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v1
-        with:
-          bun-version: latest
-
-      - name: Configure npm
-        run: |
-          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
-        env:
-          NPM_TOKEN: ${{ secrets.NPMTOKEN }}
 
       - name: Install Dependencies
-        run: bun install
+        run: bun install --frozen-lockfile
 
-      - name: Build packages
-        run: bun run build
-
-      - name: Run linting
-        run: bun run lint
-
-      - name: Run tests
-        run: bun run test
-
-      - name: Version and Publish
-        id: publish
-        run: |
-          # Run the version command first
-          bun run version
-          
-          # Run the publish command and capture its output
-          if ! PUBLISH_OUTPUT=$(bun run release 2>&1); then
-            echo "Error output:"
-            echo "$PUBLISH_OUTPUT"
-            exit 1
-          fi
-          echo "publish_output<<EOF" >> $GITHUB_OUTPUT
-          echo "$PUBLISH_OUTPUT" >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
+      - name: Create Release Pull Request or Publish to npm
+        id: changesets
+        uses: changesets/action@v1
+        with:
+          # This expects you to have a script called release which does a build for your packages and calls changeset publish
+          publish: bun run release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPMTOKEN }}
-          NPM_CONFIG_TOKEN: ${{ secrets.NPMTOKEN }}
-
-      - name: Create deployment summary
-        run: |
-          echo "## 🚀 Release Summary" >> $GITHUB_STEP_SUMMARY
-          echo "### Release Details" >> $GITHUB_STEP_SUMMARY
-          echo "- **Release Tag:** ${{ github.event.release.tag_name }}" >> $GITHUB_STEP_SUMMARY
-          echo "- **Release Name:** ${{ github.event.release.name }}" >> $GITHUB_STEP_SUMMARY
-          echo "- **Release Body:**" >> $GITHUB_STEP_SUMMARY
-          echo '```' >> $GITHUB_STEP_SUMMARY
-          echo "${{ github.event.release.body }}" >> $GITHUB_STEP_SUMMARY
-          echo '```' >> $GITHUB_STEP_SUMMARY
-          
-          echo "### Published Packages" >> $GITHUB_STEP_SUMMARY
-          echo '```' >> $GITHUB_STEP_SUMMARY
-          echo "${{ steps.publish.outputs.publish_output }}" >> $GITHUB_STEP_SUMMARY
-          echo '```' >> $GITHUB_STEP_SUMMARY
-          
-          echo "### Build Status" >> $GITHUB_STEP_SUMMARY
-          echo "✅ All checks passed successfully" >> $GITHUB_STEP_SUMMARY
-          echo "- Build completed" >> $GITHUB_STEP_SUMMARY
-          echo "- Tests passed" >> $GITHUB_STEP_SUMMARY
-          echo "- Linting passed" >> $GITHUB_STEP_SUMMARY
-          echo "- Packages published" >> $GITHUB_STEP_SUMMARY 
