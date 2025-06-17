@@ -36,11 +36,58 @@ jobs:
       - name: Configure npm
         run: |
           echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+          echo "=== NPM Configuration Step ==="
+          echo "Created .npmrc file with token"
+          echo "Token length in environment: ${#NPM_TOKEN}"
+          echo "Contents of .npmrc:"
+          cat ~/.npmrc
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Install Dependencies
         run: bun install
+
+      - name: Check NPM Token Secret
+        run: |
+          echo "=== NPM Token Secret Check ==="
+          if [ -z "$NPM_TOKEN" ]; then
+            echo "❌ NPM_TOKEN secret is empty or not set"
+            echo "Please set the NPM_TOKEN secret in your repository settings"
+            echo "Go to: Settings → Secrets and variables → Actions"
+            exit 1
+          else
+            echo "✅ NPM_TOKEN secret exists"
+            echo "Token length: ${#NPM_TOKEN}"
+            if [ ${#NPM_TOKEN} -eq 0 ]; then
+              echo "❌ NPM_TOKEN secret is empty"
+              echo "Please update the NPM_TOKEN secret with a valid npm token"
+              exit 1
+            else
+              echo "✅ NPM_TOKEN secret has content"
+            fi
+          fi
+          
+          echo "=== Environment Variables Check ==="
+          echo "NPM_TOKEN environment variable exists: $([ -n "$NPM_TOKEN" ] && echo "Yes" || echo "No")"
+          echo "NPM_CONFIG_TOKEN environment variable exists: $([ -n "$NPM_CONFIG_TOKEN" ] && echo "Yes" || echo "No")"
+          
+          echo "=== .npmrc File Check ==="
+          if [ -f ~/.npmrc ]; then
+            echo "✅ .npmrc file exists"
+            echo "Contents of .npmrc:"
+            cat ~/.npmrc
+          else
+            echo "❌ .npmrc file does not exist"
+          fi
+          
+          echo "=== Testing Token Format ==="
+          # Check if token looks like a valid npm token (should be base64-like)
+          if [[ "$NPM_TOKEN" =~ ^[A-Za-z0-9+/=]+$ ]]; then
+            echo "✅ Token format looks valid (base64-like)"
+          else
+            echo "❌ Token format may be invalid"
+            echo "Token should be base64-like characters only"
+          fi
 
       - name: Debug NPM Authentication
         if: inputs.debug_type == 'all' || inputs.debug_type == 'auth'
@@ -60,6 +107,14 @@ jobs:
           curl -H "Authorization: Bearer ${NPM_TOKEN}" \
                -H "Content-Type: application/json" \
                "https://registry.npmjs.org/-/npm/v1/user" | jq '.name, .orgs' || echo "Token test failed"
+          
+          echo "=== Testing npm token with curl (verbose) ==="
+          curl -v -H "Authorization: Bearer ${NPM_TOKEN}" \
+               -H "Content-Type: application/json" \
+               "https://registry.npmjs.org/-/npm/v1/user" 2>&1 | head -20 || echo "Verbose token test failed"
+          
+          echo "=== Testing npm whoami with verbose output ==="
+          npm whoami --verbose || echo "npm whoami verbose failed"
           
           echo "=== Checking current user's organizations ==="
           npm org ls || echo "npm org ls failed"
