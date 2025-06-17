@@ -1,6 +1,6 @@
 {
   "name": "@cjkihl/with-env",
-  "version": "0.1.13",
+  "version": "0.1.14",
   "description": "Load environment variables in a monorepo",
   "keywords": [
     "monorepo",
