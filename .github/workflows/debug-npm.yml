@@ -1,0 +1,130 @@
+name: Debug NPM Authentication
+
+on:
+  workflow_dispatch:
+    inputs:
+      debug_type:
+        description: 'Type of debugging to perform'
+        required: true
+        default: 'all'
+        type: choice
+        options:
+          - all
+          - auth
+          - packages
+          - publish
+
+jobs:
+  debug:
+    name: Debug NPM
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      - name: Configure npm
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Install Dependencies
+        run: bun install
+
+      - name: Debug NPM Authentication
+        if: inputs.debug_type == 'all' || inputs.debug_type == 'auth'
+        run: |
+          echo "=== NPM Authentication Debug ==="
+          echo "Checking npm whoami..."
+          npm whoami || echo "npm whoami failed"
+          
+          echo "=== Checking npm config ==="
+          npm config list
+          
+          echo "=== Checking npm token permissions ==="
+          echo "Token starts with: ${NPM_TOKEN:0:10}..."
+          echo "Token length: ${#NPM_TOKEN}"
+          
+          echo "=== Testing npm token with curl ==="
+          curl -H "Authorization: Bearer ${NPM_TOKEN}" \
+               -H "Content-Type: application/json" \
+               "https://registry.npmjs.org/-/npm/v1/user" | jq '.name, .orgs' || echo "Token test failed"
+          
+          echo "=== Checking current user's organizations ==="
+          npm org ls || echo "npm org ls failed"
+          
+          echo "=== Checking specific organization access ==="
+          npm org ls cjkihl || echo "npm org ls cjkihl failed"
+
+      - name: Debug Package Configuration
+        if: inputs.debug_type == 'all' || inputs.debug_type == 'packages'
+        run: |
+          echo "=== Package Configuration Debug ==="
+          echo "Root package.json:"
+          cat package.json | jq '.name, .version, .publishConfig' || echo "Failed to read root package.json"
+          
+          echo "=== Checking workspace packages ==="
+          for pkg in packages/*/package.json; do
+            if [ -f "$pkg" ]; then
+              echo "Package: $pkg"
+              cat "$pkg" | jq '.name, .version, .publishConfig' || echo "Failed to read $pkg"
+              echo "---"
+            fi
+          done
+          
+          echo "=== Checking registry access ==="
+          echo "Testing access to @cjkihl scope..."
+          npm access ls-packages || echo "npm access ls-packages failed"
+          
+          echo "=== Checking package access in organization ==="
+          npm access ls-packages @cjkihl || echo "npm access ls-packages @cjkihl failed"
+          
+          echo "=== Checking if @cjkihl scope exists ==="
+          curl -s "https://registry.npmjs.org/@cjkihl" | jq '.error // "Scope exists"' || echo "Failed to check scope"
+
+      - name: Debug Publish Process
+        if: inputs.debug_type == 'all' || inputs.debug_type == 'publish'
+        run: |
+          echo "=== Publish Process Debug ==="
+          echo "Building packages..."
+          bun run build
+          
+          echo "=== Testing npm publish dry-run ==="
+          cd packages/create-exports
+          npm publish --dry-run || echo "Dry-run failed"
+          cd ../..
+          
+          echo "=== Testing changeset publish dry-run ==="
+          bun run changeset publish --dry-run || echo "Changeset dry-run failed"
+
+      - name: Generate Debug Summary
+        run: |
+          echo "## 🔍 NPM Debug Summary" >> $GITHUB_STEP_SUMMARY
+          echo "### Debug Type: ${{ inputs.debug_type }}" >> $GITHUB_STEP_SUMMARY
+          echo "### Timestamp: $(date)" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Common Issues to Check:" >> $GITHUB_STEP_SUMMARY
+          echo "1. **NPM Token Permissions**: Ensure token has publish access to @cjkihl organization" >> $GITHUB_STEP_SUMMARY
+          echo "2. **Token Expiration**: Check if the token has expired" >> $GITHUB_STEP_SUMMARY
+          echo "3. **Organization Access**: Verify token belongs to account with @cjkihl access" >> $GITHUB_STEP_SUMMARY
+          echo "4. **Package Configuration**: Check package.json files for correct scope and version" >> $GITHUB_STEP_SUMMARY
+          echo "5. **Registry Configuration**: Ensure npm is configured for the correct registry" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Next Steps:" >> $GITHUB_STEP_SUMMARY
+          echo "- Review the debug output above" >> $GITHUB_STEP_SUMMARY
+          echo "- Generate new npm token if needed: https://www.npmjs.com/settings/tokens" >> $GITHUB_STEP_SUMMARY
+          echo "- Check organization settings: https://www.npmjs.com/settings/cjkihl/packages" >> $GITHUB_STEP_SUMMARY
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }} 
