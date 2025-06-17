@@ -32,7 +32,7 @@ jobs:
         run: |
           echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
         env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPMTOKEN }}
 
       - name: Install Dependencies
         run: bun install
@@ -63,8 +63,8 @@ jobs:
           echo "EOF" >> $GITHUB_OUTPUT
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-          NPM_CONFIG_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPMTOKEN }}
+          NPM_CONFIG_TOKEN: ${{ secrets.NPMTOKEN }}
 
       - name: Create deployment summary
         run: |

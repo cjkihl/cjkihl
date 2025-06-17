@@ -42,7 +42,7 @@ jobs:
           echo "Contents of .npmrc:"
           cat ~/.npmrc
         env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPMTOKEN }}
 
       - name: Install Dependencies
         run: bun install
@@ -195,4 +195,4 @@ jobs:
           echo "- Check organization settings: https://www.npmjs.com/settings/cjkihl/packages" >> $GITHUB_STEP_SUMMARY
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }} 
+          NPM_TOKEN: ${{ secrets.NPMTOKEN }} 
