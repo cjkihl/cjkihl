@@ -31,15 +31,15 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./.dist/types/index.pub.d.ts",
-      "default": "./.dist/output/index.pub.js"
+      "types": "./dist/types/index.pub.d.ts",
+      "default": "./dist/output/index.pub.js"
     }
   },
   "bin": {
-    "turbo-env": "./.dist/output/turbo-env.bin.js"
+    "turbo-env": "./dist/output/turbo-env.bin.js"
   },
   "files": [
-    ".dist",
+    "dist",
     "README.md"
   ],
   "scripts": {

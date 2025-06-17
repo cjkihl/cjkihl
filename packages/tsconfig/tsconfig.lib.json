@@ -7,6 +7,6 @@
 		"composite": true,
 		"sourceMap": true,
 		"declarationMap": true,
-		"declarationDir": "${configDir}/.dist/types"
+		"declarationDir": "${configDir}/dist/types"
 	}
 }

@@ -33,8 +33,8 @@
 		// "moduleResolution": "nodenext"
 
 		// Outputs
-		"outDir": "${configDir}/.dist/output",
-		"tsBuildInfoFile": "${configDir}/.dist/tsbuildinfo.json",
+		"outDir": "${configDir}/dist/output",
+		"tsBuildInfoFile": "${configDir}/dist/tsbuildinfo.json",
 
 		// Lib Node
 		"lib": ["es2022"]
@@ -47,5 +47,5 @@
 		// }
 	},
 	"include": ["${configDir}/**/*.ts"],
-	"exclude": ["node_modules", ".dist", "${configDir}/**/*.test.ts"]
+	"exclude": ["node_modules", "dist", "${configDir}/**/*.test.ts"]
 }

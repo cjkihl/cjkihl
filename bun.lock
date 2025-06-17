@@ -15,7 +15,7 @@
       "name": "@cjkihl/create-exports",
       "version": "0.1.12",
       "bin": {
-        "create-exports": "./.dist/output/create-exports.bin.js",
+        "create-exports": "./dist/output/create-exports.bin.js",
       },
       "dependencies": {
         "@cjkihl/find-root": "workspace:*",
@@ -38,7 +38,7 @@
       "name": "@cjkihl/turbo-env",
       "version": "0.1.12",
       "bin": {
-        "turbo-env": "./.dist/output/turbo-env.bin.js",
+        "turbo-env": "./dist/output/turbo-env.bin.js",
       },
       "dependencies": {
         "@cjkihl/find-root": "workspace:*",
@@ -50,7 +50,7 @@
       "name": "@cjkihl/with-env",
       "version": "0.1.12",
       "bin": {
-        "with-env": "./.dist/output/with-env.bin.js",
+        "with-env": "./dist/output/with-env.bin.js",
       },
       "dependencies": {
         "@cjkihl/find-root": "workspace:*",

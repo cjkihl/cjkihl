@@ -169,7 +169,7 @@ jobs:
           
           echo "=== Organization Access Check ==="
           echo "Testing access to @cjkihl organization..."
-          npm access ls-packages @cjkihl || echo "org access check failed"
+          npm access list packages @cjkihl || echo "org access check failed"
           
           echo "=== Package Access Check ==="
           echo "Testing package read access..."

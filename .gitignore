@@ -11,6 +11,9 @@ node_modules
 !.npmrc
 !.changeset
 
+# Dist
+dist
+
 # Logs
 *-debug.log*
 *-error.log*

@@ -7,7 +7,7 @@
 	"tasks": {
 		"build": {
 			"dependsOn": ["^build"],
-			"outputs": [".dist"]
+			"outputs": ["dist"]
 		},
 		"publish-npm": {
 			"cache": false,

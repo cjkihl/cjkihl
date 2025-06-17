@@ -26,15 +26,15 @@
   "type": "module",
   "exports": {
     "./create-exports": {
-      "types": "./.dist/types/create-exports.pub.d.ts",
-      "default": "./.dist/output/create-exports.pub.js"
+      "types": "./dist/types/create-exports.pub.d.ts",
+      "default": "./dist/output/create-exports.pub.js"
     }
   },
   "bin": {
-    "create-exports": "./.dist/output/create-exports.bin.js"
+    "create-exports": "./dist/output/create-exports.bin.js"
   },
   "files": [
-    ".dist",
+    "dist",
     "README.md"
   ],
   "scripts": {
