@@ -101,6 +101,8 @@ jobs:
             echo "❌ Token format may be invalid"
             echo "Token should be base64-like characters only"
           fi
+        env:
+          NPM_TOKEN: ${{ secrets.NPMTOKEN }}
 
       - name: Debug NPM Authentication
         if: inputs.debug_type == 'all' || inputs.debug_type == 'auth'
