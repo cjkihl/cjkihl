@@ -1,5 +1,11 @@
 # @cjkihl/changeset-dep-resolver
 
+## 0.1.5
+
+### Patch Changes
+
+- 839d10a: Test
+
 ## 0.1.4
 
 ### Patch Changes
