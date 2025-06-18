@@ -18,6 +18,7 @@
 	"scripts": {
 		"build": "turbo build",
 		"changeset": "changeset",
+		"resolve-deps": "bun run ./packages/changeset-dep-resolver/changeset-dep.bin.ts",
 		"version": "changeset version",
 		"release": "bun run build && changeset publish",
 		"clean": "git clean -fxd -e .env.local",
