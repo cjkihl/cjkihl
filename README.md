@@ -1,67 +1,113 @@
-# @cjkihl/monorepo
+# 👋 Hey there, I'm CJ! 
 
-A collection of TypeScript utilities and configurations for modern Node.js development.
+<div align="center">
+  <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=500&size=28&pause=1000&color=00D4AA&center=true&vCenter=true&width=435&lines=Developer+from+Sweden+%F0%9F%87%B8%F0%9F%87%AA;Open+Source+Enthusiast+%F0%9F%92%BB;Startup+Builder+%F0%9F%9A%80;TypeScript+Lover+%F0%9F%92%9C" alt="Typing SVG" />
+</div>
 
-## Packages
+---
 
-- [@cjkihl/find-root](./packages/find-root) - Utility to find monorepo root directory by detecting lockfiles
-- [@cjkihl/create-exports](./packages/create-exports) - Tool to generate package exports configuration
-- [@cjkihl/tsconfig](./packages/tsconfig) - Shared TypeScript configurations for Node.js projects
+## 🚀 About Me
 
-## Getting Started
+```typescript
+const cj = {
+  name: "Carl-Johan Kihl",
+  location: "🇸🇪 Sweden",
+  code: ["TypeScript", "JavaScript", "Node.js", "React"],
+  tools: ["Bun", "Turbo", "Changesets", "Manypkg"],
+  architecture: ["Monorepos", "Microservices", "Serverless"],
+  challenge: "Building the next big thing while contributing to open source!",
+  funFact: "I probably spend more time in Cursor than sleeping 😴"
+};
+```
 
-This monorepo uses [Bun](https://bun.sh) as the package manager and build tool.
+---
+
+## 🎯 What I'm Up To
+
+- 🔥 **Building startups** - Because why not change the world?
+- 🌟 **Contributing to open source** - Giving back to the community
+- 📚 **Learning new tech** - Always staying curious
+- ☕ **Drinking coffee** - Essential for any developer
+
+---
+
+## 🛠️ What I'm Building
+
+<div align="center">
+  
+  ### 🎯 **This Monorepo** - A Collection of Awesome NPM Packages
+  
+  [![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+  [![Bun](https://img.shields.io/badge/Bun-000000?style=for-the-badge&logo=bun&logoColor=white)](https://bun.sh/)
+  [![Turbo](https://img.shields.io/badge/Turbo-5C17E3?style=for-the-badge&logo=turbo&logoColor=white)](https://turbo.build/)
+  [![Changesets](https://img.shields.io/badge/Changesets-000000?style=for-the-badge&logo=changesets&logoColor=white)](https://github.com/changesets/changesets)
+  [![Manypkg](https://img.shields.io/badge/Manypkg-000000?style=for-the-badge&logo=manypkg&logoColor=white)](https://github.com/Thinkmill/manypkg)
+
+</div>
+
+### 📦 **Packages in this Monorepo:**
+
+| Package | Description | Status |
+|---------|-------------|--------|
+| [`@cjkihl/find-root`](./packages/find-root) | 🕵️ Find monorepo root by detecting lockfiles | ![npm](https://img.shields.io/npm/v/@cjkihl/find-root?style=flat-square) |
+| [`@cjkihl/create-exports`](./packages/create-exports) | 🎨 Generate package exports configuration | ![npm](https://img.shields.io/npm/v/@cjkihl/create-exports?style=flat-square) |
+| [`@cjkihl/tsconfig`](./packages/tsconfig) | ⚙️ Shared TypeScript configs for Node.js | ![npm](https://img.shields.io/npm/v/@cjkihl/tsconfig?style=flat-square) |
+| [`@cjkihl/turbo-env`](./packages/turbo-env) | 🚀 Turbo environment utilities | ![npm](https://img.shields.io/npm/v/@cjkihl/turbo-env?style=flat-square) |
+| [`@cjkihl/with-env`](./packages/with-env) | 🔧 Environment management tools | ![npm](https://img.shields.io/npm/v/@cjkihl/with-env?style=flat-square) |
+
+---
+
+## 🎮 Quick Start
 
 ```bash
-# Install dependencies
+# 🚀 Clone and dive in
+git clone https://github.com/cjkihl/cjkihl.git
+cd cjkihl
+
+# 📦 Install with the fastest package manager ever
 bun install
 
-# Build all packages
+# 🔨 Build everything (it's fast, I promise!)
 bun run build
 
-# Run tests
+# 🧪 Run tests (because we're responsible developers)
 bun test
 ```
 
-## Development
+---
 
-Each package in the `packages/` directory is independently versioned and can be published to npm. The packages are configured to work together but can also be used standalone.
+## 📊 GitHub Stats
 
-### Adding a New Package
+<div align="center">
+  <img src="https://github-readme-stats.vercel.app/api?username=cjkihl&show_icons=true&theme=radical&hide_border=true&bg_color=0D1117&title_color=00D4AA&icon_color=00D4AA&text_color=FFFFFF" alt="GitHub Stats" />
+  
+  <img src="https://github-readme-streak-stats.herokuapp.com/?user=cjkihl&theme=radical&hide_border=true&background=0D1117&stroke=00D4AA&ring=00D4AA&fire=00D4AA&currStreakNum=FFFFFF&currStreakLabel=00D4AA&sideNums=FFFFFF&sideLabels=00D4AA&dates=FFFFFF" alt="GitHub Streak" />
+</div>
 
-1. Create a new directory in `packages/`
-2. Initialize with `bun init`
-3. Add necessary dependencies
-4. Update the root `package.json` build script if needed
+---
 
-### Versioning and Publishing
+## 🤝 Let's Connect!
 
-This monorepo uses [Changesets](https://github.com/changesets/changesets) for versioning and publishing. Changesets automatically handles workspace dependencies and generates changelogs.
+<div align="center">
+  
+  [![GitHub Sponsors](https://img.shields.io/badge/GitHub%20Sponsors-%23EA4AAA?style=for-the-badge&logo=github-sponsors&logoColor=white)](https://github.com/sponsors/cjkihl)
+  
+  [![Twitter](https://img.shields.io/badge/Twitter-%231DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://x.com/cjkihl)
+  
+  [![LinkedIn](https://img.shields.io/badge/LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/cjkihl)
+  
+</div>
 
-#### Making Changes
+---
 
-When you make changes that require a version bump:
+<div align="center">
+  ### 🎯 **Support My Work**
+  
+  If you find my packages useful, consider [sponsoring me on GitHub](https://github.com/sponsors/cjkihl)! 
+  
+  Every coffee helps fuel more open source projects! ☕
+  
+  ---
 
-1. Create a changeset:
-   ```bash
-   bun changeset
-   ```
-   This will prompt you to:
-   - Select which packages have changed
-   - Choose the type of version bump (major, minor, patch)
-   - Write a description of the changes
-
-2. Commit and push the changeset file in `.changesets/` to main
-3. The GitHub Action will automatically:
-   - Version the packages
-   - Build the packages
-   - Publish to npm
-
-If you need to manually publish (not recommended):
-```bash
-bun run release
-```
-
-## License
-
-MIT
+  ![Profile Views](https://komarev.com/ghpvc/?username=cjkihl&color=00D4AA&style=flat-square)
+</div>
