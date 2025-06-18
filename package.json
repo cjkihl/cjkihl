@@ -10,9 +10,9 @@
 	"scripts": {
 		"build": "turbo build",
 		"changeset": "changeset",
-		"resolve-deps": "bun run ./packages/changeset-dep-resolver/index.bin.ts",
+		"resolve-deps": "bun run ./packages/changeset-dep-resolver/resolve-deps.bin.ts",
 		"version": "changeset version",
-		"release": "bun run build && changeset publish",
+		"release": "bun run resolve-deps resolve && bun run build && changeset publish",
 		"clean": "git clean -fxd -e .env.local",
 		"lint": "biome check . && manypkg check",
 		"lint-fix": "biome check --write --unsafe . && manypkg fix",
