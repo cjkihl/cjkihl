@@ -48,8 +48,8 @@ export default async function setTurboEnv(config: WithEnvConfig) {
 	const envKeys = [...new Set(Object.keys(envConfig))].sort();
 
 	// Get project root and turbo.json path
-	const { rootDir } = await getPackages(process.cwd());
-	const turboPath = path.join(rootDir, "turbo.json");
+	const { root } = await getPackages(process.cwd());
+	const turboPath = path.join(root.dir, "turbo.json");
 
 	// Verify turbo.json exists
 	try {
@@ -76,12 +76,12 @@ export default async function setTurboEnv(config: WithEnvConfig) {
  * @returns Parsed environment variables or null if no valid file found
  */
 async function getEnvs(envFile: string[]): Promise<DotenvParseOutput | null> {
-	const { rootDir } = await getPackages(process.cwd());
+	const { root } = await getPackages(process.cwd());
 
 	// Find the first existing env file
 	let envPath: string | null = null;
 	for (const env of envFile) {
-		const fullPath = node_path.join(rootDir, env);
+		const fullPath = node_path.join(root.dir, env);
 		const stats = await stat(fullPath);
 		if (stats.isFile()) {
 			envPath = fullPath;

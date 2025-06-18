@@ -43,12 +43,12 @@
     "README.md"
   ],
   "scripts": {
-    "build": "tsc && bun ../create-exports/create-exports.bin.ts",
-    "publish-npm": "bun ../publish/safe-publish.bin.ts"
+    "build": "tsc && bun ../create-exports/create-exports.bin.ts"
   },
   "dependencies": {
     "commander": "^14.0.0",
-    "dotenv": "^16.5.0"
+    "dotenv": "^16.5.0",
+    "@manypkg/get-packages": "1.1.3"
   },
   "engines": {
     "node": ">=18.0.0"

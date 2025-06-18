@@ -97,13 +97,13 @@ export async function loadEnv(config: WithEnvConfig = {}) {
 }
 
 async function getEnvs(envFile: string[]): Promise<DotenvParseOutput | null> {
-	const { rootDir } = await getPackages(process.cwd());
+	const { root } = await getPackages(process.cwd());
 
 	let envPath: string | null = null;
 	for (const env of envFile) {
-		const stats = await stat(node_path.join(rootDir, env));
+		const stats = await stat(node_path.join(root.dir, env));
 		if (stats.isFile()) {
-			envPath = node_path.join(rootDir, env);
+			envPath = node_path.join(root.dir, env);
 			break;
 		}
 	}
