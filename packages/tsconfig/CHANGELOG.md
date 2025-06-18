@@ -1,5 +1,11 @@
 # @cjkihl/tsconfig
 
+## 0.1.17
+
+### Patch Changes
+
+- 2fd5c7b: test
+
 ## 0.1.16
 
 ### Patch Changes
