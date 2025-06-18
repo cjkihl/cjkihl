@@ -1,5 +1,11 @@
 # @cjkihl/changeset-dep-resolver
 
+## 0.1.3
+
+### Patch Changes
+
+- bb33411: test
+
 ## 0.1.2
 
 ### Patch Changes
