@@ -30,19 +30,22 @@
   ],
   "scripts": {
     "build": "tsc && bun ../create-exports/create-exports.bin.ts",
-    "publish-npm": "bun ../publish/safe-publish.bin.ts",
     "test": "bun test"
   },
   "dependencies": {
-    "@cjkihl/find-root": "workspace:*",
-    "fast-glob": "catalog:",
-    "spawndamnit": "^3.0.1",
-    "type-fest": "catalog:"
+    "@changesets/assemble-release-plan": "^6.0.8",
+    "@changesets/config": "^3.1.1",
+    "@changesets/pre": "^2.0.2",
+    "@changesets/read": "^0.6.5",
+    "@manypkg/get-packages": "^3.0.0"
   },
   "engines": {
     "node": ">=18.0.0"
   },
   "publishConfig": {
     "access": "public"
+  },
+  "bin": {
+    "index": "./dist/output/index.bin.js"
   }
 }

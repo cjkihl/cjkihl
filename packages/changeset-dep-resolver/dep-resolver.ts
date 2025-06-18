@@ -36,7 +36,7 @@ async function resolveWorkspaceDependencies(cwd: string = process.cwd()) {
   console.log("🔍 Resolving workspace dependencies...");
 
   // Get all packages in the monorepo
-  const packages = await getPackages(cwd);
+  const packagesResult = await getPackages(cwd);
   
   // Read changesets and config
   const [changesets, preState, config] = await Promise.all([
@@ -48,7 +48,7 @@ async function resolveWorkspaceDependencies(cwd: string = process.cwd()) {
   // Assemble release plan to know which packages are being released
   const releasePlan = assembleReleasePlan(
     changesets,
-    packages,
+    packagesResult as unknown as Parameters<typeof assembleReleasePlan>[1],
     config,
     preState
   );
@@ -61,7 +61,7 @@ async function resolveWorkspaceDependencies(cwd: string = process.cwd()) {
 
   // Create a map of all local packages
   const localPackages = new Map<string, string>();
-  for (const pkg of packages.packages) {
+  for (const pkg of packagesResult.packages) {
     localPackages.set(pkg.packageJson.name, pkg.packageJson.version);
   }
 
@@ -70,7 +70,7 @@ async function resolveWorkspaceDependencies(cwd: string = process.cwd()) {
   const modifiedPackages = new Set<string>();
 
   // Process each package
-  for (const pkg of packages.packages) {
+  for (const pkg of packagesResult.packages) {
     const { packageJson, dir } = pkg;
     const packagePath = path.join(dir, "package.json");
     

@@ -3,12 +3,12 @@
   "version": "0.1.13",
   "description": "Load environment variables in a monorepo",
   "keywords": [
+    "environment",
+    "variables",
     "monorepo",
-    "root",
-    "find-root",
-    "workspace",
-    "lockfile",
-    "package-manager"
+    "dotenv",
+    "env",
+    "configuration"
   ],
   "homepage": "https://github.com/cjkihl/cjkihl#readme",
   "bugs": {
@@ -43,7 +43,6 @@
     "publish-npm": "bun ../publish/safe-publish.bin.ts"
   },
   "dependencies": {
-    "@cjkihl/find-root": "workspace:*",
     "dotenv": "^16.5.0"
   },
   "engines": {

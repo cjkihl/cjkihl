@@ -5,20 +5,12 @@
 	"workspaces": {
 		"packages": [
 			"packages/*"
-		],
-		"catalog": {
-			"type-fest": "^4.41.0",
-			"semver": "^7.7.2",
-			"@types/semver": "^7.7.0",
-			"fast-glob": "^3.3.3",
-			"@cjkihl/find-root": "workspace:*",
-			"commander": "^14.0.0"
-		}
+		]
 	},
 	"scripts": {
 		"build": "turbo build",
 		"changeset": "changeset",
-		"resolve-deps": "bun run ./packages/changeset-dep-resolver/changeset-dep.bin.ts",
+		"resolve-deps": "bun run ./packages/changeset-dep-resolver/index.bin.ts",
 		"version": "changeset version",
 		"release": "bun run build && changeset publish",
 		"clean": "git clean -fxd -e .env.local",
@@ -28,8 +20,8 @@
 		"up": "bunx npm-check-updates -ws --root --format group -u"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "^1.9.4",
-		"@changesets/cli": "^2.27.1",
+		"@biomejs/biome": "^2.0.0",
+		"@changesets/cli": "^2.29.4",
 		"bun-types": "latest",
 		"turbo": "^2.5.4",
 		"typescript": "^5.8.3"

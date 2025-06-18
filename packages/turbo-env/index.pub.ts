@@ -1,8 +1,8 @@
 import { access, readFile, stat, writeFile } from "node:fs/promises";
 import node_path from "node:path";
 import path from "node:path";
-import { findRoot } from "@cjkihl/find-root";
 import dotenv, { type DotenvParseOutput } from "dotenv";
+import { getPackages } from "@manypkg/get-packages";
 
 /**
  * Configuration options for the setTurboEnv function
@@ -48,8 +48,8 @@ export default async function setTurboEnv(config: WithEnvConfig) {
 	const envKeys = [...new Set(Object.keys(envConfig))].sort();
 
 	// Get project root and turbo.json path
-	const { root } = await findRoot();
-	const turboPath = path.join(root, "turbo.json");
+	const { rootDir } = await getPackages(process.cwd());
+	const turboPath = path.join(rootDir, "turbo.json");
 
 	// Verify turbo.json exists
 	try {
@@ -76,12 +76,12 @@ export default async function setTurboEnv(config: WithEnvConfig) {
  * @returns Parsed environment variables or null if no valid file found
  */
 async function getEnvs(envFile: string[]): Promise<DotenvParseOutput | null> {
-	const { root } = await findRoot();
+	const { rootDir } = await getPackages(process.cwd());
 
 	// Find the first existing env file
 	let envPath: string | null = null;
 	for (const env of envFile) {
-		const fullPath = node_path.join(root, env);
+		const fullPath = node_path.join(rootDir, env);
 		const stats = await stat(fullPath);
 		if (stats.isFile()) {
 			envPath = fullPath;
