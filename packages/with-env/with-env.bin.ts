@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { loadEnv } from "./index.pub";
+import { loadEnv } from "./index.pub.js";
 
 const args = process.argv.slice(2);
 const options: Record<string, string | boolean> = {};

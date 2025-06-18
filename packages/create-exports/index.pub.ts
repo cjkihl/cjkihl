@@ -1,1 +1,1 @@
-export * from "./create-exports";
+export * from "./create-exports.js";

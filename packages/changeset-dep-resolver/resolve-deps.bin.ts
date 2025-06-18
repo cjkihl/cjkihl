@@ -3,7 +3,7 @@
 import {
 	resolveWorkspaceDependencies,
 	restoreWorkspaceDependencies,
-} from "./dep-resolver";
+} from "./dep-resolver.js";
 
 // CLI interface
 async function main() {

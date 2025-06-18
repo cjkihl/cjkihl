@@ -6,6 +6,8 @@
 		"declaration": true,
 		"declarationDir": "${configDir}/dist/types",
 		"declarationMap": true,
+		"module": "NodeNext",
+		"moduleResolution": "nodenext",
 		"sourceMap": true
 	},
 	"extends": ["./tsconfig.base.json"]
