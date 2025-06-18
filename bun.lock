@@ -11,9 +11,19 @@
         "typescript": "^5.8.3",
       },
     },
+    "packages/changeset-dep-resolver": {
+      "name": "@cjkihl/changeset-dep-resolver",
+      "version": "0.1.0",
+      "dependencies": {
+        "@cjkihl/find-root": "workspace:*",
+        "fast-glob": "catalog:",
+        "spawndamnit": "^3.0.1",
+        "type-fest": "catalog:",
+      },
+    },
     "packages/create-exports": {
       "name": "@cjkihl/create-exports",
-      "version": "0.1.12",
+      "version": "0.1.13",
       "bin": {
         "create-exports": "./dist/output/create-exports.bin.js",
       },
@@ -25,18 +35,18 @@
     },
     "packages/find-root": {
       "name": "@cjkihl/find-root",
-      "version": "0.1.12",
+      "version": "0.1.13",
       "dependencies": {
         "find-up": "^7.0.0",
       },
     },
     "packages/tsconfig": {
       "name": "@cjkihl/tsconfig",
-      "version": "0.1.12",
+      "version": "0.1.13",
     },
     "packages/turbo-env": {
       "name": "@cjkihl/turbo-env",
-      "version": "0.1.12",
+      "version": "0.1.14",
       "bin": {
         "turbo-env": "./dist/output/turbo-env.bin.js",
       },
@@ -48,7 +58,7 @@
     },
     "packages/with-env": {
       "name": "@cjkihl/with-env",
-      "version": "0.1.12",
+      "version": "0.1.13",
       "bin": {
         "with-env": "./dist/output/with-env.bin.js",
       },
@@ -120,6 +130,8 @@
     "@changesets/types": ["@changesets/types@6.1.0", "", {}, "sha512-rKQcJ+o1nKNgeoYRHKOS07tAMNd3YSN0uHaJOZYjBAgxfV7TUE7JE+z4BzZdQwb5hKaYbayKN5KrYV7ODb2rAA=="],
 
     "@changesets/write": ["@changesets/write@0.4.0", "", { "dependencies": { "@changesets/types": "^6.1.0", "fs-extra": "^7.0.1", "human-id": "^4.1.1", "prettier": "^2.7.1" } }, "sha512-CdTLvIOPiCNuH71pyDu3rA+Q0n65cmAbXnwWH84rKGiFumFzkmHNT8KHTMEchcxN+Kl8I54xGUhJ7l3E7X396Q=="],
+
+    "@cjkihl/changeset-dep-resolver": ["@cjkihl/changeset-dep-resolver@workspace:packages/changeset-dep-resolver"],
 
     "@cjkihl/create-exports": ["@cjkihl/create-exports@workspace:packages/create-exports"],
 

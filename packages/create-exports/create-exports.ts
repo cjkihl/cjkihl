@@ -1,5 +1,3 @@
-#!/usr/bin/env bun
-
 import node_fs from "node:fs";
 import node_path from "node:path";
 import fg from "fast-glob";

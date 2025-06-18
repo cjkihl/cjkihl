@@ -1,13 +1,12 @@
 {
-  "name": "@cjkihl/create-exports",
-  "version": "0.1.13",
-  "description": "Tool to generate package exports configuration for TypeScript packages",
+  "name": "@cjkihl/changeset-dep-resolver",
+  "version": "0.1.0",
+  "description": "Tool to resolve workspace dependencies before publishing",
   "keywords": [
-    "typescript",
-    "exports",
-    "package",
-    "configuration",
-    "build-tool"
+    "changeset",
+    "workspace",
+    "dependencies",
+    "publish"
   ],
   "homepage": "https://github.com/cjkihl/cjkihl#readme",
   "bugs": {
@@ -24,26 +23,20 @@
   "license": "MIT",
   "author": "@cjkihl",
   "type": "module",
-  "exports": {
-    ".": {
-      "types": "./dist/types/index.pub.d.ts",
-      "default": "./dist/output/index.pub.js"
-    }
-  },
-  "bin": {
-    "create-exports": "./dist/output/create-exports.bin.js"
-  },
+  "exports": {},
   "files": [
     "dist",
     "README.md"
   ],
   "scripts": {
     "build": "tsc && bun ../create-exports/create-exports.bin.ts",
+    "publish-npm": "bun ../publish/safe-publish.bin.ts",
     "test": "bun test"
   },
   "dependencies": {
     "@cjkihl/find-root": "workspace:*",
     "fast-glob": "catalog:",
+    "spawndamnit": "^3.0.1",
     "type-fest": "catalog:"
   },
   "engines": {

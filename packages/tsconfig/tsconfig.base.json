@@ -47,5 +47,5 @@
 		// }
 	},
 	"include": ["${configDir}/**/*.ts"],
-	"exclude": ["node_modules", "dist", "${configDir}/**/*.test.ts"]
+	"exclude": ["node_modules", "dist", "${configDir}/dist", "${configDir}/**/*.test.ts"]
 }
