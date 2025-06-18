@@ -1,32 +1,40 @@
 #!/usr/bin/env node
 
+import { Command } from "commander";
 import {
 	resolveWorkspaceDependencies,
 	restoreWorkspaceDependencies,
 } from "./dep-resolver.js";
 
-// CLI interface
-async function main() {
-	const args = process.argv.slice(2);
-	const command = args[0];
-	const cwd = process.cwd();
+const program = new Command();
 
-	switch (command) {
-		case "resolve":
-			await resolveWorkspaceDependencies(cwd);
-			break;
-		case "restore":
-			await restoreWorkspaceDependencies(cwd);
-			break;
-		default:
-			console.log(`
-  Usage: 
-    npm run resolve-workspace-deps resolve  # Resolve workspace dependencies before publishing
-    npm run resolve-workspace-deps restore  # Restore original workspace dependencies after publishing
-        `);
-	}
-}
+program
+	.name("resolve-deps")
+	.description("CLI to manage workspace dependencies for publishing")
+	.version("0.1.4");
 
-if (require.main === module) {
-	main().catch(console.error);
-}
+program
+	.command("resolve")
+	.description("Resolve workspace dependencies before publishing")
+	.action(async () => {
+		try {
+			await resolveWorkspaceDependencies(process.cwd());
+		} catch (error) {
+			console.error("Error resolving dependencies:", error);
+			process.exit(1);
+		}
+	});
+
+program
+	.command("restore")
+	.description("Restore original workspace dependencies after publishing")
+	.action(async () => {
+		try {
+			await restoreWorkspaceDependencies(process.cwd());
+		} catch (error) {
+			console.error("Error restoring dependencies:", error);
+			process.exit(1);
+		}
+	});
+
+program.parse();
