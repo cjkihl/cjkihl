@@ -14,14 +14,15 @@
 		"version": "changeset version",
 		"release": "bun run build && changeset publish",
 		"clean": "git clean -fxd -e .env.local",
-		"lint": "biome check .",
-		"lint-fix": "biome check --write --unsafe .",
+		"lint": "biome check . && manypkg check",
+		"lint-fix": "biome check --write --unsafe . && manypkg fix",
 		"test": "bun test",
 		"up": "bunx npm-check-updates -ws --root --format group -u"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^2.0.0",
 		"@changesets/cli": "^2.29.4",
+		"@manypkg/cli": "^0.24.0",
 		"bun-types": "latest",
 		"turbo": "^2.5.4",
 		"typescript": "^5.8.3"

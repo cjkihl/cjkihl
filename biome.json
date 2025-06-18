@@ -19,7 +19,8 @@
 			"!**/.vscode/**",
 			"!**/dist/**",
 			"!**/.turbo/**",
-			"!**/package.json"
+			"!**/package.json",
+			"!**/bun.lock"
 		]
 	},
 	"formatter": {
