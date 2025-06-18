@@ -1,51 +1,51 @@
 {
-  "name": "@cjkihl/changeset-dep-resolver",
-  "version": "0.1.0",
-  "description": "Tool to resolve workspace dependencies before publishing",
-  "keywords": [
-    "changeset",
-    "workspace",
-    "dependencies",
-    "publish"
-  ],
-  "homepage": "https://github.com/cjkihl/cjkihl#readme",
-  "bugs": {
-    "url": "https://github.com/cjkihl/cjkihl/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/cjkihl/cjkihl.git"
-  },
-  "funding": {
-    "type": "github",
-    "url": "https://github.com/sponsors/cjkihl"
-  },
-  "license": "MIT",
-  "author": "@cjkihl",
-  "type": "module",
-  "exports": {},
-  "files": [
-    "dist",
-    "README.md"
-  ],
-  "scripts": {
-    "build": "tsc && bun ../create-exports/create-exports.bin.ts",
-    "test": "bun test"
-  },
-  "dependencies": {
-    "@changesets/assemble-release-plan": "^6.0.8",
-    "@changesets/config": "^3.1.1",
-    "@changesets/pre": "^2.0.2",
-    "@changesets/read": "^0.6.5",
-    "@manypkg/get-packages": "1.1.3"
-  },
-  "engines": {
-    "node": ">=18.0.0"
-  },
-  "publishConfig": {
-    "access": "public"
-  },
-  "bin": {
-    "index": "./dist/output/index.bin.js"
-  }
+	"author": "@cjkihl",
+	"bin": {
+		"index": "./dist/output/index.bin.js"
+	},
+	"bugs": {
+		"url": "https://github.com/cjkihl/cjkihl/issues"
+	},
+	"dependencies": {
+		"@changesets/assemble-release-plan": "^6.0.8",
+		"@changesets/config": "^3.1.1",
+		"@changesets/pre": "^2.0.2",
+		"@changesets/read": "^0.6.5",
+		"@manypkg/get-packages": "1.1.3"
+	},
+	"description": "Tool to resolve workspace dependencies before publishing",
+	"engines": {
+		"node": ">=18.0.0"
+	},
+	"exports": {},
+	"files": [
+		"dist",
+		"README.md"
+	],
+	"funding": {
+		"type": "github",
+		"url": "https://github.com/sponsors/cjkihl"
+	},
+	"homepage": "https://github.com/cjkihl/cjkihl#readme",
+	"keywords": [
+		"changeset",
+		"workspace",
+		"dependencies",
+		"publish"
+	],
+	"license": "MIT",
+	"name": "@cjkihl/changeset-dep-resolver",
+	"publishConfig": {
+		"access": "public"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/cjkihl/cjkihl.git"
+	},
+	"scripts": {
+		"build": "tsc && bun ../create-exports/create-exports.bin.ts",
+		"test": "bun test"
+	},
+	"type": "module",
+	"version": "0.1.0"
 }

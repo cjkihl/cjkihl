@@ -2,7 +2,7 @@ import node_fs from "node:fs";
 import node_path from "node:path";
 import fg from "fast-glob";
 import type { PackageJson } from "type-fest";
-import { sys, parseJsonConfigFileContent, readConfigFile } from "typescript";
+import { parseJsonConfigFileContent, readConfigFile, sys } from "typescript";
 
 /**
  * Options for configuring the exports generation
@@ -60,8 +60,8 @@ export async function findPublicFiles(cwd: string): Promise<string[]> {
 	return fg(["**/*.pub.ts", "**/*.pub.tsx"], {
 		cwd,
 		deep: 2,
-		ignore: ["**/node_modules/**"],
 		dot: false,
+		ignore: ["**/node_modules/**"],
 	});
 }
 
@@ -71,8 +71,8 @@ export async function findPublicFiles(cwd: string): Promise<string[]> {
 export async function findBinaryFiles(cwd: string): Promise<string[]> {
 	return fg(["**/*.bin.ts", "**/*.bin.tsx"], {
 		cwd,
-		dot: false,
 		deep: 2,
+		dot: false,
 		ignore: ["**/node_modules/**"],
 	});
 }
@@ -95,7 +95,7 @@ export function parseExportPath(file: string, cwd: string): ParsedFilePath {
 			: `./${segments.slice(0, -1).join("/")}` // Nested index
 		: `./${parsedPath}`; // Regular file
 
-	return { parsedPath, name };
+	return { name, parsedPath };
 }
 
 /**
@@ -118,7 +118,7 @@ export function parseBinaryPath(file: string, cwd: string): ParsedFilePath {
 		throw new Error(`Invalid name for binary file: ${file}`);
 	}
 
-	return { parsedPath, name };
+	return { name, parsedPath };
 }
 
 /**
@@ -135,8 +135,8 @@ export function generateExports(
 	for (const file of files) {
 		const { parsedPath, name } = parseExportPath(file, cwd);
 		exports[name] = {
-			types: `./${declarationDir}/${parsedPath}.pub.d.ts`,
 			default: `./${outDir}/${parsedPath}.pub.js`,
+			types: `./${declarationDir}/${parsedPath}.pub.d.ts`,
 		};
 	}
 

@@ -1,8 +1,8 @@
 import { type ChildProcess, spawn } from "node:child_process";
 import { readFile, stat } from "node:fs/promises";
 import node_path from "node:path";
-import dotenv, { type DotenvParseOutput } from "dotenv";
 import { getPackages } from "@manypkg/get-packages";
+import dotenv, { type DotenvParseOutput } from "dotenv";
 
 export interface WithEnvConfig {
 	envFile?: string[];
@@ -13,11 +13,11 @@ export interface WithEnvConfig {
 }
 
 const defaultConfig: Required<WithEnvConfig> = {
-	envFile: [".env.local", ".env"],
-	skipInProduction: true,
-	inheritStdio: true,
-	command: "",
 	args: [],
+	command: "",
+	envFile: [".env.local", ".env"],
+	inheritStdio: true,
+	skipInProduction: true,
 };
 
 /**
@@ -58,8 +58,8 @@ export async function loadEnv(config: WithEnvConfig = {}) {
 		let stderrOutput = "";
 		const proc: ChildProcess = spawn(command, finalConfig.args ?? [], {
 			env: process.env,
-			stdio: finalConfig.inheritStdio ? "inherit" : "pipe",
 			shell: true,
+			stdio: finalConfig.inheritStdio ? "inherit" : "pipe",
 		});
 
 		if (!finalConfig.inheritStdio) {

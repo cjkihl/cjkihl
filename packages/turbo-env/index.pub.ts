@@ -1,8 +1,8 @@
 import { access, readFile, stat, writeFile } from "node:fs/promises";
 import node_path from "node:path";
 import path from "node:path";
-import dotenv, { type DotenvParseOutput } from "dotenv";
 import { getPackages } from "@manypkg/get-packages";
+import dotenv, { type DotenvParseOutput } from "dotenv";
 
 /**
  * Configuration options for the setTurboEnv function
@@ -54,7 +54,7 @@ export default async function setTurboEnv(config: WithEnvConfig) {
 	// Verify turbo.json exists
 	try {
 		await access(turboPath);
-	} catch (err) {
+	} catch (_err) {
 		throw new Error(`turbo.json file not found at ${turboPath}`);
 	}
 

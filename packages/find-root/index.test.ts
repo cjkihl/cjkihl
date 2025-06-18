@@ -28,13 +28,13 @@ describe("findRoot", () => {
 
 	beforeEach(async () => {
 		// Clean up and recreate test directory before each test
-		await rm(testDir, { recursive: true, force: true });
+		await rm(testDir, { force: true, recursive: true });
 		await mkdir(nestedDir, { recursive: true });
 	});
 
 	afterAll(async () => {
 		// Clean up test directory
-		await rm(testDir, { recursive: true, force: true });
+		await rm(testDir, { force: true, recursive: true });
 		// Restore original working directory
 		process.chdir(originalCwd);
 	});

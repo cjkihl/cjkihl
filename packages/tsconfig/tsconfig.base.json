@@ -2,31 +2,26 @@
 	// https://www.totaltypescript.com/how-to-create-an-npm-package#32-set-up-a-tsconfigjson
 	"compilerOptions": {
 		// Base
-		"esModuleInterop": true,
-		"skipLibCheck": true,
-		"target": "es2022",
-		"moduleDetection": "force",
-		"isolatedModules": true,
-		"verbatimModuleSyntax": true,
-
-		// If javascript and json files are imported
 		"allowJs": true,
-		"resolveJsonModule": true,
 		"checkJs": true,
+		// Base
+		"esModuleInterop": true,
+		"isolatedModules": true,
 
-		// Strictness
-		"strict": true,
-		"noUncheckedIndexedAccess": true,
-		"noImplicitOverride": true,
-		"noImplicitReturns": true,
-		"noFallthroughCasesInSwitch": true,
-		"noUnusedLocals": true,
-		"noUnusedParameters": true,
-		"noImplicitAny": true,
+		// Lib Node
+		"lib": ["es2022"],
 
 		// Module for bundler
 		"module": "Preserve",
+		"moduleDetection": "force",
 		"moduleResolution": "bundler",
+		"noFallthroughCasesInSwitch": true,
+		"noImplicitAny": true,
+		"noImplicitOverride": true,
+		"noImplicitReturns": true,
+		"noUncheckedIndexedAccess": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
 
 		// For Node without bundler
 		// "module": "NodeNext",
@@ -34,10 +29,14 @@
 
 		// Outputs
 		"outDir": "${configDir}/dist/output",
-		"tsBuildInfoFile": "${configDir}/dist/tsbuildinfo.json",
+		"resolveJsonModule": true,
+		"skipLibCheck": true,
 
-		// Lib Node
-		"lib": ["es2022"]
+		// Strictness
+		"strict": true,
+		"target": "es2022",
+		"tsBuildInfoFile": "${configDir}/dist/tsbuildinfo.json",
+		"verbatimModuleSyntax": true
 
 		// For browser
 		// "lib": ["es2022", "dom", "dom.iterable"]
@@ -46,6 +45,11 @@
 		// 	"@/*": ["./apps/site/src/*"]
 		// }
 	},
-	"include": ["${configDir}/**/*.ts"],
-	"exclude": ["node_modules", "dist", "${configDir}/dist", "${configDir}/**/*.test.ts"]
+	"exclude": [
+		"node_modules",
+		"dist",
+		"${configDir}/dist",
+		"${configDir}/**/*.test.ts"
+	],
+	"include": ["${configDir}/**/*.ts"]
 }

@@ -1,5 +1,6 @@
 // Mocks must be set up before importing the implementation
 import { mock } from "bun:test";
+
 mock.module("node:fs", () => ({
 	existsSync: (path: string) => path === "package.json",
 	readFileSync: (path: string) => {
@@ -14,18 +15,18 @@ mock.module("node:fs", () => ({
 mock.module("node:path", () => require("node:path"));
 
 mock.module("typescript", () => ({
-	readConfigFile: () => ({
-		config: {
-			compilerOptions: {
-				outDir: "dist",
-				declarationDir: "types",
-			},
-		},
-	}),
 	parseJsonConfigFileContent: (config: {
 		compilerOptions: { outDir: string; declarationDir: string };
 	}) => ({
 		options: config.compilerOptions,
+	}),
+	readConfigFile: () => ({
+		config: {
+			compilerOptions: {
+				declarationDir: "types",
+				outDir: "dist",
+			},
+		},
 	}),
 	sys: {
 		readFile: () => "",
@@ -70,10 +71,10 @@ describe("readTsConfig", () => {
 
 	test("throws error if tsconfig.json has errors", () => {
 		mock.module("typescript", () => ({
+			parseJsonConfigFileContent: () => ({}),
 			readConfigFile: () => ({
 				error: { messageText: "Invalid config" },
 			}),
-			parseJsonConfigFileContent: () => ({}),
 			sys: { readFile: () => "" },
 		}));
 		expect(() => readTsConfig("tsconfig.json")).toThrow(
@@ -290,34 +291,34 @@ describe("updatePackageJson", () => {
 	test("updates package.json with exports and bin", () => {
 		const pkg: PackageJson = { name: "test-package" };
 		const exports = {
-			".": { types: "types/index.d.ts", default: "dist/index.js" },
+			".": { default: "dist/index.js", types: "types/index.d.ts" },
 		};
 		const bin = { cli: "dist/cli.js" };
 
 		const result = updatePackageJson(pkg, exports, bin);
 
 		expect(result).toEqual({
-			name: "test-package",
-			exports,
 			bin,
+			exports,
+			name: "test-package",
 		});
 	});
 
 	test("removes bin if empty", () => {
 		const pkg: PackageJson = {
-			name: "test-package",
 			bin: { cli: "dist/cli.js" },
+			name: "test-package",
 		};
 		const exports = {
-			".": { types: "types/index.d.ts", default: "dist/index.js" },
+			".": { default: "dist/index.js", types: "types/index.d.ts" },
 		};
 		const bin = {};
 
 		const result = updatePackageJson(pkg, exports, bin);
 
 		expect(result).toEqual({
-			name: "test-package",
 			exports,
+			name: "test-package",
 		});
 	});
 });

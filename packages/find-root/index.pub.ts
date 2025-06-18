@@ -2,11 +2,11 @@ import path from "node:path";
 import { findUp } from "find-up";
 
 const lockfiles: Record<string, string> = {
-	"bun.lockb": "bun",
 	"bun.lock": "bun",
+	"bun.lockb": "bun",
+	"package-lock.json": "npm",
 	"pnpm-lock.yaml": "pnpm",
 	"yarn.lock": "yarn",
-	"package-lock.json": "npm",
 };
 
 /**
@@ -37,5 +37,5 @@ export async function findRoot(): Promise<{
 			`Could not detect package manager from lockfile: ${lockfile}`,
 		);
 	}
-	return { root, lockfile, packageManager };
+	return { lockfile, packageManager, root };
 }

@@ -3,15 +3,14 @@
 	"globalDependencies": ["**/.env.*local"],
 	"globalEnv": ["NODE_ENV"],
 	"globalPassThroughEnv": ["CI", "VERCEL", "GITHUB_TOKEN", "NPM_TOKEN"],
-	"ui": "stream",
 	"tasks": {
 		"build": {
 			"dependsOn": ["^build"],
 			"outputs": ["dist"]
 		},
-		"test": {
+		"format": {
 			"cache": false,
-			"dependsOn": ["^build"]
+			"outputs": []
 		},
 		"lint": {
 			"cache": false,
@@ -21,9 +20,10 @@
 			"cache": false,
 			"outputs": []
 		},
-		"format": {
+		"test": {
 			"cache": false,
-			"outputs": []
+			"dependsOn": ["^build"]
 		}
-	}
+	},
+	"ui": "stream"
 }
