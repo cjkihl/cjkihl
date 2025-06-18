@@ -1,54 +1,55 @@
 {
-	"author": "@cjkihl",
-	"bin": {
-		"create-exports": "./dist/output/create-exports.bin.js"
-	},
-	"bugs": {
-		"url": "https://github.com/cjkihl/cjkihl/issues"
-	},
-	"dependencies": {
-		"fast-glob": "^3.3.3",
-		"type-fest": "^4.41.0"
-	},
-	"description": "Tool to generate package exports configuration for TypeScript packages",
-	"engines": {
-		"node": ">=18.0.0"
-	},
-	"exports": {
-		".": {
-			"default": "./dist/output/index.pub.js",
-			"types": "./dist/types/index.pub.d.ts"
-		}
-	},
-	"files": [
-		"dist",
-		"README.md"
-	],
-	"funding": {
-		"type": "github",
-		"url": "https://github.com/sponsors/cjkihl"
-	},
-	"homepage": "https://github.com/cjkihl/cjkihl#readme",
-	"keywords": [
-		"typescript",
-		"exports",
-		"package",
-		"configuration",
-		"build-tool"
-	],
-	"license": "MIT",
-	"name": "@cjkihl/create-exports",
-	"publishConfig": {
-		"access": "public"
-	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/cjkihl/cjkihl.git"
-	},
-	"scripts": {
-		"build": "tsc && bun ../create-exports/create-exports.bin.ts",
-		"test": "bun test"
-	},
-	"type": "module",
-	"version": "0.1.14"
+  "name": "@cjkihl/create-exports",
+  "version": "0.1.14",
+  "description": "Tool to generate package exports configuration for TypeScript packages",
+  "keywords": [
+    "typescript",
+    "exports",
+    "package",
+    "configuration",
+    "build-tool"
+  ],
+  "homepage": "https://github.com/cjkihl/cjkihl#readme",
+  "bugs": {
+    "url": "https://github.com/cjkihl/cjkihl/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cjkihl/cjkihl.git"
+  },
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/cjkihl"
+  },
+  "license": "MIT",
+  "author": "@cjkihl",
+  "type": "module",
+  "exports": {
+    ".": {
+      "default": "./dist/output/index.pub.js",
+      "types": "./dist/types/index.pub.d.ts"
+    }
+  },
+  "bin": {
+    "create-exports": "./dist/output/create-exports.bin.js"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc && bun ../create-exports/create-exports.bin.ts",
+    "test": "bun test"
+  },
+  "dependencies": {
+    "fast-glob": "^3.3.3",
+    "sort-package-json": "^3.2.1",
+    "type-fest": "^4.41.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
 }

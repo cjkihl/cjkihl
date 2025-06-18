@@ -31,8 +31,8 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./dist/types/index.pub.d.ts",
-      "default": "./dist/output/index.pub.js"
+      "default": "./dist/output/index.pub.js",
+      "types": "./dist/types/index.pub.d.ts"
     }
   },
   "bin": {
@@ -46,9 +46,9 @@
     "build": "tsc && bun ../create-exports/create-exports.bin.ts"
   },
   "dependencies": {
+    "@manypkg/get-packages": "1.1.3",
     "commander": "^14.0.0",
-    "dotenv": "^16.5.0",
-    "@manypkg/get-packages": "1.1.3"
+    "dotenv": "^16.5.0"
   },
   "engines": {
     "node": ">=18.0.0"

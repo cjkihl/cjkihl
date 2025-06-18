@@ -1,6 +1,7 @@
 import node_fs from "node:fs";
 import node_path from "node:path";
 import fg from "fast-glob";
+import sortPackageJson from "sort-package-json";
 import type { PackageJson } from "type-fest";
 import { parseJsonConfigFileContent, readConfigFile, sys } from "typescript";
 
@@ -216,6 +217,7 @@ export async function createExports(options: CreateExportsOptions = {}) {
 
 	// Create updated package.json
 	const updatedPkg = updatePackageJson(pkg, exports, bin);
+	const sortedPkg = sortPackageJson(updatedPkg);
 
 	if (options.dryRun) {
 		console.log("=== DRY RUN - No changes will be written ===");
@@ -268,7 +270,7 @@ export async function createExports(options: CreateExportsOptions = {}) {
 	// Write updated package.json back to disk
 	node_fs.writeFileSync(
 		pkgPath,
-		`${JSON.stringify(updatedPkg, null, 2)}\n`,
+		`${JSON.stringify(sortedPkg, null, 2)}\n`,
 		"utf8",
 	);
 
