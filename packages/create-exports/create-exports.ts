@@ -123,6 +123,20 @@ export function parseBinaryPath(file: string, cwd: string): ParsedFilePath {
 }
 
 /**
+ * Validates that a binary file has the proper shebang
+ */
+export function validateBinaryFile(filePath: string): void {
+	const content = node_fs.readFileSync(filePath, "utf8");
+	const firstLine = content.split("\n")?.[0]?.trim();
+
+	if (!firstLine?.startsWith("#!/usr/bin/env node")) {
+		throw new Error(
+			`Binary file ${filePath} must start with "#!/usr/bin/env node" shebang. Found: "${firstLine}"`,
+		);
+	}
+}
+
+/**
  * Generates exports configuration from public files
  */
 export function generateExports(
@@ -211,9 +225,22 @@ export async function createExports(options: CreateExportsOptions = {}) {
 	const publicFiles = await findPublicFiles(cwd);
 	const binFiles = await findBinaryFiles(cwd);
 
+	// Validate binary files and collect errors
+	const binValidationErrors: string[] = [];
+	const validBinFiles: string[] = [];
+
+	for (const file of binFiles) {
+		try {
+			validateBinaryFile(node_path.join(cwd, file));
+			validBinFiles.push(file);
+		} catch (error) {
+			binValidationErrors.push((error as Error).message);
+		}
+	}
+
 	// Generate configurations
 	const exports = generateExports(publicFiles, cwd, outDir, declarationDir);
-	const bin = generateBin(binFiles, cwd, outDir);
+	const bin = generateBin(validBinFiles, cwd, outDir);
 
 	// Create updated package.json
 	const updatedPkg = updatePackageJson(pkg, exports, bin);
@@ -228,7 +255,15 @@ export async function createExports(options: CreateExportsOptions = {}) {
 
 		console.log("\nFound binary files:");
 		for (const file of binFiles) {
-			console.log(`- ${file}`);
+			const isValid = validBinFiles.includes(file);
+			console.log(`- ${file}${isValid ? "" : " (INVALID - missing shebang)"}`);
+		}
+
+		if (binValidationErrors.length > 0) {
+			console.log("\nBinary file validation errors:");
+			for (const error of binValidationErrors) {
+				console.log(`❌ ${error}`);
+			}
 		}
 
 		console.log("\nExports that would be added:");
@@ -265,6 +300,13 @@ export async function createExports(options: CreateExportsOptions = {}) {
 			console.log("\nNo changes would be made to package.json");
 		}
 		return;
+	}
+
+	// In non-dry-run mode, throw errors if there are validation issues
+	if (binValidationErrors.length > 0) {
+		throw new Error(
+			`Binary file validation failed:\n${binValidationErrors.join("\n")}`,
+		);
 	}
 
 	// Write updated package.json back to disk
