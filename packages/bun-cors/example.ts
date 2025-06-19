@@ -1,4 +1,4 @@
-import { cors } from "./index.js";
+import { cors } from "./index.pub.js";
 
 const PORT = process.env.PORT || 4000;
 

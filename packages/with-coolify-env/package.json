@@ -1,14 +1,16 @@
 {
-  "name": "@cjkihl/bun-cors",
-  "version": "1.0.0",
-  "description": "Cors middleware for bun",
+  "name": "@cjkihl/with-coolify-env",
+  "version": "0.1.18",
+  "description": "Load environment variables from Coolify and execute commands with those variables",
   "keywords": [
-    "cors",
-    "middleware",
-    "bun",
-    "http",
-    "cross-origin",
-    "security"
+    "coolify",
+    "environment",
+    "variables",
+    "api",
+    "cli",
+    "deployment",
+    "configuration",
+    "env"
   ],
   "homepage": "https://github.com/cjkihl/cjkihl#readme",
   "bugs": {
@@ -31,17 +33,19 @@
       "types": "./dist/types/index.pub.d.ts"
     }
   },
+  "bin": {
+    "with-env": "./dist/output/with-env.bin.js"
+  },
   "files": [
-    ".dist",
+    "dist",
     "README.md"
   ],
   "scripts": {
-    "build": "tsc && bun ../create-exports/create-exports.bin.ts",
-    "test": "bun test"
+    "build": "tsc && bun ../create-exports/create-exports.bin.ts"
   },
-  "peerDependencies": {
-    "@types/bun": "latest",
-    "bun": "latest"
+  "dependencies": {
+    "@cjkihl/find-root": "0.1.17",
+    "dotenv": "^16.5.0"
   },
   "engines": {
     "node": ">=18.0.0"
