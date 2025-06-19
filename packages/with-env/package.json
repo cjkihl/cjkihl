@@ -1,6 +1,6 @@
 {
   "name": "@cjkihl/with-env",
-  "version": "0.1.18",
+  "version": "1.0.0",
   "description": "Load environment variables in a monorepo",
   "keywords": [
     "environment",
@@ -42,7 +42,7 @@
     "build": "tsc && bun ../create-exports/create-exports.bin.ts"
   },
   "dependencies": {
-    "@cjkihl/find-root": "0.1.17",
+    "@cjkihl/find-root": "1.0.0",
     "dotenv": "^16.5.0"
   },
   "engines": {

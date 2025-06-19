@@ -1,5 +1,11 @@
 # @cjkihl/tsconfig
 
+## 1.0.0
+
+### Major Changes
+
+- de937ae: Empty
+
 ## 0.1.18
 
 ### Patch Changes
