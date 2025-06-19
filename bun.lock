@@ -69,6 +69,7 @@
         "with-env": "./dist/output/with-env.bin.js",
       },
       "dependencies": {
+        "@manypkg/get-packages": "1.1.3",
         "dotenv": "^16.5.0",
       },
     },

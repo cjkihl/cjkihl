@@ -1,7 +1,7 @@
 import { type ChildProcess, spawn } from "node:child_process";
 import { readFile, stat } from "node:fs/promises";
 import node_path from "node:path";
-import { getPackages } from "@manypkg/get-packages";
+import { findRoot } from "@cjkihl/find-root";
 import dotenv, { type DotenvParseOutput } from "dotenv";
 
 export interface WithEnvConfig {
@@ -97,13 +97,13 @@ export async function loadEnv(config: WithEnvConfig = {}) {
 }
 
 async function getEnvs(envFile: string[]): Promise<DotenvParseOutput | null> {
-	const { root } = await getPackages(process.cwd());
+	const { root } = await findRoot();
 
 	let envPath: string | null = null;
 	for (const env of envFile) {
-		const stats = await stat(node_path.join(root.dir, env));
+		const stats = await stat(node_path.join(root, env));
 		if (stats.isFile()) {
-			envPath = node_path.join(root.dir, env);
+			envPath = node_path.join(root, env);
 			break;
 		}
 	}

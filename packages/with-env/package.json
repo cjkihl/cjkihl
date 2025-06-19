@@ -42,6 +42,7 @@
     "build": "tsc && bun ../create-exports/create-exports.bin.ts"
   },
   "dependencies": {
+    "@cjkihl/find-root": "0.1.17",
     "dotenv": "^16.5.0"
   },
   "engines": {
