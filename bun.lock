@@ -12,9 +12,13 @@
         "typescript": "^5.8.3",
       },
     },
+    "packages/bun-cors": {
+      "name": "@cjkihl/bun-cors",
+      "version": "0.0.1",
+    },
     "packages/changeset-dep-resolver": {
       "name": "@cjkihl/changeset-dep-resolver",
-      "version": "0.1.4",
+      "version": "0.1.5",
       "bin": {
         "resolve-deps": "./dist/output/resolve-deps.bin.js",
       },
@@ -48,7 +52,7 @@
     },
     "packages/tsconfig": {
       "name": "@cjkihl/tsconfig",
-      "version": "0.1.17",
+      "version": "0.1.18",
     },
     "packages/turbo-env": {
       "name": "@cjkihl/turbo-env",
@@ -64,12 +68,12 @@
     },
     "packages/with-env": {
       "name": "@cjkihl/with-env",
-      "version": "0.1.17",
+      "version": "0.1.18",
       "bin": {
         "with-env": "./dist/output/with-env.bin.js",
       },
       "dependencies": {
-        "@manypkg/get-packages": "1.1.3",
+        "@cjkihl/find-root": "0.1.17",
         "dotenv": "^16.5.0",
       },
     },
@@ -128,6 +132,8 @@
     "@changesets/types": ["@changesets/types@6.1.0", "", {}, "sha512-rKQcJ+o1nKNgeoYRHKOS07tAMNd3YSN0uHaJOZYjBAgxfV7TUE7JE+z4BzZdQwb5hKaYbayKN5KrYV7ODb2rAA=="],
 
     "@changesets/write": ["@changesets/write@0.4.0", "", { "dependencies": { "@changesets/types": "^6.1.0", "fs-extra": "^7.0.1", "human-id": "^4.1.1", "prettier": "^2.7.1" } }, "sha512-CdTLvIOPiCNuH71pyDu3rA+Q0n65cmAbXnwWH84rKGiFumFzkmHNT8KHTMEchcxN+Kl8I54xGUhJ7l3E7X396Q=="],
+
+    "@cjkihl/bun-cors": ["@cjkihl/bun-cors@workspace:packages/bun-cors"],
 
     "@cjkihl/changeset-dep-resolver": ["@cjkihl/changeset-dep-resolver@workspace:packages/changeset-dep-resolver"],
 
