@@ -1,5 +1,11 @@
 # @cjkihl/find-root
 
+## 1.0.0
+
+### Major Changes
+
+- de937ae: Empty
+
 ## 0.1.17
 
 ### Patch Changes

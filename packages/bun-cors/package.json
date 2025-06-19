@@ -1,6 +1,6 @@
 {
   "name": "@cjkihl/bun-cors",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Cors middleware for bun",
   "keywords": [
     "cors",

@@ -1,5 +1,11 @@
 # @cjkihl/changeset-dep-resolver
 
+## 1.0.0
+
+### Major Changes
+
+- de937ae: Empty
+
 ## 0.1.5
 
 ### Patch Changes
