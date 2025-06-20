@@ -1,5 +1,11 @@
 # @cjkihl/with-env
 
+## 1.0.1
+
+### Patch Changes
+
+- c0e2f96: Fixes
+
 ## 1.0.0
 
 ### Major Changes
