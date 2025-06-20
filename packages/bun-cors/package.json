@@ -32,7 +32,7 @@
     }
   },
   "files": [
-    ".dist",
+    "dist",
     "README.md"
   ],
   "scripts": {
