@@ -60,9 +60,6 @@ with-coolify-env npm start
 
 # With explicit configuration
 with-coolify-env --endpoint=https://coolify.example.com --app-id=my-app node server.js
-
-# Skip production check
-with-coolify-env --skip-production=false npm run build
 ```
 
 ## Configuration
@@ -84,10 +81,10 @@ export COOLIFY_TOKEN="my-api-token"
 | `endpoint` | `string` | `process.env.COOLIFY_ENDPOINT` | Coolify API endpoint URL |
 | `appId` | `string` | `process.env.COOLIFY_APP_ID` | Coolify application ID |
 | `token` | `string` | `process.env.COOLIFY_TOKEN` | Coolify API token |
-| `skipInProduction` | `boolean` | `true` | Skip loading env vars in production |
-| `inheritStdio` | `boolean` | `true` | Inherit stdio from parent process |
 | `command` | `string` | - | Command to execute (required) |
 | `args` | `string[]` | `[]` | Arguments for the command |
+
+> **Note:** The child process always inherits stdio from the parent process.
 
 ## API Reference
 
@@ -116,8 +113,6 @@ interface WithCoolifyEnvConfig {
   endpoint?: string;
   appId?: string;
   token?: string;
-  skipInProduction?: boolean;
-  inheritStdio?: boolean;
   command?: string;
   args?: string[];
 }
@@ -136,8 +131,6 @@ with-coolify-env [options] <command> [args...]
 - `--endpoint=<url>`: Coolify API endpoint URL
 - `--app-id=<id>`: Coolify application ID
 - `--token=<token>`: Coolify API token
-- `--skip-production`: Skip loading env vars in production (default: true)
-- `--inherit-stdio=<bool>`: Inherit stdio from parent process (default: true)
 - `--help`: Show help message
 
 ### Examples
@@ -155,9 +148,6 @@ with-coolify-env \
 
 # Execute a custom script
 with-coolify-env node scripts/deploy.js
-
-# Force loading in production
-with-coolify-env --skip-production=false npm start
 ```
 
 ## Use Cases
@@ -225,7 +215,6 @@ npm ERR! missing script: start
 1. **Authentication Errors**: Ensure your Coolify token is valid and has the necessary permissions
 2. **Network Timeouts**: The API request has a 30-second timeout. Check your network connection
 3. **Invalid App ID**: Verify that the application ID exists in your Coolify instance
-4. **Production Environment**: By default, the tool skips loading in production. Use `skipInProduction: false` to override
 
 ### Debug Mode
 

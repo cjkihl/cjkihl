@@ -1,4 +1,4 @@
-import { type ChildProcess, spawn } from "node:child_process";
+import { execa } from "execa";
 import { fetchCoolifyEnvs } from "./fetch-coolify-env.js";
 
 /**
@@ -11,10 +11,6 @@ export interface WithCoolifyEnvConfig {
 	appId?: string;
 	/** The Coolify API token for authentication */
 	token?: string;
-	/** Whether to skip loading environment variables in production (default: true) */
-	skipInProduction?: boolean;
-	/** Whether to inherit stdio from the parent process (default: true) */
-	inheritStdio?: boolean;
 	/** The command to execute after loading environment variables */
 	command?: string;
 	/** Arguments to pass to the command */
@@ -30,8 +26,6 @@ const defaultConfig: Required<WithCoolifyEnvConfig> = {
 	args: [],
 	command: "",
 	endpoint: process.env.COOLIFY_ENDPOINT || "",
-	inheritStdio: true,
-	skipInProduction: true,
 	token: process.env.COOLIFY_TOKEN || "",
 };
 
@@ -61,13 +55,6 @@ const defaultConfig: Required<WithCoolifyEnvConfig> = {
  *   command: "node",
  *   args: ["server.js"]
  * });
- *
- * // Skip production check
- * await loadEnv({
- *   skipInProduction: false,
- *   command: "npm",
- *   args: ["run", "build"]
- * });
  * ```
  *
  * @throws {Error} When no command is provided
@@ -85,72 +72,47 @@ export async function loadEnv(
 		throw new Error("No command provided to execute");
 	}
 
-	// Skip loading environment variables in production if configured to do so
-	if (finalConfig.skipInProduction && process.env.NODE_ENV === "production") {
+	// Load environment variables from Coolify
+	if (!finalConfig.endpoint) {
 		console.log(
-			"Skipping loading env file because the process is running in the Prod environment",
+			"No Coolify endpoint configured, proceeding without additional environment variables",
 		);
 	} else {
-		// Fetch and load environment variables from Coolify
-		const envs = await fetchCoolifyEnvs(
-			finalConfig.endpoint,
-			finalConfig.appId,
-			finalConfig.token,
-		);
+		try {
+			const envs = await fetchCoolifyEnvs(
+				finalConfig.endpoint,
+				finalConfig.appId,
+				finalConfig.token,
+			);
 
-		// Load environment variables into the current process
-		for (const env of envs) {
-			if (env.key && env.value) {
-				process.env[env.key] = env.value;
+			// Load environment variables into the current process
+			for (const env of envs) {
+				if (env.key && env.value) {
+					process.env[env.key] = env.value;
+				}
 			}
+			console.log(
+				`Successfully loaded ${envs.length} environment variables from Coolify`,
+			);
+		} catch (error) {
+			console.log(
+				`Failed to load environment variables from Coolify: ${error instanceof Error ? error.message : String(error)}`,
+			);
+			console.log("Proceeding without Coolify environment variables");
 		}
 	}
 
 	console.log("Spawning process with arguments:", command, finalConfig.args);
 
-	return new Promise<void>((resolve, reject) => {
-		let stderrOutput = "";
-
-		// Spawn the child process with the loaded environment variables
-		const proc: ChildProcess = spawn(command, finalConfig.args ?? [], {
+	try {
+		await execa(command, finalConfig.args ?? [], {
 			env: process.env,
 			shell: true,
-			stdio: finalConfig.inheritStdio ? "inherit" : "pipe",
+			stdio: "inherit",
+			windowsHide: true,
 		});
-
-		// Capture stderr output if not inheriting stdio
-		if (!finalConfig.inheritStdio) {
-			proc.stderr?.on("data", (data) => {
-				stderrOutput += data.toString();
-			});
-		}
-
-		// Handle process exit
-		proc.on("exit", (code: number | null) => {
-			if (code === 0) {
-				resolve();
-			} else {
-				const errorMessage = [
-					`Command failed with exit code ${code}`,
-					`Command: ${command} ${finalConfig.args?.join(" ") || ""}`,
-					stderrOutput
-						? `Error output:\n${stderrOutput}`
-						: "No error output available",
-				].join("\n");
-				reject(new Error(errorMessage));
-			}
-		});
-
-		// Handle process errors
-		proc.on("error", (err: Error) => {
-			const errorMessage = [
-				`Failed to execute command: ${err.message}`,
-				`Command: ${command} ${finalConfig.args?.join(" ") || ""}`,
-				stderrOutput
-					? `Error output:\n${stderrOutput}`
-					: "No error output available",
-			].join("\n");
-			reject(new Error(errorMessage));
-		});
-	});
+	} catch (error) {
+		const errorMessage = error instanceof Error ? error.message : String(error);
+		throw new Error(`Command failed: ${errorMessage}`);
+	}
 }

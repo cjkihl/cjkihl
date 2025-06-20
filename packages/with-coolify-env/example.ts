@@ -58,63 +58,10 @@ async function explicitConfigExample() {
 }
 
 /**
- * Example 3: Production environment handling
- */
-async function productionExample() {
-	console.log("\nExample 3: Production environment handling");
-
-	// Simulate production environment
-	const originalNodeEnv = process.env.NODE_ENV;
-	process.env.NODE_ENV = "production";
-
-	try {
-		await loadEnv({
-			args: ["This should be skipped in production"],
-			command: "echo",
-		});
-	} catch (error) {
-		console.error(
-			"Production example failed:",
-			error instanceof Error ? error.message : error,
-		);
-	} finally {
-		// Restore original NODE_ENV
-		process.env.NODE_ENV = originalNodeEnv;
-	}
-}
-
-/**
- * Example 4: Force loading in production
- */
-async function forceProductionExample() {
-	console.log("\nExample 4: Force loading in production");
-
-	// Simulate production environment
-	const originalNodeEnv = process.env.NODE_ENV;
-	process.env.NODE_ENV = "production";
-
-	try {
-		await loadEnv({
-			args: ["This should run even in production"],
-			command: "echo",
-			skipInProduction: false,
-		});
-	} catch (error) {
-		console.error(
-			"Force production example failed:",
-			error instanceof Error ? error.message : error,
-		);
-	} finally {
-		// Restore original NODE_ENV
-		process.env.NODE_ENV = originalNodeEnv;
-	}
-}
-
-/**
- * Example 5: Error handling demonstration
+ * Example 3: Error handling demonstration
  */
 async function errorHandlingExample() {
-	console.log("\nExample 5: Error handling demonstration");
+	console.log("\nExample 3: Error handling demonstration");
 
 	try {
 		// This will fail because no command is provided
@@ -135,8 +82,6 @@ async function runExamples() {
 
 	await basicExample();
 	await explicitConfigExample();
-	await productionExample();
-	await forceProductionExample();
 	await errorHandlingExample();
 
 	console.log("\nExamples completed!");
@@ -150,8 +95,6 @@ if (import.meta.url === `file://${process.argv[1]}`) {
 export {
 	basicExample,
 	explicitConfigExample,
-	productionExample,
-	forceProductionExample,
 	errorHandlingExample,
 	runExamples,
 };
