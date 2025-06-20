@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { Command } from "commander";
-import { loadEnv } from "./index.pub.js";
+import { loadEnv, type WithEnvConfig } from "./index.pub.js";
 
 const program = new Command();
 
@@ -14,11 +14,17 @@ program
 	.argument("[args...]", "Arguments to pass to the command")
 	.action(async (command, args, options) => {
 		try {
-			await loadEnv({
+			const config: WithEnvConfig = {
 				args,
 				command,
-				envFile: options.envFile,
-			});
+			};
+
+			// Only add envFile if it's provided
+			if (options.envFile) {
+				config.envFile = options.envFile;
+			}
+
+			await loadEnv(config);
 		} catch (error) {
 			console.error("Error:", error instanceof Error ? error.message : error);
 			process.exit(1);
