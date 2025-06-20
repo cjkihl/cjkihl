@@ -11,9 +11,9 @@ import dotenv, { type DotenvParseOutput } from "dotenv";
  * @throws {Error} When there's an issue finding the project root
  */
 export async function getEnvs(
-	envFileNames: readonly string[],
+	envFileNames: readonly string[] | undefined,
 ): Promise<DotenvParseOutput | null> {
-	if (!envFileNames.length) {
+	if (!envFileNames || !envFileNames.length) {
 		return null;
 	}
 
