@@ -32,10 +32,6 @@
   "author": "@cjkihl",
   "type": "module",
   "exports": {
-    ".": {
-      "default": "./dist/output/index.js",
-      "types": "./dist/index.d.ts"
-    },
     "./client": {
       "default": "./dist/output/client.pub.js",
       "types": "./dist/client.pub.d.ts"
@@ -60,8 +56,7 @@
     "README.md"
   ],
   "scripts": {
-    "build": "tsc && create-exports",
-    "prepublishOnly": "bun run build",
+    "build": "tsc && bun ../create-exports/create-exports.bin.ts",
     "test": "bun test",
     "type-check": "tsc --noEmit"
   },

@@ -37,7 +37,8 @@
   ],
   "scripts": {
     "build": "tsc",
-    "test": "bun test"
+    "test": "bun test",
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "find-up": "^7.0.0"

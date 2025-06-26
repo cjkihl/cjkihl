@@ -33,7 +33,8 @@
   ],
   "scripts": {
     "build": "tsc && bun ../create-exports/create-exports.bin.ts",
-    "test": "bun test"
+    "test": "bun test",
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "@changesets/assemble-release-plan": "^6.0.9",

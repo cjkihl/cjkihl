@@ -43,7 +43,8 @@
     "README.md"
   ],
   "scripts": {
-    "build": "tsc && bun ../create-exports/create-exports.bin.ts"
+    "build": "tsc && bun ../create-exports/create-exports.bin.ts",
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "@cjkihl/find-root": "1.0.0",

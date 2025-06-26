@@ -39,7 +39,8 @@
   ],
   "scripts": {
     "build": "tsc && bun ../create-exports/create-exports.bin.ts",
-    "test": "bun test"
+    "test": "bun test",
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "fast-glob": "^3.3.3",

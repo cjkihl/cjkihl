@@ -37,7 +37,8 @@
   ],
   "scripts": {
     "build": "tsc && bun ../create-exports/create-exports.bin.ts",
-    "test": "bun test"
+    "test": "bun test",
+    "type-check": "tsc --noEmit"
   },
   "peerDependencies": {
     "@types/bun": "latest",
