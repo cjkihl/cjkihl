@@ -1,6 +1,6 @@
 # @cjkihl/tsconfig
 
-Shared TypeScript configurations for Node.js projects. This package provides base and library configurations that can be extended in your projects.
+Shared TypeScript configurations for Node.js and browser projects. This package provides base, library, and browser configurations that can be extended in your projects.
 
 ## Installation
 
@@ -30,6 +30,16 @@ For TypeScript libraries that need to generate declaration files:
 }
 ```
 
+### Browser Configuration
+
+For browser-based projects (React, Vue, etc.):
+
+```json
+{
+  "extends": "@cjkihl/tsconfig/tsconfig.browser"
+}
+```
+
 ## Features
 
 ### Base Configuration (`tsconfig.base.json`)
@@ -48,6 +58,14 @@ Extends the base configuration with:
 - Composite project support
 - Declaration source maps
 - Optimized for library publishing
+
+### Browser Configuration (`tsconfig.browser.json`)
+
+Extends the base configuration with:
+- DOM types and APIs
+- Browser-specific libraries
+- DOM iteration support
+- Optimized for frontend development
 
 ## Configuration Details
 
@@ -77,6 +95,16 @@ Extends the base configuration with:
     "composite": true,
     "sourceMap": true,
     "declarationMap": true
+  }
+}
+```
+
+### Browser Configuration
+
+```json
+{
+  "compilerOptions": {
+    "lib": ["es2022", "dom", "dom.iterable"]
   }
 }
 ```

@@ -1,0 +1,82 @@
+{
+  "name": "@cjkihl/cookies",
+  "version": "0.0.0",
+  "description": "A minimal, type-safe cookies library for Bun/Node.js with Standard Schema validation support",
+  "keywords": [
+    "cookies",
+    "cookie",
+    "typescript",
+    "standard-schema",
+    "validation",
+    "zod",
+    "valibot",
+    "arktype",
+    "bun",
+    "node",
+    "browser",
+    "server"
+  ],
+  "homepage": "https://github.com/cjkihl/cjkihl#readme",
+  "bugs": {
+    "url": "https://github.com/cjkihl/cjkihl/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cjkihl/cjkihl.git"
+  },
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/cjkihl"
+  },
+  "license": "MIT",
+  "author": "@cjkihl",
+  "type": "module",
+  "exports": {
+    ".": {
+      "default": "./dist/output/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./client": {
+      "default": "./dist/output/client.pub.js",
+      "types": "./dist/client.pub.d.ts"
+    },
+    "./server": {
+      "default": "./dist/output/server.pub.js",
+      "types": "./dist/server.pub.d.ts"
+    },
+    "./types": {
+      "default": "./dist/output/types.pub.js",
+      "types": "./dist/types.pub.d.ts"
+    },
+    "./utils": {
+      "default": "./dist/output/utils.pub.js",
+      "types": "./dist/utils.pub.d.ts"
+    }
+  },
+  "main": "./dist/output/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc && create-exports",
+    "prepublishOnly": "bun run build",
+    "test": "bun test",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@standard-schema/spec": "^1.0.0"
+  },
+  "devDependencies": {
+    "bun-types": "latest",
+    "typescript": "^5.8.3",
+    "zod": "^3.25.67"
+  },
+  "peerDependencies": {
+    "typescript": ">=5.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

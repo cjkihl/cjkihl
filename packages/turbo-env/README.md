@@ -14,13 +14,13 @@ A CLI tool and library for automatically syncing environment variables from `.en
 
 ```bash
 # Using npm
-npm install turbo-env
+npm install @cjkihl/turbo-env
 
 # Using yarn
-yarn add turbo-env
+yarn add @cjkihl/turbo-env
 
 # Using pnpm
-pnpm add turbo-env
+pnpm add @cjkihl/turbo-env
 ```
 
 ## Usage
@@ -42,7 +42,7 @@ turbo-env -e .env.production .env.staging .env
 You can also use the package programmatically in your Node.js code:
 
 ```typescript
-import setTurboEnv from 'turbo-env';
+import setTurboEnv from '@cjkihl/turbo-env';
 
 // Use default env files (.env.local, .env)
 await setTurboEnv({});

@@ -54,6 +54,10 @@ const cj = {
 | [`@cjkihl/tsconfig`](./packages/tsconfig) | ⚙️ Shared TypeScript configs for Node.js | ![npm](https://img.shields.io/npm/v/@cjkihl/tsconfig?style=flat-square) |
 | [`@cjkihl/turbo-env`](./packages/turbo-env) | 🚀 Turbo environment utilities | ![npm](https://img.shields.io/npm/v/@cjkihl/turbo-env?style=flat-square) |
 | [`@cjkihl/with-env`](./packages/with-env) | 🔧 Environment management tools | ![npm](https://img.shields.io/npm/v/@cjkihl/with-env?style=flat-square) |
+| [`@cjkihl/cookies`](./packages/cookies) | 🍪 Type-safe cookies library with Standard Schema validation | ![npm](https://img.shields.io/npm/v/@cjkihl/cookies?style=flat-square) |
+| [`@cjkihl/bun-cors`](./packages/bun-cors) | 🌐 Lightweight CORS middleware for Bun | ![npm](https://img.shields.io/npm/v/@cjkihl/bun-cors?style=flat-square) |
+| [`@cjkihl/changeset-dep-resolver`](./packages/changeset-dep-resolver) | 🔗 Resolve workspace dependencies before publishing | ![npm](https://img.shields.io/npm/v/@cjkihl/changeset-dep-resolver?style=flat-square) |
+| [`@cjkihl/with-coolify-env`](./packages/with-coolify-env) | ☁️ Load environment variables from Coolify | ![npm](https://img.shields.io/npm/v/@cjkihl/with-coolify-env?style=flat-square) |
 
 ---
 

@@ -18,11 +18,13 @@
 	},
 	"exports": {
 		"./tsconfig.base": "./tsconfig.base.json",
-		"./tsconfig.lib": "./tsconfig.lib.json"
+		"./tsconfig.lib": "./tsconfig.lib.json",
+		"./tsconfig.browser": "./tsconfig.browser.json"
 	},
 	"files": [
 		"tsconfig.base.json",
 		"tsconfig.lib.json",
+		"tsconfig.browser.json",
 		"README.md"
 	],
 	"keywords": [

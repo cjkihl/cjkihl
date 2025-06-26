@@ -36,7 +36,7 @@
     "test": "bun test"
   },
   "dependencies": {
-    "@changesets/assemble-release-plan": "^6.0.8",
+    "@changesets/assemble-release-plan": "^6.0.9",
     "@changesets/config": "^3.1.1",
     "@changesets/pre": "^2.0.2",
     "@changesets/read": "^0.6.5",
