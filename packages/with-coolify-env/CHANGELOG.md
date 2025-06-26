@@ -1,5 +1,13 @@
 # @cjkihl/with-coolify-env
 
+## 1.0.2
+
+### Patch Changes
+
+- 25a8f48: Add type checking
+- Updated dependencies [25a8f48]
+  - @cjkihl/find-root@1.0.1
+
 ## 1.0.1
 
 ### Patch Changes

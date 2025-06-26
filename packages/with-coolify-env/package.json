@@ -1,6 +1,6 @@
 {
   "name": "@cjkihl/with-coolify-env",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Load environment variables from Coolify and execute commands with those variables",
   "keywords": [
     "coolify",
@@ -45,7 +45,7 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@cjkihl/find-root": "1.0.0",
+    "@cjkihl/find-root": "1.0.1",
     "commander": "^14.0.0",
     "dotenv": "^16.5.0",
     "execa": "^9.6.0"

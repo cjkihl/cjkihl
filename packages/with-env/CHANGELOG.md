@@ -1,5 +1,13 @@
 # @cjkihl/with-env
 
+## 1.0.4
+
+### Patch Changes
+
+- 25a8f48: Add type checking
+- Updated dependencies [25a8f48]
+  - @cjkihl/find-root@1.0.1
+
 ## 1.0.3
 
 ### Patch Changes
