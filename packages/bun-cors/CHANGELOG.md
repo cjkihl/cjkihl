@@ -1,5 +1,11 @@
 # @cjkihl/bun-cors
 
+## 2.0.2
+
+### Patch Changes
+
+- 25a8f48: Add type checking
+
 ## 2.0.1
 
 ### Patch Changes

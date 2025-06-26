@@ -1,6 +1,6 @@
 {
   "name": "@cjkihl/turbo-env",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Set environment variables for a turbo build from a .env file",
   "keywords": [
     "monorepo",
@@ -47,7 +47,7 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@cjkihl/find-root": "1.0.0",
+    "@cjkihl/find-root": "1.0.1",
     "commander": "^14.0.0",
     "dotenv": "^16.5.0"
   },
