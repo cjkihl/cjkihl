@@ -1,5 +1,11 @@
 # @cjkihl/create-exports
 
+## 1.0.1
+
+### Patch Changes
+
+- 0d53687: Upgrade libs
+
 ## 1.0.0
 
 ### Major Changes
