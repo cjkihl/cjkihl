@@ -16,7 +16,7 @@ For basic Node.js projects, extend the base configuration:
 
 ```json
 {
-  "extends": "@cjkihl/tsconfig/tsconfig.base"
+  "extends": "@cjkihl/tsconfig/base"
 }
 ```
 
@@ -26,7 +26,7 @@ For TypeScript libraries that need to generate declaration files:
 
 ```json
 {
-  "extends": "@cjkihl/tsconfig/tsconfig.lib"
+  "extends": "@cjkihl/tsconfig/lib"
 }
 ```
 
@@ -36,13 +36,13 @@ For browser-based projects (React, Vue, etc.):
 
 ```json
 {
-  "extends": "@cjkihl/tsconfig/tsconfig.browser"
+  "extends": "@cjkihl/tsconfig/browser"
 }
 ```
 
 ## Features
 
-### Base Configuration (`tsconfig.base.json`)
+### Base Configuration (`tsconfig/base`)
 
 - Modern JavaScript features (ES2022)
 - Strict type checking
@@ -51,7 +51,7 @@ For browser-based projects (React, Vue, etc.):
 - Source maps
 - Path aliases support
 
-### Library Configuration (`tsconfig.lib.json`)
+### Library Configuration (`tsconfig/lib`)
 
 Extends the base configuration with:
 - Declaration file generation
@@ -59,7 +59,7 @@ Extends the base configuration with:
 - Declaration source maps
 - Optimized for library publishing
 
-### Browser Configuration (`tsconfig.browser.json`)
+### Browser Configuration (`tsconfig/browser`)
 
 Extends the base configuration with:
 - DOM types and APIs

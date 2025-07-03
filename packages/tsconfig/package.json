@@ -17,9 +17,9 @@
 		"url": "https://github.com/sponsors/cjkihl"
 	},
 	"exports": {
-		"./tsconfig.base": "./tsconfig.base.json",
-		"./tsconfig.lib": "./tsconfig.lib.json",
-		"./tsconfig.browser": "./tsconfig.browser.json"
+		"./base": "./tsconfig.base.json",
+		"./lib": "./tsconfig.lib.json",
+		"./browser": "./tsconfig.browser.json"
 	},
 	"files": [
 		"tsconfig.base.json",
