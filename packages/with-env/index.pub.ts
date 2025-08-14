@@ -1,72 +1,119 @@
 import { execa } from "execa";
 import { getEnvs } from "./get-env-from-file.js";
 
-export interface WithEnvConfig {
+/**
+ * Configuration for loading environment variables
+ */
+export interface LoadEnvConfig {
+	/** Array of environment file paths to load (e.g., [".env.local", ".env"]) */
 	envFile?: string[];
-	command?: string;
-	args?: string[];
 }
 
-const defaultConfig: Required<WithEnvConfig> = {
-	args: [],
-	command: "",
+const defaultLoadEnvConfig: Required<LoadEnvConfig> = {
 	envFile: [".env.local", ".env"],
 };
 
 /**
- * Loads environment variables from local env files and executes a command with those variables
+ * Loads environment variables from specified files and sets them in process.env
  *
- * This function loads environment variables from the first available env file in the specified list,
- * loads them into the current process environment, and then spawns a child process with the
- * specified command and arguments.
- *
- * @param config - Configuration options for loading environment variables and executing the command
- * @returns A promise that resolves when the child process exits successfully, or rejects with an error
+ * @param config - Configuration object for loading environment variables
+ * @returns Promise that resolves when environment variables are loaded
  *
  * @example
  * ```typescript
- * // Basic usage with default env files
+ * // Load from default files (.env.local, .env)
+ * await loadEnv();
+ *
+ * // Load from custom files
  * await loadEnv({
- *   command: "npm",
- *   args: ["start"]
+ *   envFile: [".env.production", ".env.local"]
  * });
  *
- * // Custom env files
+ * // Load from single file
  * await loadEnv({
- *   envFile: [".env.production", ".env"],
- *   command: "node",
- *   args: ["server.js"]
+ *   envFile: [".env.staging"]
  * });
  * ```
  *
- * @throws {Error} When no command is provided
- * @throws {Error} When the child process fails to execute or exits with a non-zero code
- * @throws {Error} When env file reading fails
+ * @throws {Error} If environment files cannot be read or parsed
  */
-export async function loadEnv(config: WithEnvConfig = {}): Promise<void> {
-	const finalConfig = { ...defaultConfig, ...config };
+export async function loadEnv(config: LoadEnvConfig = {}): Promise<void> {
+	const finalConfig = { ...defaultLoadEnvConfig, ...config };
+
+	try {
+		// Load environment variables from local files
+		const env = await getEnvs(finalConfig.envFile);
+		if (env && Object.keys(env).length > 0) {
+			for (const [key, value] of Object.entries(env)) {
+				if (key && value !== undefined && value !== null) {
+					process.env[key] = value;
+				}
+			}
+			console.log(
+				`Successfully loaded ${Object.keys(env).length} environment variables from local files`,
+			);
+		} else {
+			console.log(
+				"No env file found, proceeding without additional environment variables",
+			);
+		}
+	} catch (error) {
+		const errorMessage = error instanceof Error ? error.message : String(error);
+		throw new Error(`Failed to load environment variables: ${errorMessage}`);
+	}
+}
+
+/**
+ * Configuration for spawning a child process
+ */
+export interface SpawnConfig {
+	/** The command to execute */
+	command?: string;
+	/** Array of arguments to pass to the command */
+	args?: string[];
+}
+
+const defaultSpawnConfig: Required<SpawnConfig> = {
+	args: [],
+	command: "",
+};
+
+/**
+ * Spawns a child process with the specified command and arguments
+ *
+ * @param config - Configuration object for spawning the process
+ * @returns Promise that resolves when the process completes
+ *
+ * @example
+ * ```typescript
+ * // Execute a simple command
+ * await spawn({
+ *   command: "npm",
+ *   args: ["run", "build"]
+ * });
+ *
+ * // Execute with shell command
+ * await spawn({
+ *   command: "echo",
+ *   args: ["Hello", "World"]
+ * });
+ *
+ * // Execute complex command
+ * await spawn({
+ *   command: "docker",
+ *   args: ["run", "--rm", "-v", "./src:/app", "node:18", "npm", "test"]
+ * });
+ * ```
+ *
+ * @throws {Error} If no command is provided or if the command execution fails
+ */
+export async function spawn(config: SpawnConfig = {}): Promise<void> {
+	const finalConfig = { ...defaultSpawnConfig, ...config };
 
 	// Check for required command first
 	const command = finalConfig.command;
 	if (!command) {
 		throw new Error("No command provided to execute");
-	}
-
-	// Load environment variables from local files
-	const env = await getEnvs(finalConfig.envFile);
-	if (env) {
-		for (const [key, value] of Object.entries(env)) {
-			if (key && value) {
-				process.env[key] = value;
-			}
-		}
-		console.log(
-			`Successfully loaded ${Object.keys(env).length} environment variables from local files`,
-		);
-	} else {
-		console.log(
-			"No env file found, proceeding without additional environment variables",
-		);
 	}
 
 	console.log("Spawning process with arguments:", command, finalConfig.args);
