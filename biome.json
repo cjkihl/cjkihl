@@ -13,12 +13,12 @@
 	"files": {
 		"includes": [
 			"**",
-			"!**/node_modules/**",
-			"!**/.next/**",
-			"!**/.git/**",
-			"!**/.vscode/**",
-			"!**/dist/**",
-			"!**/.turbo/**",
+			"!**/node_modules",
+			"!**/.next",
+			"!**/.git",
+			"!**/.vscode",
+			"!**/dist",
+			"!**/.turbo",
 			"!**/package.json",
 			"!**/bun.lock"
 		]
