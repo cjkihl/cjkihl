@@ -1,5 +1,11 @@
 # @cjkihl/bun-cors
 
+## 2.0.3
+
+### Patch Changes
+
+- dc9f3da: changes
+
 ## 2.0.2
 
 ### Patch Changes
