@@ -1,5 +1,11 @@
 # @cjkihl/with-coolify-env
 
+## 1.0.3
+
+### Patch Changes
+
+- dc9f3da: changes
+
 ## 1.0.2
 
 ### Patch Changes

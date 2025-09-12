@@ -1,5 +1,12 @@
 # @cjkihl/with-env
 
+## 1.0.6
+
+### Patch Changes
+
+- 5f66ea9: update
+- dc9f3da: changes
+
 ## 1.0.5
 
 ### Patch Changes
