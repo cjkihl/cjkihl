@@ -29,7 +29,7 @@ export async function getEnvs(
 
 	// Merge environment variables from all files
 	const mergedEnv: DotenvParseOutput = {};
-	
+
 	for (const filePath of existingFiles) {
 		try {
 			const content = await readFile(filePath, "utf-8");
@@ -39,7 +39,8 @@ export async function getEnvs(
 				Object.assign(mergedEnv, fileEnv);
 			}
 		} catch (error) {
-			const errorMessage = error instanceof Error ? error.message : String(error);
+			const errorMessage =
+				error instanceof Error ? error.message : String(error);
 			console.error(
 				`Failed to read environment file '${filePath}': ${errorMessage}`,
 			);
@@ -62,7 +63,7 @@ async function findAllExistingFiles(
 	fileNames: readonly string[],
 ): Promise<string[]> {
 	const existingFiles: string[] = [];
-	
+
 	for (const fileName of fileNames) {
 		const filePath = join(rootDir, fileName);
 
