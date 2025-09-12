@@ -5,7 +5,7 @@ A utility for loading environment variables in monorepos and executing commands 
 ## Features
 
 - 🔧 **Monorepo Support**: Automatically finds and loads environment files from the monorepo root
-- 📁 **Multiple Env Files**: Supports loading from `.env.local` and `.env` files (configurable)
+- 📁 **Multiple Env Files**: Supports loading from `.env.default` and `.env.local` files (configurable)
 - 🚀 **Command Execution**: Executes commands with the loaded environment variables
 - 🛡️ **Production Safety**: Optionally skips loading env files in production environments
 - 📦 **CLI Tool**: Includes a command-line interface for easy integration
@@ -24,7 +24,7 @@ npm install @cjkihl/with-env
 The package provides a CLI tool that loads environment variables and executes commands:
 
 ```bash
-# Basic usage - loads .env.local or .env and runs a command
+# Basic usage - loads .env.default and .env.local (with .env.local overriding .env.default) and runs a command
 npx with-env npm run dev
 
 # With custom environment file
@@ -64,7 +64,7 @@ await loadEnv({
 
 ```typescript
 interface WithEnvConfig {
-  envFile?: string[];           // Array of env file names to try (default: ['.env.local', '.env'])
+  envFile?: string[];           // Array of env file names to load in order (default: ['.env.default', '.env.local'])
   skipInProduction?: boolean;   // Skip loading env files in production (default: true)
   inheritStdio?: boolean;       // Inherit stdio from parent process (default: true)
   command?: string;             // Command to execute
@@ -86,13 +86,14 @@ interface WithEnvConfig {
 4. **Process Execution**: Spawns a child process with the loaded environment variables
 5. **Error Handling**: Provides detailed error messages and proper exit codes
 
-## Environment File Priority
+## Environment File Loading
 
-The tool searches for environment files in the following order:
+The tool loads environment files in the specified order and merges them:
 
-1. `.env.local` (if `envFile` includes it)
-2. `.env` (if `envFile` includes it)
-3. Any additional files specified in the `envFile` array
+1. **Default behavior**: Loads `.env.default` first, then `.env.local` (with `.env.local` overriding variables from `.env.default`)
+2. **Custom order**: Files are loaded in the order specified in the `envFile` array
+3. **Merging**: Later files override variables from earlier files
+4. **Missing files**: If a file doesn't exist, it's skipped without error
 
 ## Examples
 

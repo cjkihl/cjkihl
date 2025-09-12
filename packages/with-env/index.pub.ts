@@ -5,12 +5,12 @@ import { getEnvs } from "./get-env-from-file.js";
  * Configuration for loading environment variables
  */
 export interface LoadEnvConfig {
-	/** Array of environment file paths to load (e.g., [".env.local", ".env"]) */
+	/** Array of environment file paths to load in order (e.g., [".env.default", ".env.local"]) */
 	envFile?: string[];
 }
 
 const defaultLoadEnvConfig: Required<LoadEnvConfig> = {
-	envFile: [".env.local", ".env"],
+	envFile: [".env.default", ".env.local"],
 };
 
 /**
@@ -21,10 +21,10 @@ const defaultLoadEnvConfig: Required<LoadEnvConfig> = {
  *
  * @example
  * ```typescript
- * // Load from default files (.env.local, .env)
+ * // Load from default files (.env.default, .env.local) - .env.local overrides .env.default
  * await loadEnv();
  *
- * // Load from custom files
+ * // Load from custom files in order
  * await loadEnv({
  *   envFile: [".env.production", ".env.local"]
  * });

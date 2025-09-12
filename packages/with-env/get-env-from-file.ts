@@ -4,10 +4,11 @@ import { findRoot } from "@cjkihl/find-root";
 import dotenv, { type DotenvParseOutput } from "dotenv";
 
 /**
- * Finds and reads environment variables from the first available env file.
+ * Finds and reads environment variables from multiple env files, merging them in order.
+ * Later files override variables from earlier files.
  *
- * @param envFileNames - Array of environment file names to search for (e.g., ['.env', '.env.local'])
- * @returns Parsed environment variables or null if no file is found or readable
+ * @param envFileNames - Array of environment file names to search for (e.g., ['.env.default', '.env.local'])
+ * @returns Parsed environment variables merged from all found files, or null if no files are found
  * @throws {Error} When there's an issue finding the project root
  */
 export async function getEnvs(
@@ -19,44 +20,59 @@ export async function getEnvs(
 
 	const { root } = await findRoot();
 
-	// Find the first existing env file
-	const envFilePath = await findFirstExistingFile(root, envFileNames);
+	// Find all existing env files
+	const existingFiles = await findAllExistingFiles(root, envFileNames);
 
-	if (!envFilePath) {
+	if (existingFiles.length === 0) {
 		return null;
 	}
 
-	try {
-		const content = await readFile(envFilePath, "utf-8");
-		return content.trim() ? dotenv.parse(content) : {};
-	} catch (error) {
-		const errorMessage = error instanceof Error ? error.message : String(error);
-		console.error(
-			`Failed to read environment file '${envFilePath}': ${errorMessage}`,
-		);
-		return null;
+	// Merge environment variables from all files
+	const mergedEnv: DotenvParseOutput = {};
+	
+	for (const filePath of existingFiles) {
+		try {
+			const content = await readFile(filePath, "utf-8");
+			if (content.trim()) {
+				const fileEnv = dotenv.parse(content);
+				// Merge with existing variables (later files override earlier ones)
+				Object.assign(mergedEnv, fileEnv);
+			}
+		} catch (error) {
+			const errorMessage = error instanceof Error ? error.message : String(error);
+			console.error(
+				`Failed to read environment file '${filePath}': ${errorMessage}`,
+			);
+			// Continue with other files even if one fails
+		}
 	}
+
+	return Object.keys(mergedEnv).length > 0 ? mergedEnv : null;
 }
 
 /**
- * Finds the first existing file from a list of possible file names.
+ * Finds all existing files from a list of possible file names.
  *
  * @param rootDir - The root directory to search in
  * @param fileNames - Array of file names to check
- * @returns Path to the first existing file or null if none found
+ * @returns Array of paths to all existing files, in the order they were specified
  */
-async function findFirstExistingFile(
+async function findAllExistingFiles(
 	rootDir: string,
 	fileNames: readonly string[],
-): Promise<string | null> {
+): Promise<string[]> {
+	const existingFiles: string[] = [];
+	
 	for (const fileName of fileNames) {
 		const filePath = join(rootDir, fileName);
 
 		try {
 			await access(filePath);
-			return filePath;
-		} catch {}
+			existingFiles.push(filePath);
+		} catch {
+			// File doesn't exist, continue to next
+		}
 	}
 
-	return null;
+	return existingFiles;
 }
