@@ -26,6 +26,7 @@
 		"tsconfig.base.json",
 		"tsconfig.lib.json",
 		"tsconfig.browser.json",
+		"tsconfig.nextjs.json",
 		"README.md"
 	],
 	"keywords": [
