@@ -19,7 +19,8 @@
 	"exports": {
 		"./base": "./tsconfig.base.json",
 		"./lib": "./tsconfig.lib.json",
-		"./browser": "./tsconfig.browser.json"
+		"./browser": "./tsconfig.browser.json",
+		"./nextjs": "./tsconfig.nextjs.json"
 	},
 	"files": [
 		"tsconfig.base.json",
