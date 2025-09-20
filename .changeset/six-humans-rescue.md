@@ -1,0 +1,5 @@
+---
+"@cjkihl/tsconfig": patch
+---
+
+up
