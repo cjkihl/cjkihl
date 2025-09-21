@@ -1,7 +1,8 @@
 {
 	"compilerOptions": {
 		"jsx": "preserve",
-		"lib": ["es2022", "dom", "dom.iterable"]
+		"lib": ["es2022", "dom", "dom.iterable"],
+		"target": "ES2017" // We need to support older browsers
 	},
 	"extends": ["./tsconfig.base.json"]
 }
