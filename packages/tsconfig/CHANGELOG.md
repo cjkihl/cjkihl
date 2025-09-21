@@ -1,5 +1,11 @@
 # @cjkihl/tsconfig
 
+## 1.0.7
+
+### Patch Changes
+
+- f437a86: fix
+
 ## 1.0.6
 
 ### Patch Changes
