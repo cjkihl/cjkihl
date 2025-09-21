@@ -1,5 +1,11 @@
 # @cjkihl/tsconfig
 
+## 1.0.6
+
+### Patch Changes
+
+- 129b118: Updates for tsconfig
+
 ## 1.0.5
 
 ### Patch Changes
