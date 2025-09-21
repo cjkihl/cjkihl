@@ -1,16 +1,8 @@
 {
 	"compilerOptions": {
-		"allowArbitraryExtensions": true,
-		"incremental": true,
-
 		// Next.js uses esnext instead of preserve
 		"module": "esnext",
 		"noEmit": true,
-
-		// Paths is optional
-		/* "paths": {
-			"@/*": ["./src/*"]
-		}, */
 		"plugins": [
 			{
 				"name": "next"
@@ -21,5 +13,10 @@
 		"target": "ES2017"
 	},
 	"extends": ["./tsconfig.browser.json"],
-	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"]
+	"include": [
+		"${configDir}/next-env.d.ts",
+		"${configDir}/**/*.ts",
+		"${configDir}/**/*.tsx",
+		"${configDir}/.next/types/**/*.ts"
+	]
 }

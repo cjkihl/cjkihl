@@ -1,11 +1,15 @@
 {
 	// https://www.totaltypescript.com/how-to-create-an-npm-package#32-set-up-a-tsconfigjson
 	"compilerOptions": {
+		// Allow importing .json files etc
+		"allowArbitraryExtensions": true,
 		// Base
 		"allowJs": true,
 		"checkJs": true,
 		// Base
 		"esModuleInterop": true,
+		// Incremental output the buildgraph to file and speeds up builds even when there is no output
+		"incremental": true,
 		"isolatedModules": true,
 
 		// Lib Node
@@ -15,6 +19,8 @@
 		"module": "Preserve",
 		"moduleDetection": "force",
 		"moduleResolution": "bundler",
+		// We don't emit any output for base config
+		"noEmit": true,
 		"noFallthroughCasesInSwitch": true,
 		"noImplicitAny": true,
 		"noImplicitOverride": true,
@@ -37,13 +43,6 @@
 		"target": "es2022",
 		"tsBuildInfoFile": "${configDir}/dist/tsbuildinfo.json",
 		"verbatimModuleSyntax": true
-
-		// For browser
-		// "lib": ["es2022", "dom", "dom.iterable"]
-
-		// "paths": {
-		// 	"@/*": ["./apps/site/src/*"]
-		// }
 	},
 	"exclude": [
 		"node_modules",

@@ -1,5 +1,7 @@
 {
 	"compilerOptions": {
+		// We don't allow importing .json files etc since they need a bundler
+		"allowArbitraryExtensions": false,
 		// Optimizations for declaration files
 		"composite": true,
 		// Optimizations for declaration files
@@ -8,6 +10,8 @@
 		"declarationMap": true,
 		"module": "NodeNext",
 		"moduleResolution": "nodenext",
+		// We emit files for library config
+		"noEmit": false,
 		"sourceMap": true
 	},
 	"extends": ["./tsconfig.base.json"]
