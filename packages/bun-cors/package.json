@@ -40,6 +40,9 @@
     "test": "bun test",
     "type-check": "tsc --noEmit"
   },
+  "devDependencies": {
+    "@types/bun": "^1.2.23"
+  },
   "engines": {
     "node": ">=18.0.0"
   },
