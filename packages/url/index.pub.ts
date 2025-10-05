@@ -48,14 +48,14 @@ export function sanitizeQueryParameters(
  */
 export function isAbsoluteUrl(href: string): boolean {
 	if (typeof href === "string") {
-		return /^https?:\/\//.test(href);
+		return /^https?:\/\//i.test(href);
 	}
 	return false;
 }
 
 /**
  * Adds search parameters to a URL, preserving existing parameters and handling both absolute and relative URLs.
- * For relative URLs, it uses the current window location origin as the base.
+ * For relative URLs, it uses the current window location origin as the base (when available).
  *
  * @param url - The URL to add parameters to (can be absolute or relative)
  * @param params - The query parameters to add
@@ -65,7 +65,7 @@ export function isAbsoluteUrl(href: string): boolean {
  * ```typescript
  * // With absolute URL
  * addSearchParams('https://example.com/page', { name: 'John', age: '30' })
- * // Returns: 'https://example.com/page?name=John&age=30'
+ * // Returns: 'https://example.com/page?age=30&name=John' (order may vary)
  *
  * // With relative URL
  * addSearchParams('/page', { name: 'John' })
@@ -79,7 +79,30 @@ export function isAbsoluteUrl(href: string): boolean {
 export function addSearchParams(url: string, params: QueryParameters): string {
 	// Check if the URL is absolute
 	const isAbsolute = isAbsoluteUrl(url);
-	const baseUrl = isAbsolute ? url : window.location.origin + url;
+
+	if (isAbsolute) {
+		// Handle absolute URLs
+		const urlObject = new URL(url);
+		const searchParams = new URLSearchParams(urlObject.search);
+
+		for (const [key, value] of Object.entries(params)) {
+			if (value !== undefined && value !== null) {
+				searchParams.set(key, value);
+			}
+		}
+
+		// Update the URL object with the new search parameters
+		urlObject.search = searchParams.toString();
+		return urlObject.toString();
+	}
+
+	// Handle relative URLs
+	// Handle relative URLs - use window.location.origin if available, otherwise default to 'https://example.com'
+	const origin =
+		typeof window !== "undefined" && window.location
+			? window.location.origin
+			: "https://example.com";
+	const baseUrl = origin + ensureLeadingSlash(url);
 
 	const urlObject = new URL(baseUrl);
 	const searchParams = new URLSearchParams(urlObject.search);
@@ -93,10 +116,8 @@ export function addSearchParams(url: string, params: QueryParameters): string {
 	// Update the URL object with the new search parameters
 	urlObject.search = searchParams.toString();
 
-	// Return the relative or absolute URL with updated search parameters
-	return isAbsolute
-		? urlObject.toString()
-		: urlObject.pathname + urlObject.search;
+	// Return the relative URL with updated search parameters and hash
+	return urlObject.pathname + urlObject.search + urlObject.hash;
 }
 
 /**
@@ -134,10 +155,15 @@ export const sanitizeSiteUrl = (url: string, origin: string): URL => {
 		}
 		const fullUrl = new URL(url);
 		if (fullUrl.origin !== origin) {
-			return new URL(origin + fullUrl.pathname + fullUrl.search);
+			// Preserve fragment when stripping origin
+			return new URL(origin + fullUrl.pathname + fullUrl.search + fullUrl.hash);
 		}
 		return fullUrl;
 	} catch (_e) {
+		// Handle malformed URLs like "https://" by treating them as relative
+		if (url.match(/^https?:\/\/$/)) {
+			return new URL(`${origin}/`);
+		}
 		return new URL(origin + ensureLeadingSlash(url));
 	}
 };
