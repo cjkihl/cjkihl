@@ -1,5 +1,13 @@
 # @cjkihl/with-coolify-env
 
+## 1.0.4
+
+### Patch Changes
+
+- 0af0500: Update deps
+- Updated dependencies [0af0500]
+  - @cjkihl/find-root@1.0.2
+
 ## 1.0.3
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "@cjkihl/changeset-dep-resolver",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Tool to resolve workspace dependencies before publishing",
   "keywords": [
     "changeset",
