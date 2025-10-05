@@ -41,7 +41,7 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "find-up": "^7.0.0"
+    "find-up": "^8.0.0"
   },
   "engines": {
     "node": ">=18.0.0"

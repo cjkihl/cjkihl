@@ -21,12 +21,12 @@
 		"up": "bunx npm-check-updates -ws --root --format group -u"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "^2.2.0",
-		"@changesets/cli": "^2.29.5",
-		"@manypkg/cli": "^0.25.0",
-		"bun-types": "^1.0.0",
-		"turbo": "^2.5.5",
-		"typescript": "^5.9.2"
+		"@biomejs/biome": "^2.2.5",
+		"@changesets/cli": "^2.29.7",
+		"@manypkg/cli": "^0.25.1",
+		"bun-types": "^1.2.23",
+		"turbo": "^2.5.8",
+		"typescript": "^5.9.3"
 	},
-	"packageManager": "bun@1.2.20"
+	"packageManager": "bun@1.2.23"
 }

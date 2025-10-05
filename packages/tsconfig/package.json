@@ -2,20 +2,27 @@
 	"name": "@cjkihl/tsconfig",
 	"version": "1.0.6",
 	"description": "Shared TypeScript configurations for Node.js projects",
-	"author": "@cjkihl",
-	"license": "MIT",
+	"keywords": [
+		"typescript",
+		"tsconfig",
+		"configuration",
+		"node",
+		"types"
+	],
+	"homepage": "https://github.com/cjkihl/cjkihl#readme",
+	"bugs": {
+		"url": "https://github.com/cjkihl/cjkihl/issues"
+	},
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/cjkihl/cjkihl.git"
 	},
-	"bugs": {
-		"url": "https://github.com/cjkihl/cjkihl/issues"
-	},
-	"homepage": "https://github.com/cjkihl/cjkihl#readme",
 	"funding": {
 		"type": "github",
 		"url": "https://github.com/sponsors/cjkihl"
 	},
+	"license": "MIT",
+	"author": "@cjkihl",
 	"exports": {
 		"./base": "./tsconfig.base.json",
 		"./lib": "./tsconfig.lib.json",
@@ -29,17 +36,10 @@
 		"tsconfig.nextjs.json",
 		"README.md"
 	],
-	"keywords": [
-		"typescript",
-		"tsconfig",
-		"configuration",
-		"node",
-		"types"
-	],
-	"publishConfig": {
-		"access": "public"
-	},
 	"engines": {
 		"node": ">=18.0.0"
+	},
+	"publishConfig": {
+		"access": "public"
 	}
 }

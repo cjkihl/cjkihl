@@ -1,7 +1,6 @@
 {
 	"compilerOptions": {
-		"jsx": "preserve",
 		"lib": ["es2022", "dom", "dom.iterable"]
 	},
-	"extends": ["./tsconfig.base.json"]
+	"extends": "@cjkihl/tsconfig/lib"
 }

@@ -49,8 +49,6 @@
       "types": "./dist/utils.pub.d.ts"
     }
   },
-  "main": "./dist/output/index.js",
-  "types": "./dist/index.d.ts",
   "files": [
     "dist",
     "README.md"
@@ -62,14 +60,6 @@
   },
   "dependencies": {
     "@standard-schema/spec": "^1.0.0"
-  },
-  "devDependencies": {
-    "bun-types": "^1.0.0",
-    "typescript": "^5.9.2",
-    "zod": "^4.0.17"
-  },
-  "peerDependencies": {
-    "typescript": ">=5.0.0"
   },
   "engines": {
     "node": ">=18.0.0"
