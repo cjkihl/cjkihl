@@ -1,6 +1,6 @@
 {
   "name": "@cjkihl/cookies",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A minimal, type-safe cookies library for Bun/Node.js with Standard Schema validation support",
   "keywords": [
     "cookies",

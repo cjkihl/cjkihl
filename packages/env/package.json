@@ -1,6 +1,6 @@
 {
   "name": "@cjkihl/env",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Type-safe environment variable validation and management with Zod schemas",
   "keywords": [
     "environment",

@@ -1,5 +1,12 @@
 # @cjkihl/tsconfig
 
+## 1.0.7
+
+### Patch Changes
+
+- f437a86: fix
+- 0af0500: Update deps
+
 ## 1.0.6
 
 ### Patch Changes

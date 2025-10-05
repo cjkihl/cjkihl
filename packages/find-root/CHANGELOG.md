@@ -1,5 +1,11 @@
 # @cjkihl/find-root
 
+## 1.0.2
+
+### Patch Changes
+
+- 0af0500: Update deps
+
 ## 1.0.1
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @cjkihl/create-exports
 
+## 1.0.4
+
+### Patch Changes
+
+- 0af0500: Update deps
+
 ## 1.0.3
 
 ### Patch Changes
