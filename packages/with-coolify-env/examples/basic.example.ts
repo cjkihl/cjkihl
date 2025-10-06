@@ -7,7 +7,7 @@
  * without actually making API calls to Coolify.
  */
 
-import { loadEnv, type WithCoolifyEnvConfig } from "./index.pub.js";
+import { loadEnv, type WithCoolifyEnvConfig } from "../index.pub.ts";
 
 /**
  * Test configuration validation

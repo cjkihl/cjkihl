@@ -1,4 +1,4 @@
-import type { MetaData } from "./types.js";
+import type { MetaData } from "./types.ts";
 
 function addHeader(name: string) {
 	const border = `# ${"~".repeat(60)}`;

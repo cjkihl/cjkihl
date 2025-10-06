@@ -4,7 +4,7 @@ import { Command } from "commander";
 import {
 	resolveWorkspaceDependencies,
 	restoreWorkspaceDependencies,
-} from "./dep-resolver.js";
+} from "./dep-resolver.ts";
 
 const program = new Command();
 

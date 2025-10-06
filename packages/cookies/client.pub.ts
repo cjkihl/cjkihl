@@ -1,11 +1,11 @@
 import type { StandardSchemaV1 } from "@standard-schema/spec";
-import type { Cookie, CookieOptions, CookieRecord } from "./types.pub.js";
+import type { Cookie, CookieOptions, CookieRecord } from "./types.pub.ts";
 import {
 	createCookie,
 	parseCookieString,
 	stringifyCookie,
 	validateCookieValue,
-} from "./utils.pub.js";
+} from "./utils.pub.ts";
 
 /**
  * Gets all cookies from the browser's document.cookie.

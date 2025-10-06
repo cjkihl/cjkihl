@@ -12,6 +12,8 @@
 		"moduleResolution": "nodenext",
 		// We emit files for library config
 		"noEmit": false,
+		// Rewrites .ts and .tsx to .js and .jsx
+		"rewriteRelativeImportExtensions": true,
 		"sourceMap": true
 	},
 	"extends": ["./tsconfig.base.json"]

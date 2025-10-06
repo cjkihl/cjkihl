@@ -18,13 +18,15 @@
 		"lint": "biome check . && manypkg check",
 		"lint-fix": "biome check --write --unsafe . && manypkg fix",
 		"test": "bun test",
-		"up": "bunx npm-check-updates -ws --root --format group -u"
+		"up": "bunx npm-check-updates -ws --root --format group -u",
+		"knip": "knip --no-config-hints",
+		"ci": "bun run build && bun run lint && bun run knip && bun run test"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^2.2.5",
 		"@changesets/cli": "^2.29.7",
 		"@manypkg/cli": "^0.25.1",
-		"bun-types": "^1.2.23",
+		"knip": "^5.64.1",
 		"turbo": "^2.5.8",
 		"typescript": "^5.9.3"
 	},

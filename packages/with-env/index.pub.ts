@@ -1,5 +1,5 @@
 import { execa } from "execa";
-import { getEnvs } from "./get-env-from-file.js";
+import { getEnvs } from "./get-env-from-file.ts";
 
 /**
  * Configuration for loading environment variables

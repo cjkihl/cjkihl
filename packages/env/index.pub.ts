@@ -1,2 +1,2 @@
-export { createEnv } from "./create-env.js";
-export { mergeEnvs } from "./merge-envs.js";
+export { createEnv } from "./create-env.ts";
+export { mergeEnvs } from "./merge-envs.ts";

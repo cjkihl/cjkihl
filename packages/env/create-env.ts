@@ -1,6 +1,6 @@
 import { pickBy } from "remeda";
 import { z } from "zod/v4";
-import type { EnvConfig, Environment, MetaData } from "./types.js";
+import type { EnvConfig, Environment, MetaData } from "./types.ts";
 
 /**
  * Creates a type-safe environment configuration object

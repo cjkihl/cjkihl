@@ -51,8 +51,10 @@
   },
   "dependencies": {
     "remeda": "2.32.0",
-    "type-fest": "5.0.1",
     "zod": "4.1.11"
+  },
+  "devDependencies": {
+    "@cjkihl/tsconfig": "workspace:*"
   },
   "engines": {
     "node": ">=18.0.0"

@@ -43,6 +43,9 @@
     "test": "bun test",
     "type-check": "tsc --noEmit"
   },
+  "devDependencies": {
+    "@cjkihl/tsconfig": "workspace:*"
+  },
   "engines": {
     "node": ">=18.0.0"
   },

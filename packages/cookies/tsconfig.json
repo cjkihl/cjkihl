@@ -1,3 +1,6 @@
 {
-	"extends": "../tsconfig/tsconfig.browser"
+	"compilerOptions": {
+		"lib": ["es2022", "dom", "dom.iterable"]
+	},
+	"extends": "../tsconfig/tsconfig.lib"
 }

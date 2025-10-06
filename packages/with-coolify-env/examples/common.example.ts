@@ -7,7 +7,7 @@
  * and shows the expected behavior in different scenarios.
  */
 
-import { loadEnv, type WithCoolifyEnvConfig } from "./index.pub.js";
+import { loadEnv, type WithCoolifyEnvConfig } from "../index.pub.ts";
 
 /**
  * Example 1: Basic usage with environment variables

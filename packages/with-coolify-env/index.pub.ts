@@ -1,5 +1,5 @@
 import { execa } from "execa";
-import { fetchCoolifyEnvs } from "./fetch-coolify-env.js";
+import { fetchCoolifyEnvs } from "./fetch-coolify-env.ts";
 
 /**
  * Configuration options for the Coolify environment loader

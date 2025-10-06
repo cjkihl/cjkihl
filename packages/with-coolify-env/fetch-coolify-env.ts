@@ -1,7 +1,7 @@
 /**
  * Represents an environment variable from Coolify
  */
-export interface CoolifyEnv {
+interface CoolifyEnv {
 	/** The environment variable key/name */
 	key: string;
 	/** The environment variable value */

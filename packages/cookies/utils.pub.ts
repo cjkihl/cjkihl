@@ -4,7 +4,7 @@ import type {
 	CookieOptions,
 	CookieRecord,
 	CookieValidationResult,
-} from "./types.pub.js";
+} from "./types.pub.ts";
 
 /**
  * Parses a cookie string and returns a record of cookie objects with raw string values.

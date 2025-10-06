@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { Command } from "commander";
-import setTurboEnv from "./index.pub.js";
+import setTurboEnv from "./index.pub.ts";
 
 const program = new Command();
 

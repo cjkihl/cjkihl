@@ -1,4 +1,4 @@
-import type { Merge } from "./types.js";
+import type { Merge } from "./types.ts";
 
 type MergeArrayOfObjects<
 	TArr extends readonly object[],

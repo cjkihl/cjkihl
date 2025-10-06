@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { Command } from "commander";
-import { type LoadEnvConfig, loadEnv, spawn } from "./index.pub.js";
+import { type LoadEnvConfig, loadEnv, spawn } from "./index.pub.ts";
 
 const program = new Command();
 

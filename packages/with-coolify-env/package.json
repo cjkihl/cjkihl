@@ -45,9 +45,7 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@cjkihl/find-root": "^1.0.2",
     "commander": "^14.0.1",
-    "dotenv": "^17.2.3",
     "execa": "^9.6.0"
   },
   "engines": {

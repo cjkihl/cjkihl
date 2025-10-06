@@ -34,19 +34,19 @@
   "exports": {
     "./client": {
       "default": "./dist/output/client.pub.js",
-      "types": "./dist/client.pub.d.ts"
+      "types": "./dist/types/client.pub.d.ts"
     },
     "./server": {
       "default": "./dist/output/server.pub.js",
-      "types": "./dist/server.pub.d.ts"
+      "types": "./dist/types/server.pub.d.ts"
     },
     "./types": {
       "default": "./dist/output/types.pub.js",
-      "types": "./dist/types.pub.d.ts"
+      "types": "./dist/types/types.pub.d.ts"
     },
     "./utils": {
       "default": "./dist/output/utils.pub.js",
-      "types": "./dist/utils.pub.d.ts"
+      "types": "./dist/types/utils.pub.d.ts"
     }
   },
   "files": [
@@ -60,6 +60,9 @@
   },
   "dependencies": {
     "@standard-schema/spec": "^1.0.0"
+  },
+  "devDependencies": {
+    "zod": "^4.1.11"
   },
   "engines": {
     "node": ">=18.0.0"
