@@ -1,5 +1,11 @@
 # @cjkihl/cookies
 
+## 1.0.4
+
+### Patch Changes
+
+- 60debd8: Update deps
+
 ## 1.0.3
 
 ### Patch Changes

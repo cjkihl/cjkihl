@@ -1,5 +1,11 @@
 # @cjkihl/changeset-dep-resolver
 
+## 1.0.6
+
+### Patch Changes
+
+- 60debd8: Update deps
+
 ## 1.0.5
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @cjkihl/bun-cors
 
+## 2.0.5
+
+### Patch Changes
+
+- 60debd8: Update deps
+
 ## 2.0.4
 
 ### Patch Changes
