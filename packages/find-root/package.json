@@ -1,7 +1,36 @@
 {
   "name": "@cjkihl/find-root",
   "version": "1.0.2",
+  "author": "@cjkihl",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cjkihl/cjkihl.git"
+  },
+  "dependencies": {
+    "find-up": "^8.0.0"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.pub.d.ts",
+      "default": "./dist/output/index.pub.js"
+    }
+  },
+  "bugs": {
+    "url": "https://github.com/cjkihl/cjkihl/issues"
+  },
   "description": "Find monorepo root directory by detecting lockfiles",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/cjkihl"
+  },
+  "homepage": "https://github.com/cjkihl/cjkihl#readme",
   "keywords": [
     "monorepo",
     "root",
@@ -10,43 +39,17 @@
     "lockfile",
     "package-manager"
   ],
-  "homepage": "https://github.com/cjkihl/cjkihl#readme",
-  "bugs": {
-    "url": "https://github.com/cjkihl/cjkihl/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/cjkihl/cjkihl.git"
-  },
-  "funding": {
-    "type": "github",
-    "url": "https://github.com/sponsors/cjkihl"
-  },
   "license": "MIT",
-  "author": "@cjkihl",
-  "type": "module",
-  "exports": {
-    ".": {
-      "types": "./dist/types/index.pub.d.ts",
-      "default": "./dist/output/index.pub.js"
-    }
+  "publishConfig": {
+    "access": "public"
   },
-  "files": [
-    "dist",
-    "README.md"
-  ],
   "scripts": {
     "build": "tsc",
     "test": "bun test",
     "type-check": "tsc --noEmit"
   },
-  "dependencies": {
-    "find-up": "^8.0.0"
-  },
-  "engines": {
-    "node": ">=18.0.0"
-  },
-  "publishConfig": {
-    "access": "public"
+  "type": "module",
+  "devDependencies": {
+    "@types/node": "^24.7.2"
   }
 }

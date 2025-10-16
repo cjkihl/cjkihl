@@ -48,6 +48,9 @@
     "commander": "^14.0.1",
     "execa": "^9.6.0"
   },
+  "devDependencies": {
+    "@types/node": "^24.7.2"
+  },
   "engines": {
     "node": ">=18.0.0"
   },

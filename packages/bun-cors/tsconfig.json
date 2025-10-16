@@ -1,3 +1,6 @@
 {
+	"compilerOptions": {
+		"types": ["bun", "node"]
+	},
 	"extends": "../tsconfig/tsconfig.lib"
 }

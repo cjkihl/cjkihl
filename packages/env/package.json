@@ -51,10 +51,11 @@
   },
   "dependencies": {
     "remeda": "2.32.0",
-    "zod": "4.1.11"
+    "zod": "4.1.12"
   },
   "devDependencies": {
-    "@cjkihl/tsconfig": "workspace:*"
+    "@cjkihl/tsconfig": "workspace:*",
+    "@types/node": "^24.7.2"
   },
   "engines": {
     "node": ">=18.0.0"

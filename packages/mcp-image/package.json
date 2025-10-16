@@ -1,14 +1,18 @@
 {
-  "name": "@cjkihl/bun-cors",
-  "version": "2.0.5",
-  "description": "Cors middleware for bun",
+  "name": "@cjkihl/mcp-image",
+  "version": "0.0.1",
+  "description": "A TypeScript/JavaScript MCP Server for Image Processing. Resize, convert, and more.",
   "keywords": [
-    "cors",
-    "middleware",
-    "bun",
-    "http",
-    "cross-origin",
-    "security"
+    "mcp",
+    "model context protocol",
+    "image",
+    "convert",
+    "resize",
+    "image processing",
+    "icon generation",
+    "image conversion",
+    "image resizing",
+    "sharp"
   ],
   "homepage": "https://github.com/cjkihl/cjkihl#readme",
   "bugs": {
@@ -25,11 +29,9 @@
   "license": "MIT",
   "author": "@cjkihl",
   "type": "module",
-  "exports": {
-    ".": {
-      "default": "./dist/output/index.pub.js",
-      "types": "./dist/types/index.pub.d.ts"
-    }
+  "exports": {},
+  "bin": {
+    "mcp-image": "./dist/output/mcp-image.bin.js"
   },
   "files": [
     "dist",
@@ -37,11 +39,16 @@
   ],
   "scripts": {
     "build": "tsc && bun ../create-exports/create-exports.bin.ts",
-    "test": "bun test",
     "type-check": "tsc --noEmit"
   },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.20.0",
+    "png-to-ico": "^3.0.1",
+    "sharp": "^0.34.4",
+    "zod": "^3.23.8"
+  },
   "devDependencies": {
-    "@types/bun": "^1.3.0",
+    "@cjkihl/tsconfig": "workspace:*",
     "@types/node": "^24.7.2"
   },
   "engines": {
