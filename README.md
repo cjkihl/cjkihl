@@ -52,12 +52,15 @@ const cj = {
 | [`@cjkihl/find-root`](./packages/find-root) | 🕵️ Find monorepo root by detecting lockfiles | ![npm](https://img.shields.io/npm/v/@cjkihl/find-root?style=flat-square) |
 | [`@cjkihl/create-exports`](./packages/create-exports) | 🎨 Generate package exports configuration | ![npm](https://img.shields.io/npm/v/@cjkihl/create-exports?style=flat-square) |
 | [`@cjkihl/tsconfig`](./packages/tsconfig) | ⚙️ Shared TypeScript configs for Node.js | ![npm](https://img.shields.io/npm/v/@cjkihl/tsconfig?style=flat-square) |
+| [`@cjkihl/env`](./packages/env) | 🛡️ Type-safe environment variable validation with Zod schemas | ![npm](https://img.shields.io/npm/v/@cjkihl/env?style=flat-square) |
 | [`@cjkihl/turbo-env`](./packages/turbo-env) | 🚀 Turbo environment utilities | ![npm](https://img.shields.io/npm/v/@cjkihl/turbo-env?style=flat-square) |
 | [`@cjkihl/with-env`](./packages/with-env) | 🔧 Environment management tools | ![npm](https://img.shields.io/npm/v/@cjkihl/with-env?style=flat-square) |
-| [`@cjkihl/cookies`](./packages/cookies) | 🍪 Type-safe cookies library with Standard Schema validation | ![npm](https://img.shields.io/npm/v/@cjkihl/cookies?style=flat-square) |
-| [`@cjkihl/bun-cors`](./packages/bun-cors) | 🌐 Lightweight CORS middleware for Bun | ![npm](https://img.shields.io/npm/v/@cjkihl/bun-cors?style=flat-square) |
-| [`@cjkihl/changeset-dep-resolver`](./packages/changeset-dep-resolver) | 🔗 Resolve workspace dependencies before publishing | ![npm](https://img.shields.io/npm/v/@cjkihl/changeset-dep-resolver?style=flat-square) |
 | [`@cjkihl/with-coolify-env`](./packages/with-coolify-env) | ☁️ Load environment variables from Coolify | ![npm](https://img.shields.io/npm/v/@cjkihl/with-coolify-env?style=flat-square) |
+| [`@cjkihl/cookies`](./packages/cookies) | 🍪 Type-safe cookies library with Standard Schema validation | ![npm](https://img.shields.io/npm/v/@cjkihl/cookies?style=flat-square) |
+| [`@cjkihl/url`](./packages/url) | 🔗 Type-safe URL manipulation and query parameter utilities | ![npm](https://img.shields.io/npm/v/@cjkihl/url?style=flat-square) |
+| [`@cjkihl/bun-cors`](./packages/bun-cors) | 🌐 Lightweight CORS middleware for Bun | ![npm](https://img.shields.io/npm/v/@cjkihl/bun-cors?style=flat-square) |
+| [`@cjkihl/changeset-dep-resolver`](./packages/changeset-dep-resolver) | 🔀 Resolve workspace dependencies before publishing | ![npm](https://img.shields.io/npm/v/@cjkihl/changeset-dep-resolver?style=flat-square) |
+| [`@cjkihl/mcp-image`](./packages/mcp-image) | 🖼️ MCP Server for image processing (resize, convert, and more) | ![npm](https://img.shields.io/npm/v/@cjkihl/mcp-image?style=flat-square) |
 
 ---
 
