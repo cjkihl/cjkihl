@@ -1,6 +1,6 @@
 {
   "name": "@cjkihl/with-coolify-env",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Load environment variables from Coolify and execute commands with those variables",
   "keywords": [
     "coolify",

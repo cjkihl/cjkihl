@@ -1,5 +1,11 @@
 # @cjkihl/changeset-dep-resolver
 
+## 1.0.7
+
+### Patch Changes
+
+- 0e5b134: Up
+
 ## 1.0.6
 
 ### Patch Changes

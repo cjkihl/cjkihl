@@ -1,5 +1,11 @@
 # @cjkihl/bun-cors
 
+## 2.0.6
+
+### Patch Changes
+
+- 0e5b134: Up
+
 ## 2.0.5
 
 ### Patch Changes

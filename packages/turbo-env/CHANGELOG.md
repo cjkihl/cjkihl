@@ -1,5 +1,13 @@
 # @cjkihl/turbo-env
 
+## 1.0.7
+
+### Patch Changes
+
+- 0e5b134: Up
+- Updated dependencies [0e5b134]
+  - @cjkihl/find-root@1.0.3
+
 ## 1.0.6
 
 ### Patch Changes

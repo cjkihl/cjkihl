@@ -1,6 +1,6 @@
 {
 	"name": "@cjkihl/tsconfig",
-	"version": "1.0.8",
+	"version": "1.0.9",
 	"description": "Shared TypeScript configurations for Node.js projects",
 	"keywords": [
 		"typescript",
