@@ -3,9 +3,9 @@ import path from "node:path";
 import pngToIco from "png-to-ico";
 import sharp, { type Gravity } from "sharp";
 
-export type FitMode = "contain" | "cover" | "fill" | "inside" | "outside";
+type FitMode = "contain" | "cover" | "fill" | "inside" | "outside";
 
-export interface ResizeOptions {
+interface ResizeOptions {
 	inputPath: string;
 	outputPath: string;
 	width?: number;
@@ -17,7 +17,7 @@ export interface ResizeOptions {
 	quality?: number;
 }
 
-export async function ensureDirForFile(filePath: string): Promise<void> {
+async function ensureDirForFile(filePath: string): Promise<void> {
 	await fs.mkdir(path.dirname(filePath), { recursive: true });
 }
 
@@ -85,7 +85,7 @@ export async function convertImage(input: {
 
 export async function resizeWithFit(opts: ResizeOptions): Promise<string> {
 	const { inputPath, outputPath, width, height, background, position } = opts;
-	const fit = (mapFit(opts.fit) ?? "inside") as any;
+	const fit = mapFit(opts.fit) ?? "inside";
 	let image = sharp(inputPath, { failOn: "none" });
 	image = image.resize({ background, fit, height, position, width });
 

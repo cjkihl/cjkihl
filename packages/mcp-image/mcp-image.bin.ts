@@ -180,7 +180,15 @@ async function main() {
 		"Convert an image from one format to another (png, jpeg, webp, avif, tiff). Useful for format conversion, quality optimization, or processing images with transparency. Can optionally flatten transparent images to a solid background color and convert colorspaces.",
 		convertShape,
 		async (args) => {
-			const out = await convertImage(args as any);
+			const out = await convertImage({
+				background: args.background,
+				colorspace: args.colorspace,
+				flatten: args.flatten,
+				format: args.format,
+				inputPath: args.inputPath,
+				outputPath: args.outputPath,
+				quality: args.quality,
+			});
 			return {
 				content: [
 					{ text: JSON.stringify({ files: [out] }, null, 2), type: "text" },
@@ -196,7 +204,17 @@ async function main() {
 		async (args) => {
 			if (args.width == null && args.height == null)
 				throw new Error("width or height is required");
-			const out = await resizeWithFit(args as any);
+			const out = await resizeWithFit({
+				background: args.background,
+				fit: args.fit,
+				format: args.format,
+				height: args.height,
+				inputPath: args.inputPath,
+				outputPath: args.outputPath,
+				position: args.position,
+				quality: args.quality,
+				width: args.width,
+			});
 			return {
 				content: [
 					{ text: JSON.stringify({ files: [out] }, null, 2), type: "text" },
@@ -210,9 +228,20 @@ async function main() {
 		"Generate a complete set of web icons and favicons from a single source image. Creates standard favicons, Apple touch icons, Android Chrome icons, and a multi-size .ico file. The source should be a square image, ideally 512x512px or larger. Outputs all required icon files for modern web apps and PWAs.",
 		iconSetShape,
 		async (args) => {
-			const outDir = path.resolve(args.outDir as string);
+			const outDir = path.resolve(args.outDir);
 			await fs.mkdir(outDir, { recursive: true });
-			const files = await generateIconSet({ ...(args as any), outDir });
+			const files = await generateIconSet({
+				androidSizes: args.androidSizes,
+				appleSizes: args.appleSizes,
+				background: args.background,
+				ico: args.ico,
+				icoSizes: args.icoSizes,
+				maskable: args.maskable,
+				outDir,
+				quality: args.quality,
+				sizesPng: args.sizesPng,
+				sourcePath: args.sourcePath,
+			});
 			return {
 				content: [{ text: JSON.stringify({ files }, null, 2), type: "text" }],
 			};

@@ -51,7 +51,7 @@ async function resolveWorkspaceDependencies(cwd: string = process.cwd()) {
 	// Assemble release plan to know which packages are being released
 	const releasePlan = assembleReleasePlan(
 		changesets,
-		packagesResult as any,
+		packagesResult,
 		config,
 		preState,
 	);

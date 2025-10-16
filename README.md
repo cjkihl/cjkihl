@@ -105,7 +105,7 @@ bun test
 ---
 
 <div align="center">
-  ### 🎯 **Support My Work**
+🎯 Support My Work
   
   If you find my packages useful, consider [sponsoring me on GitHub](https://github.com/sponsors/cjkihl)! 
   

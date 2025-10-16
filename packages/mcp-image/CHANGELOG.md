@@ -1,5 +1,11 @@
 # @cjkihl/mcp-image
 
+## 0.0.3
+
+### Patch Changes
+
+- up
+
 ## 0.0.2
 
 ### Patch Changes
