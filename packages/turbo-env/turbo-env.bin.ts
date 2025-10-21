@@ -14,7 +14,7 @@ program
 	.option(
 		"-e, --env-files <files...>",
 		"Environment files to read from (in order of priority)",
-		[".env.local", ".env"],
+		[".env.local", ".env", ".env.default"],
 	)
 	.action(async (options) => {
 		try {
