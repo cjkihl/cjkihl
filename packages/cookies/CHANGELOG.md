@@ -1,5 +1,11 @@
 # @cjkihl/cookies
 
+## 1.0.6
+
+### Patch Changes
+
+- up
+
 ## 1.0.5
 
 ### Patch Changes

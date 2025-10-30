@@ -1,6 +1,6 @@
 {
   "name": "@cjkihl/create-exports",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Tool to generate package exports configuration for TypeScript packages",
   "keywords": [
     "typescript",
@@ -48,7 +48,7 @@
     "type-fest": "^5.1.0"
   },
   "devDependencies": {
-    "@types/node": "^24.7.2"
+    "@types/node": "^24.9.2"
   },
   "engines": {
     "node": ">=18.0.0"

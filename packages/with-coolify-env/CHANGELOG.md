@@ -1,5 +1,11 @@
 # @cjkihl/with-coolify-env
 
+## 1.0.7
+
+### Patch Changes
+
+- up
+
 ## 1.0.6
 
 ### Patch Changes

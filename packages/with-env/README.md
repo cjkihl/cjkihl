@@ -137,6 +137,7 @@ The tool provides comprehensive error handling:
 - **Parse Errors**: Reports issues with malformed environment files
 - **Command Failures**: Returns detailed error information for failed commands
 - **Process Errors**: Handles spawn failures and provides context
+- **Signal Handling**: Properly forwards SIGINT, SIGTERM, and SIGHUP signals to child processes, ensuring proper cleanup when the parent process is terminated (e.g., via CTRL+C)
 
 ## Requirements
 

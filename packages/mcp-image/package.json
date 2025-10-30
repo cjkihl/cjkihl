@@ -1,6 +1,6 @@
 {
   "name": "@cjkihl/mcp-image",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "A TypeScript/JavaScript MCP Server for Image Processing. Resize, convert, and more.",
   "keywords": [
     "mcp",
@@ -42,13 +42,13 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.20.0",
+    "@modelcontextprotocol/sdk": "^1.20.2",
     "png-to-ico": "^3.0.1",
     "sharp": "^0.34.4",
-    "zod": "^3.23.8"
+    "zod": "^4.1.12"
   },
   "devDependencies": {
-    "@types/node": "^24.7.2"
+    "@types/node": "^24.9.2"
   },
   "engines": {
     "node": ">=18.0.0"

@@ -119,12 +119,41 @@ export async function spawn(config: SpawnConfig = {}): Promise<void> {
 	console.log("Spawning process with arguments:", command, finalConfig.args);
 
 	try {
-		await execa(command, finalConfig.args ?? [], {
+		// Spawn the subprocess and capture the reference
+		const subprocess = execa(command, finalConfig.args ?? [], {
+			cleanup: true, // Kill child on parent exit
 			env: process.env,
 			shell: true,
 			stdio: "inherit",
 			windowsHide: true,
 		});
+
+		// Set up signal handlers to properly forward signals to the child process
+		const signals: ReadonlyArray<NodeJS.Signals> = [
+			"SIGINT",
+			"SIGTERM",
+			"SIGHUP",
+		];
+
+		const handleSignal = (signal: NodeJS.Signals) => {
+			// Forward the signal to the child process
+			if (subprocess.pid) {
+				subprocess.kill(signal);
+			}
+		};
+
+		// Register signal handlers
+		for (const signal of signals) {
+			process.on(signal, handleSignal);
+		}
+
+		// Wait for the subprocess to complete
+		await subprocess;
+
+		// Remove signal handlers after process completes
+		for (const signal of signals) {
+			process.off(signal, handleSignal);
+		}
 	} catch (error) {
 		const errorMessage = error instanceof Error ? error.message : String(error);
 		throw new Error(`Command failed: ${errorMessage}`);
