@@ -55,7 +55,7 @@ await setTurboEnv({
 
 ## API Reference
 
-### `setTurboEnv(config: WithEnvConfig)`
+### `setTurboEnv(config: TurboEnvConfig)`
 
 Synchronizes environment variables from `.env` files to your Turborepo configuration.
 

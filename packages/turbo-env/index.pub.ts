@@ -1,19 +1,18 @@
-import { access, readFile, stat, writeFile } from "node:fs/promises";
-import node_path from "node:path";
+import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { findRoot } from "@cjkihl/find-root";
 
-import dotenv, { type DotenvParseOutput } from "dotenv";
+import dotenv from "dotenv";
 
 /**
  * Configuration options for the setTurboEnv function
  */
-export interface WithEnvConfig {
+export interface TurboEnvConfig {
 	/** Array of environment file paths to check in order of priority */
 	envFile?: string[];
 }
 
-const defaultConfig: Required<WithEnvConfig> = {
+const defaultConfig: Required<TurboEnvConfig> = {
 	envFile: [".env.local", ".env"],
 };
 
@@ -24,81 +23,88 @@ const defaultConfig: Required<WithEnvConfig> = {
  * 1. Reads environment variables from specified .env files
  * 2. Extracts unique environment variable keys
  * 3. Updates the turbo.json configuration with these keys in the globalEnv array
- * 4. Runs the appropriate package manager install command
  *
  * @param config - Configuration options for environment file paths
- * @throws {Error} If no environment variables are found or if turbo.json doesn't exist
+ * @throws {Error} If no environment variables are found or if turbo.json doesn't exist or is malformed
  * @example
  * ```ts
  * await setTurboEnv({ envFile: ['.env.production', '.env'] });
  * ```
  */
-export default async function setTurboEnv(config: WithEnvConfig) {
+export default async function setTurboEnv(config: TurboEnvConfig) {
 	const finalConfig = { ...defaultConfig, ...config };
 
-	// Get environment variables from the specified files
-	const envConfig = await getEnvs(finalConfig.envFile);
+	// Get project root first
+	const { root } = await findRoot();
 
-	if (!envConfig) {
+	// Extract unique environment variable keys from all env files
+	const envKeys = await getEnvKeys(finalConfig.envFile, root);
+
+	if (envKeys.size === 0) {
 		throw new Error(
 			"No environment variables found in any of the specified env files",
 		);
 	}
 
-	// Extract and sort unique environment variable keys
-	const envKeys = [...new Set(Object.keys(envConfig))].sort();
-
-	// Get project root and turbo.json path
-	const { root } = await findRoot();
+	// Get turbo.json path
 	const turboPath = path.join(root, "turbo.json");
 
-	// Verify turbo.json exists
+	// Read and update turbo.json
+	let turboConfig: Record<string, unknown>;
 	try {
-		await access(turboPath);
-	} catch (_err) {
-		throw new Error(`turbo.json file not found at ${turboPath}`);
+		const turboFile = await readFile(turboPath, "utf-8");
+		turboConfig = JSON.parse(turboFile);
+	} catch (error) {
+		if (error instanceof Error && "code" in error && error.code === "ENOENT") {
+			throw new Error(`turbo.json file not found at ${turboPath}`);
+		}
+		if (error instanceof SyntaxError) {
+			throw new Error(
+				`Failed to parse turbo.json: ${error.message}. The file may be malformed.`,
+			);
+		}
+		throw new Error(
+			`Failed to read turbo.json: ${error instanceof Error ? error.message : String(error)}`,
+		);
 	}
 
-	// Read and update turbo.json
-	const turboFile = await readFile(turboPath, "utf-8");
-	const turboConfig = JSON.parse(turboFile);
-
 	// Update globalEnv with sorted environment keys
-	turboConfig.globalEnv = envKeys;
+	turboConfig.globalEnv = [...envKeys].sort();
 
 	// Write back the updated configuration
 	await writeFile(turboPath, JSON.stringify(turboConfig, null, 2));
 }
 
 /**
- * Reads and parses environment variables from the first existing env file
+ * Extracts unique environment variable keys from all existing env files.
+ * Since we only need keys (not values), we can collect them from all files without merging.
  *
- * @param envFile - Array of environment file paths to check
- * @returns Parsed environment variables or null if no valid file found
+ * @param envFiles - Array of environment file paths to check
+ * @param root - Root directory path to resolve env file paths from
+ * @returns Set of unique environment variable keys from all found files
  */
-async function getEnvs(envFile: string[]): Promise<DotenvParseOutput | null> {
-	const { root } = await findRoot();
+async function getEnvKeys(
+	envFiles: string[],
+	root: string,
+): Promise<Set<string>> {
+	const envKeys = new Set<string>();
 
-	// Find the first existing env file
-	let envPath: string | null = null;
-	for (const env of envFile) {
-		const fullPath = node_path.join(root, env);
-		const stats = await stat(fullPath);
-		if (stats.isFile()) {
-			envPath = fullPath;
-			break;
+	// Process all env files and collect unique keys
+	for (const envFile of envFiles) {
+		const fullPath = path.join(root, envFile);
+		try {
+			const content = await readFile(fullPath, "utf-8");
+			if (content.trim()) {
+				const fileEnv = dotenv.parse(content);
+				// Add all keys from this file to the set
+				for (const key of Object.keys(fileEnv)) {
+					envKeys.add(key);
+				}
+			}
+		} catch {
+			// File doesn't exist or error reading, continue to next
 		}
 	}
 
-	if (!envPath) {
-		return null;
-	}
-
-	try {
-		const content = await readFile(envPath, "utf-8");
-		return content ? dotenv.parse(content) : null;
-	} catch (error) {
-		console.error(`Error reading env file at ${envPath}:`, error);
-		return null;
-	}
+	return envKeys;
 }
