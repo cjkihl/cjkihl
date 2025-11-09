@@ -44,11 +44,6 @@
 		"tsBuildInfoFile": "${configDir}/dist/tsbuildinfo.json",
 		"verbatimModuleSyntax": true
 	},
-	"exclude": [
-		"node_modules",
-		"dist",
-		"${configDir}/dist",
-		"${configDir}/**/*.test.ts"
-	],
+	"exclude": ["node_modules", "dist", "${configDir}/dist"],
 	"include": ["${configDir}/**/*.ts", "${configDir}/**/*.tsx"]
 }

@@ -1,5 +1,11 @@
 # @cjkihl/tsconfig
 
+## 1.0.10
+
+### Patch Changes
+
+- up
+
 ## 1.0.9
 
 ### Patch Changes
