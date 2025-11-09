@@ -42,7 +42,7 @@ import {
 	parseExportPath,
 	readTsConfig,
 	updatePackageJson,
-} from "./create-exports";
+} from "./create-exports.ts";
 
 const TEST_DIR = process.cwd();
 

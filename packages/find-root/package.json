@@ -1,6 +1,6 @@
 {
   "name": "@cjkihl/find-root",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "author": "@cjkihl",
   "repository": {
     "type": "git",
@@ -50,6 +50,7 @@
   },
   "type": "module",
   "devDependencies": {
-    "@types/node": "^24.9.2"
+    "@types/node": "^24.9.2",
+    "@types/bun": "*"
   }
 }

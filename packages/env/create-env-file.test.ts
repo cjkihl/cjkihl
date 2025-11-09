@@ -1,8 +1,8 @@
 import { describe, expect, it } from "bun:test";
 import { z } from "zod/v4";
-import { createEnv } from "./create-env";
-import createEnvFile from "./create-env-file.pub";
-import { mergeEnvs } from "./merge-envs";
+import { createEnv } from "./create-env.ts";
+import createEnvFile from "./create-env-file.pub.ts";
+import { mergeEnvs } from "./merge-envs.ts";
 
 // Mock env vars
 process.env.API_KEY = "test-key";

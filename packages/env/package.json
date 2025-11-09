@@ -1,6 +1,6 @@
 {
   "name": "@cjkihl/env",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Type-safe environment variable validation and management with Zod schemas",
   "keywords": [
     "environment",
@@ -55,6 +55,7 @@
   },
   "devDependencies": {
     "@cjkihl/tsconfig": "workspace:*",
+    "@types/bun": "*",
     "@types/node": "^24.9.2"
   },
   "engines": {

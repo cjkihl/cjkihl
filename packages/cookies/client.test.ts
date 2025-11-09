@@ -6,7 +6,7 @@ import {
 	getCookies,
 	setCookie,
 	setCookieSimple,
-} from "./client.pub";
+} from "./client.pub.ts";
 
 // Mock document.cookie
 let mockCookieString = "";

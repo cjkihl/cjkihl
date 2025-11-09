@@ -5,7 +5,7 @@ import {
 	parseCookieString,
 	stringifyCookie,
 	validateCookieValue,
-} from "./utils.pub";
+} from "./utils.pub.ts";
 
 // Create Zod schemas for testing
 const stringSchema = z.string().min(1);

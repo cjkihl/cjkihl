@@ -1,6 +1,7 @@
 {
 	"compilerOptions": {
-		"lib": ["es2022", "dom", "dom.iterable"]
+		"lib": ["es2022", "dom", "dom.iterable"],
+		"types": ["bun"]
 	},
 	"extends": "@cjkihl/tsconfig/lib"
 }

@@ -1,6 +1,6 @@
 {
   "name": "@cjkihl/url",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Type-safe URL manipulation utilities for query parameters, URL validation, and sanitization",
   "keywords": [
     "url",
@@ -45,6 +45,7 @@
   },
   "devDependencies": {
     "@cjkihl/tsconfig": "workspace:*",
+    "@types/bun": "*",
     "@types/node": "^24.9.2"
   },
   "engines": {

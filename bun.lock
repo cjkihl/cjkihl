@@ -4,17 +4,17 @@
     "": {
       "name": "@cjkihl/monorepo",
       "devDependencies": {
-        "@biomejs/biome": "^2.2.6",
+        "@biomejs/biome": "^2.3.2",
         "@changesets/cli": "^2.29.7",
         "@manypkg/cli": "^0.25.1",
-        "knip": "^5.65.0",
+        "knip": "^5.66.4",
         "turbo": "^2.5.8",
         "typescript": "^5.9.3",
       },
     },
     "packages/bun-cors": {
       "name": "@cjkihl/bun-cors",
-      "version": "2.0.6",
+      "version": "2.0.7",
       "devDependencies": {
         "@types/bun": "^1.3.1",
         "@types/node": "^24.9.2",
@@ -22,7 +22,7 @@
     },
     "packages/changeset-dep-resolver": {
       "name": "@cjkihl/changeset-dep-resolver",
-      "version": "1.0.8",
+      "version": "1.0.9",
       "bin": {
         "resolve-deps": "./dist/output/resolve-deps.bin.js",
       },
@@ -40,18 +40,19 @@
     },
     "packages/cookies": {
       "name": "@cjkihl/cookies",
-      "version": "1.0.5",
+      "version": "1.0.6",
       "dependencies": {
         "@standard-schema/spec": "^1.0.0",
       },
       "devDependencies": {
+        "@types/bun": "*",
         "@types/node": "^24.9.2",
         "zod": "^4.1.12",
       },
     },
     "packages/create-exports": {
       "name": "@cjkihl/create-exports",
-      "version": "1.0.6",
+      "version": "1.0.8",
       "bin": {
         "create-exports": "./dist/output/create-exports.bin.js",
       },
@@ -61,34 +62,37 @@
         "type-fest": "^5.1.0",
       },
       "devDependencies": {
+        "@types/bun": "*",
         "@types/node": "^24.9.2",
       },
     },
     "packages/env": {
       "name": "@cjkihl/env",
-      "version": "0.0.4",
+      "version": "0.0.5",
       "dependencies": {
         "remeda": "2.32.0",
         "zod": "4.1.12",
       },
       "devDependencies": {
         "@cjkihl/tsconfig": "workspace:*",
+        "@types/bun": "*",
         "@types/node": "^24.9.2",
       },
     },
     "packages/find-root": {
       "name": "@cjkihl/find-root",
-      "version": "1.0.3",
+      "version": "1.0.4",
       "dependencies": {
         "find-up": "^8.0.0",
       },
       "devDependencies": {
+        "@types/bun": "*",
         "@types/node": "^24.9.2",
       },
     },
     "packages/mcp-image": {
       "name": "@cjkihl/mcp-image",
-      "version": "0.0.4",
+      "version": "0.0.5",
       "bin": {
         "mcp-image": "./dist/output/mcp-image.bin.js",
       },
@@ -104,11 +108,11 @@
     },
     "packages/tsconfig": {
       "name": "@cjkihl/tsconfig",
-      "version": "1.0.9",
+      "version": "1.0.10",
     },
     "packages/turbo-env": {
       "name": "@cjkihl/turbo-env",
-      "version": "1.0.8",
+      "version": "1.0.10",
       "bin": {
         "turbo-env": "./dist/output/turbo-env.bin.js",
       },
@@ -123,15 +127,16 @@
     },
     "packages/url": {
       "name": "@cjkihl/url",
-      "version": "0.0.4",
+      "version": "0.0.5",
       "devDependencies": {
         "@cjkihl/tsconfig": "workspace:*",
+        "@types/bun": "*",
         "@types/node": "^24.9.2",
       },
     },
     "packages/with-coolify-env": {
       "name": "@cjkihl/with-coolify-env",
-      "version": "1.0.6",
+      "version": "1.0.7",
       "bin": {
         "with-coolify-env": "./dist/output/with-coolify-env.bin.js",
       },
@@ -145,19 +150,18 @@
     },
     "packages/with-env": {
       "name": "@cjkihl/with-env",
-      "version": "1.0.9",
+      "version": "1.0.10",
       "bin": {
         "with-env": "./dist/output/with-env.bin.js",
       },
       "dependencies": {
-        "@cjkihl/find-root": "^1.0.3",
+        "@cjkihl/find-root": "^1.0.4",
         "commander": "^14.0.2",
         "dotenv": "^17.2.3",
         "execa": "^9.6.0",
       },
       "devDependencies": {
         "@types/node": "^24.9.2",
-        "bun-types": "^1.3.1",
       },
     },
   },

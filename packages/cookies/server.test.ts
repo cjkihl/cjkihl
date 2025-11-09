@@ -6,7 +6,7 @@ import {
 	getCookies,
 	setCookie,
 	setCookieSimple,
-} from "./server.pub";
+} from "./server.pub.ts";
 
 // Create Zod schemas for testing
 const stringSchema = z.string().min(1);

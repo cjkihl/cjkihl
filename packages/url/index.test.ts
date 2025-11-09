@@ -6,7 +6,7 @@ import {
 	type QueryParameters,
 	sanitizeQueryParameters,
 	sanitizeSiteUrl,
-} from "./index.pub";
+} from "./index.pub.ts";
 
 describe("sanitizeQueryParameters", () => {
 	it("should filter out null and undefined values", () => {
