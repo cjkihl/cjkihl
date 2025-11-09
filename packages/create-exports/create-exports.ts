@@ -15,6 +15,8 @@ export interface CreateExportsOptions {
 	tsconfigPath?: string;
 	/** If true, only show what would be changed without writing to package.json */
 	dryRun?: boolean;
+	/** If true, create exports for source files instead of build files */
+	source?: boolean;
 }
 
 /**
@@ -144,15 +146,25 @@ export function generateExports(
 	cwd: string,
 	outDir: string,
 	declarationDir: string,
+	source?: boolean,
 ): Record<string, { types: string; default: string }> {
 	const exports: Record<string, { types: string; default: string }> = {};
 
 	for (const file of files) {
 		const { parsedPath, name } = parseExportPath(file, cwd);
-		exports[name] = {
-			default: `./${outDir}/${parsedPath}.pub.js`,
-			types: `./${declarationDir}/${parsedPath}.pub.d.ts`,
-		};
+		if (source) {
+			// Use source file directly with .ts/.tsx extension
+			const sourcePath = `./${file}`;
+			exports[name] = {
+				default: sourcePath,
+				types: sourcePath,
+			};
+		} else {
+			exports[name] = {
+				default: `./${outDir}/${parsedPath}.pub.js`,
+				types: `./${declarationDir}/${parsedPath}.pub.d.ts`,
+			};
+		}
 	}
 
 	return Object.fromEntries(
@@ -167,12 +179,18 @@ export function generateBin(
 	files: string[],
 	cwd: string,
 	outDir: string,
+	source?: boolean,
 ): Record<string, string> {
 	const bin: Record<string, string> = {};
 
 	for (const file of files) {
 		const { parsedPath, name } = parseBinaryPath(file, cwd);
-		bin[name] = `./${outDir}/${parsedPath}.bin.js`;
+		if (source) {
+			// Use source file directly with .ts/.tsx extension
+			bin[name] = `./${file}`;
+		} else {
+			bin[name] = `./${outDir}/${parsedPath}.bin.js`;
+		}
 	}
 
 	return Object.fromEntries(
@@ -239,8 +257,14 @@ export async function createExports(options: CreateExportsOptions = {}) {
 	}
 
 	// Generate configurations
-	const exports = generateExports(publicFiles, cwd, outDir, declarationDir);
-	const bin = generateBin(validBinFiles, cwd, outDir);
+	const exports = generateExports(
+		publicFiles,
+		cwd,
+		outDir,
+		declarationDir,
+		options.source,
+	);
+	const bin = generateBin(validBinFiles, cwd, outDir, options.source);
 
 	// Create updated package.json
 	const updatedPkg = updatePackageJson(pkg, exports, bin);

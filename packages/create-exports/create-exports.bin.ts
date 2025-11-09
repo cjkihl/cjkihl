@@ -8,6 +8,7 @@ const options: {
 	packageJsonPath?: string;
 	tsconfigPath?: string;
 	dryRun?: boolean;
+	source?: boolean;
 } = {};
 
 function showHelp() {
@@ -18,6 +19,7 @@ Options:
   -p, --package-json <path>  Path to package.json file
   -t, --tsconfig <path>      Path to tsconfig.json file
   -d, --dry-run             Show what would be changed without writing
+  -s, --source              Create exports for source files instead of build files
   -h, --help                Show this help message
 
 Examples:
@@ -45,6 +47,11 @@ for (let i = 0; i < args.length; i++) {
 		case "--dry-run":
 		case "-d": {
 			options.dryRun = true;
+			break;
+		}
+		case "--source":
+		case "-s": {
+			options.source = true;
 			break;
 		}
 		case "--help":
