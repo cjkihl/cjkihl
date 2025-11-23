@@ -46,4 +46,4 @@ jobs:
           publish: bun run release
         env:
           GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
-          NPM_TOKEN: "" # ${{ secrets.NPMTOKEN }}
+          NPM_TOKEN: ${{ secrets.NPMTOKEN }}
