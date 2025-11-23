@@ -14,14 +14,22 @@ program
 	.argument("[args...]", "Arguments to pass to the command")
 	.action(async (command, args, options) => {
 		try {
-			const envConfig: LoadEnvConfig = {};
+			// Skip loading environment variables in production
+			if (process.env.NODE_ENV === "production") {
+				console.log(
+					"NODE_ENV is production, skipping environment variable loading",
+				);
+			} else {
+				const envConfig: LoadEnvConfig = {};
 
-			// Only add envFile if it's provided
-			if (options.envFile) {
-				envConfig.envFile = options.envFile;
+				// Only add envFile if it's provided
+				if (options.envFile) {
+					envConfig.envFile = options.envFile;
+				}
+
+				await loadEnv(envConfig);
 			}
 
-			await loadEnv(envConfig);
 			await spawn({
 				args,
 				command,
