@@ -1,0 +1,6 @@
+{
+	"compilerOptions": {
+		"types": ["bun-types"]
+	},
+	"extends": "@cjkihl/tsconfig/lib"
+}
