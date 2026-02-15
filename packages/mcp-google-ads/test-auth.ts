@@ -7,16 +7,16 @@ import { researchKeywords } from "./src/google-ads.ts";
 
 async function testAuth() {
 	console.log("🧪 Testing Google Ads API authentication...\n");
-	
+
 	try {
 		console.log("Attempting to make API call...");
 		const result = await researchKeywords({
 			keyword: "test",
-			limit: 1,
 			language: "en",
+			limit: 1,
 			locations: [2840],
 		});
-		
+
 		console.log("✅ Authentication successful!");
 		console.log(`Received ${result.length} keyword(s)`);
 		if (result.length > 0) {
@@ -25,16 +25,18 @@ async function testAuth() {
 	} catch (error) {
 		console.log("❌ Authentication failed:");
 		console.log("Error type:", error?.constructor?.name);
-		console.log("Error message:", error instanceof Error ? error.message : String(error));
-		
+		console.log(
+			"Error message:",
+			error instanceof Error ? error.message : String(error),
+		);
+
 		if (error instanceof Error && error.stack) {
 			console.log("\nStack trace:");
 			console.log(error.stack);
 		}
-		
+
 		process.exit(1);
 	}
 }
 
 testAuth();
-

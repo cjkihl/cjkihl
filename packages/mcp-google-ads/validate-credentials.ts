@@ -19,7 +19,7 @@ if (serviceAccountPath) {
 		const resolvedPath = resolve(serviceAccountPath);
 		const content = readFileSync(resolvedPath, "utf-8");
 		const sa = JSON.parse(content);
-		
+
 		if (sa.type === "service_account") {
 			console.log("✓ Service account file is valid");
 			console.log("  - Type:", sa.type);
@@ -30,7 +30,10 @@ if (serviceAccountPath) {
 			console.log("✗ Service account file is not a valid service account");
 		}
 	} catch (error) {
-		console.log("✗ Error reading service account file:", error instanceof Error ? error.message : String(error));
+		console.log(
+			"✗ Error reading service account file:",
+			error instanceof Error ? error.message : String(error),
+		);
 		process.exit(1);
 	}
 } else {
@@ -45,9 +48,18 @@ const hasOAuth =
 
 if (hasOAuth) {
 	console.log("✓ OAuth credentials found");
-	console.log("  - Client ID:", process.env.GOOGLE_ADS_CLIENT_ID ? "Set" : "Not set");
-	console.log("  - Client Secret:", process.env.GOOGLE_ADS_CLIENT_SECRET ? "Set" : "Not set");
-	console.log("  - Refresh Token:", process.env.GOOGLE_ADS_REFRESH_TOKEN ? "Set" : "Not set");
+	console.log(
+		"  - Client ID:",
+		process.env.GOOGLE_ADS_CLIENT_ID ? "Set" : "Not set",
+	);
+	console.log(
+		"  - Client Secret:",
+		process.env.GOOGLE_ADS_CLIENT_SECRET ? "Set" : "Not set",
+	);
+	console.log(
+		"  - Refresh Token:",
+		process.env.GOOGLE_ADS_REFRESH_TOKEN ? "Set" : "Not set",
+	);
 } else {
 	console.log("ℹ OAuth credentials not found");
 }
@@ -70,13 +82,15 @@ if (serviceAccountPath && hasDeveloperToken && hasCustomerId) {
 	console.log("  Authentication method: OAuth 2.0");
 } else {
 	console.log("✗ Credentials not fully configured");
-	if (!hasDeveloperToken) console.log("  - Missing: GOOGLE_ADS_DEVELOPER_TOKEN");
+	if (!hasDeveloperToken)
+		console.log("  - Missing: GOOGLE_ADS_DEVELOPER_TOKEN");
 	if (!hasCustomerId) console.log("  - Missing: GOOGLE_ADS_CUSTOMER_ID");
 	if (!serviceAccountPath && !hasOAuth) {
-		console.log("  - Missing: Either service account path or OAuth credentials");
+		console.log(
+			"  - Missing: Either service account path or OAuth credentials",
+		);
 	}
 	process.exit(1);
 }
 
 console.log("\n✅ Credentials validation complete!");
-

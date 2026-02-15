@@ -28,14 +28,16 @@ The package provides a CLI tool that loads environment variables and executes co
 npx with-env npm run dev
 
 # With custom environment file
-npx with-env --env-file=.env.development npm run dev
+npx with-env --env-file .env.development npm run dev
 
-# Disable production skip
-npx with-env --skip-production=false npm run build
+# All arguments after the command are forwarded to the subprocess (no need to quote)
+npx with-env bun run file.ts --limit=5
 
-# Disable stdio inheritance (useful for capturing output)
-npx with-env --inherit-stdio=false npm run test
+# Use -- to separate with-env options from the command when needed
+npx with-env --env-file .env -- bun run file.ts --limit=5
 ```
+
+Arguments (including flags like `--limit=5`) passed after the command are always forwarded to the subprocess, so you can extend scripts and use package.json scripts that append args.
 
 ### Programmatic Usage
 
@@ -117,14 +119,29 @@ npx with-env --skip-production=false npm run build
 npx with-env --env-file=.env.production npm run deploy
 ```
 
+### Package.json scripts
+
+You can wrap commands in with-env and still pass extra args from the runner. Everything after the command is processed in the subprocess.
+
+```json
+{
+  "scripts": {
+    "run": "with-env bun run file.ts",
+    "run2": "with-env bun run file.ts --limit=5"
+  }
+}
+```
+
+- `bun run run -- --limit=5` runs `with-env bun run file.ts --limit=5`; the subprocess receives `--limit=5`.
+- `bun run run2` runs with args baked in. All args are processed in the subprocess.
+
 ### Integration in Scripts
 
 ```json
 {
   "scripts": {
     "dev": "with-env npm run dev:server",
-    "test": "with-env --env-file=.env.test npm run test:runner",
-    "build": "with-env --skip-production=false npm run build:app"
+    "test": "with-env --env-file .env.test npm run test:runner"
   }
 }
 ```

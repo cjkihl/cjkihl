@@ -1,5 +1,11 @@
 # @cjkihl/with-env
 
+## 1.0.12
+
+### Patch Changes
+
+- fixes
+
 ## 1.0.11
 
 ### Patch Changes

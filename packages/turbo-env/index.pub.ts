@@ -13,7 +13,7 @@ export interface TurboEnvConfig {
 }
 
 const defaultConfig: Required<TurboEnvConfig> = {
-	envFile: [".env.local", ".env"],
+	envFile: [".env.default", ".env", ".env.local"],
 };
 
 /**
