@@ -1,5 +1,11 @@
 # @cjkihl/find-root
 
+## 1.0.6
+
+### Patch Changes
+
+- fixes
+
 ## 1.0.5
 
 ### Patch Changes

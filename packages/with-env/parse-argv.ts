@@ -1,7 +1,7 @@
 /**
- * Parsed result from parseArgv.
+ * Parsed result from parseArgv (internal type).
  */
-export interface ParseArgvResult {
+interface ParseArgvResult {
 	command: string;
 	args: string[];
 	envFile?: string[];

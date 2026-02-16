@@ -1,5 +1,13 @@
 # @cjkihl/with-env
 
+## 1.0.13
+
+### Patch Changes
+
+- fixes
+- Updated dependencies
+  - @cjkihl/find-root@1.0.6
+
 ## 1.0.12
 
 ### Patch Changes

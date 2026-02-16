@@ -1,6 +1,6 @@
 {
   "name": "@cjkihl/cookies",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "A minimal, type-safe cookies library for Bun/Node.js with Standard Schema validation support",
   "keywords": [
     "cookies",
@@ -54,17 +54,17 @@
     "README.md"
   ],
   "scripts": {
-    "build": "tsc && bun ../create-exports/create-exports.bin.ts",
+    "build": "tsgo && bun ../create-exports/create-exports.bin.ts",
     "test": "bun test",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsgo --noEmit"
   },
   "dependencies": {
-    "@standard-schema/spec": "^1.0.0"
+    "@standard-schema/spec": "^1.1.0"
   },
   "devDependencies": {
-    "@types/bun": "*",
-    "@types/node": "^24.9.2",
-    "zod": "^4.1.12"
+    "@types/bun": "1.3.9",
+    "@types/node": "^24.10.13",
+    "zod": "^4.3.6"
   },
   "engines": {
     "node": ">=18.0.0"

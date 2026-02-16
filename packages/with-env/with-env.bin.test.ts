@@ -1,8 +1,12 @@
 import { describe, expect, test } from "bun:test";
+import { existsSync } from "node:fs";
 import { join } from "node:path";
 
 const packageDir = join(import.meta.dir);
-const binPath = join(packageDir, "with-env.bin.ts");
+// After build, tests can run from dist/output/ where the bin is .js
+const binTs = join(packageDir, "with-env.bin.ts");
+const binJs = join(packageDir, "with-env.bin.js");
+const binPath = existsSync(binTs) ? binTs : binJs;
 
 describe("with-env bin (integration)", () => {
 	test("forwards all args to subprocess: echo hello --limit=5", async () => {
