@@ -16,7 +16,7 @@
     },
     "packages/bun-cors": {
       "name": "@cjkihl/bun-cors",
-      "version": "2.0.7",
+      "version": "2.0.8",
       "devDependencies": {
         "@types/bun": "^1.3.9",
         "@types/node": "^24.10.13",
@@ -24,7 +24,7 @@
     },
     "packages/changeset-dep-resolver": {
       "name": "@cjkihl/changeset-dep-resolver",
-      "version": "1.0.9",
+      "version": "1.0.10",
       "bin": {
         "resolve-deps": "./dist/output/resolve-deps.bin.js",
       },
@@ -42,7 +42,7 @@
     },
     "packages/cookies": {
       "name": "@cjkihl/cookies",
-      "version": "1.0.7",
+      "version": "1.0.8",
       "dependencies": {
         "@standard-schema/spec": "^1.1.0",
       },
@@ -54,7 +54,7 @@
     },
     "packages/create-exports": {
       "name": "@cjkihl/create-exports",
-      "version": "1.0.9",
+      "version": "1.0.10",
       "bin": {
         "create-exports": "./dist/output/create-exports.bin.js",
       },
@@ -70,7 +70,7 @@
     },
     "packages/env": {
       "name": "@cjkihl/env",
-      "version": "0.0.6",
+      "version": "0.0.7",
       "dependencies": {
         "remeda": "2.33.6",
         "zod": "4.3.6",
@@ -83,7 +83,7 @@
     },
     "packages/find-root": {
       "name": "@cjkihl/find-root",
-      "version": "1.0.5",
+      "version": "1.0.6",
       "dependencies": {
         "find-up": "^8.0.0",
       },
@@ -93,8 +93,8 @@
       },
     },
     "packages/mcp-google-ads": {
-      "name": "@packages/mcp-google-ads",
-      "version": "0.1.0",
+      "name": "@cjkihl/mcp-google-ads",
+      "version": "0.1.1",
       "bin": {
         "index": "./dist/output/src/index.bin.js",
       },
@@ -107,14 +107,14 @@
       },
       "devDependencies": {
         "@cjkihl/tsconfig": "workspace:*",
-        "@cjkihl/with-env": "^1.0.11",
+        "@cjkihl/with-env": "^1.0.13",
         "@types/node": "^20.19.33",
         "bun-types": "1.3.9",
       },
     },
     "packages/mcp-image": {
       "name": "@cjkihl/mcp-image",
-      "version": "0.0.5",
+      "version": "0.0.6",
       "bin": {
         "mcp-image": "./dist/output/mcp-image.bin.js",
       },
@@ -134,7 +134,7 @@
     },
     "packages/turbo-env": {
       "name": "@cjkihl/turbo-env",
-      "version": "1.0.11",
+      "version": "1.0.12",
       "bin": {
         "turbo-env": "./dist/output/turbo-env.bin.js",
       },
@@ -149,7 +149,7 @@
     },
     "packages/url": {
       "name": "@cjkihl/url",
-      "version": "0.0.6",
+      "version": "0.0.7",
       "devDependencies": {
         "@cjkihl/tsconfig": "workspace:*",
         "@types/bun": "1.3.9",
@@ -158,7 +158,7 @@
     },
     "packages/with-coolify-env": {
       "name": "@cjkihl/with-coolify-env",
-      "version": "1.0.7",
+      "version": "1.0.8",
       "bin": {
         "with-coolify-env": "./dist/output/with-coolify-env.bin.js",
       },
@@ -172,12 +172,12 @@
     },
     "packages/with-env": {
       "name": "@cjkihl/with-env",
-      "version": "1.0.12",
+      "version": "1.0.13",
       "bin": {
         "with-env": "./dist/output/with-env.bin.js",
       },
       "dependencies": {
-        "@cjkihl/find-root": "^1.0.4",
+        "@cjkihl/find-root": "^1.0.6",
         "dotenv": "^17.3.1",
         "execa": "^9.6.1",
       },
@@ -253,6 +253,8 @@
     "@cjkihl/env": ["@cjkihl/env@workspace:packages/env"],
 
     "@cjkihl/find-root": ["@cjkihl/find-root@workspace:packages/find-root"],
+
+    "@cjkihl/mcp-google-ads": ["@cjkihl/mcp-google-ads@workspace:packages/mcp-google-ads"],
 
     "@cjkihl/mcp-image": ["@cjkihl/mcp-image@workspace:packages/mcp-image"],
 
@@ -393,8 +395,6 @@
     "@oxc-resolver/binding-win32-ia32-msvc": ["@oxc-resolver/binding-win32-ia32-msvc@11.17.1", "", { "os": "win32", "cpu": "ia32" }, "sha512-VTzVtfnCCsU/6GgvursWoyZrhe3Gj/RyXzDWmh4/U1Y3IW0u1FZbp+hCIlBL16pRPbDc5YvXVtCOnA41QOrOoQ=="],
 
     "@oxc-resolver/binding-win32-x64-msvc": ["@oxc-resolver/binding-win32-x64-msvc@11.17.1", "", { "os": "win32", "cpu": "x64" }, "sha512-jRPVU+6/12baj87q2+UGRh30FBVBzqKdJ7rP/mSqiL1kpNQB9yZ1j0+m3sru1m+C8hiFK7lBFwjUtYUBI7+UpQ=="],
-
-    "@packages/mcp-google-ads": ["@packages/mcp-google-ads@workspace:packages/mcp-google-ads"],
 
     "@pkgjs/parseargs": ["@pkgjs/parseargs@0.11.0", "", {}, "sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg=="],
 
@@ -1088,6 +1088,8 @@
 
     "@changesets/apply-release-plan/semver": ["semver@7.7.4", "", { "bin": { "semver": "bin/semver.js" } }, "sha512-vFKC2IEtQnVhpT78h1Yp8wzwrf8CM+MzKMHGJZfBtzhZNycRFnXsHk6E5TxIkkMsgNS7mdX3AGB7x2QM2di4lA=="],
 
+    "@cjkihl/mcp-google-ads/@types/node": ["@types/node@20.19.33", "", { "dependencies": { "undici-types": "~6.21.0" } }, "sha512-Rs1bVAIdBs5gbTIKza/tgpMuG1k3U/UMJLWecIMxNdJFDMzcM5LOiLVRYh3PilWEYDIeUDv7bpiHPLPsbydGcw=="],
+
     "@grpc/proto-loader/long": ["long@5.3.2", "", {}, "sha512-mNAgZ1GmyNhD7AuqnTG3/VQ26o760+ZYBPKjPvugO8+nLbYfX6TVpJPseBvopbdY+qpZ/lKUnmEc1LeZYS3QAA=="],
 
     "@isaacs/cliui/string-width": ["string-width@5.1.2", "", { "dependencies": { "eastasianwidth": "^0.2.0", "emoji-regex": "^9.2.2", "strip-ansi": "^7.0.1" } }, "sha512-HnLOCR3vjcY8beoNLtcjZ5/nxn2afmME6lhrDrebokqMap+XbeW8n9TXpPDOqdGK5qcI3oT0GKTW6wC7EMiVqA=="],
@@ -1113,8 +1115,6 @@
     "@manypkg/tools/js-yaml": ["js-yaml@4.1.0", "", { "dependencies": { "argparse": "^2.0.1" }, "bin": { "js-yaml": "bin/js-yaml.js" } }, "sha512-wpxZs9NoxZaJESJGIZTyDEaYpl0FKSA+FB9aJiyemKhMwkxQg63h4T1KJgUGHpTqPDNRcmmYLugrRjJlBtWvRA=="],
 
     "@manypkg/tools/tinyglobby": ["tinyglobby@0.2.14", "", { "dependencies": { "fdir": "^6.4.4", "picomatch": "^4.0.2" } }, "sha512-tX5e7OM1HnYr2+a2C/4V0htOcSQcoSTH9KgJnVvNm5zm/cyEWKJ7j7YutsH9CxMdtOkkLFy2AHrMci9IM8IPZQ=="],
-
-    "@packages/mcp-google-ads/@types/node": ["@types/node@20.19.33", "", { "dependencies": { "undici-types": "~6.21.0" } }, "sha512-Rs1bVAIdBs5gbTIKza/tgpMuG1k3U/UMJLWecIMxNdJFDMzcM5LOiLVRYh3PilWEYDIeUDv7bpiHPLPsbydGcw=="],
 
     "@pnpm/network.ca-file/graceful-fs": ["graceful-fs@4.2.10", "", {}, "sha512-9ByhssR2fPVsNZj478qUUbKfmL0+t5BDVyjShtyZZLiK7ZDAArFFfopyOTj0M05wE2tJPisA4iTnnXl2YoPvOA=="],
 
@@ -1160,6 +1160,8 @@
 
     "tinyglobby/picomatch": ["picomatch@4.0.3", "", {}, "sha512-5gTmgEY/sqK6gFXLIsQNH19lWb4ebPDLA4SdLP7dsWkIXHWlG66oPuVvXSGFPppYZz8ZDZq0dYYrbHfBCVUb1Q=="],
 
+    "@cjkihl/mcp-google-ads/@types/node/undici-types": ["undici-types@6.21.0", "", {}, "sha512-iwDZqg0QAGrg9Rav5H4n0M64c3mkR59cJ6wQp+7C4nI0gsmExaedaYLNO44eT4AtBBwjbTiGPMlt2Md0T9H9JQ=="],
+
     "@isaacs/cliui/string-width/emoji-regex": ["emoji-regex@9.2.2", "", {}, "sha512-L18DaJsXSUk2+42pv8mLs5jJT2hqFkFE4j21wOmgbUqsZ2hL72NsUU785g9RXgo3s0ZNgVl42TiHp3ZtOv/Vyg=="],
 
     "@isaacs/cliui/strip-ansi/ansi-regex": ["ansi-regex@6.2.2", "", {}, "sha512-Bq3SmSpyFHaWjPk8If9yc6svM8c56dB5BAtW4Qbw5jHTwwXXcTLoRMkpDJp6VL0XzlWaCHTXrkFURMYmD0sLqg=="],
@@ -1171,8 +1173,6 @@
     "@manypkg/find-root/find-up/locate-path": ["locate-path@5.0.0", "", { "dependencies": { "p-locate": "^4.1.0" } }, "sha512-t7hw9pI+WvuwNJXwk5zVHpyhIqzg2qTlklJOf0mVxGSbe3Fp2VieZcduNYjaLDoy6p9uGpQEGWG87WpMKlNq8g=="],
 
     "@manypkg/tools/tinyglobby/fdir": ["fdir@6.4.6", "", { "peerDependencies": { "picomatch": "^3 || ^4" }, "optionalPeers": ["picomatch"] }, "sha512-hiFoqpyZcfNm1yc4u8oWCf9A2c4D3QjCrks3zmoVKVxpQRzmPNar1hUJcBG2RQHvEVGDN+Jm81ZheVLAQMK6+w=="],
-
-    "@packages/mcp-google-ads/@types/node/undici-types": ["undici-types@6.21.0", "", {}, "sha512-iwDZqg0QAGrg9Rav5H4n0M64c3mkR59cJ6wQp+7C4nI0gsmExaedaYLNO44eT4AtBBwjbTiGPMlt2Md0T9H9JQ=="],
 
     "form-data/mime-types/mime-db": ["mime-db@1.52.0", "", {}, "sha512-sPU4uV7dYlvtWJxwwxHD0PuihVNiE7TyAbQ5SWxDCB9mUYvOgroQOwYQQOKPJ8CIbE+1ETVlOoK1UC2nU3gYvg=="],
 
