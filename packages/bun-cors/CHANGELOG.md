@@ -1,5 +1,11 @@
 # @cjkihl/bun-cors
 
+## 2.0.9
+
+### Patch Changes
+
+- Fixing publish access
+
 ## 2.0.8
 
 ### Patch Changes

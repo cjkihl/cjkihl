@@ -1,5 +1,13 @@
 # @cjkihl/with-env
 
+## 1.0.15
+
+### Patch Changes
+
+- Fixing publish access
+- Updated dependencies
+  - @cjkihl/find-root@1.0.7
+
 ## 1.0.14
 
 ### Patch Changes

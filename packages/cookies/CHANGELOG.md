@@ -1,5 +1,11 @@
 # @cjkihl/cookies
 
+## 1.0.9
+
+### Patch Changes
+
+- Fixing publish access
+
 ## 1.0.8
 
 ### Patch Changes

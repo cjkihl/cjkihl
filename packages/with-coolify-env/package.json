@@ -1,6 +1,6 @@
 {
   "name": "@cjkihl/with-coolify-env",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Load environment variables from Coolify and execute commands with those variables",
   "keywords": [
     "coolify",
@@ -55,6 +55,7 @@
     "node": ">=18.0.0"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "provenance": true
   }
 }

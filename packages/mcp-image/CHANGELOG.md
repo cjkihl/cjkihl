@@ -1,5 +1,11 @@
 # @cjkihl/mcp-image
 
+## 0.0.7
+
+### Patch Changes
+
+- Fixing publish access
+
 ## 0.0.6
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @cjkihl/tsconfig
 
+## 1.0.11
+
+### Patch Changes
+
+- Fixing publish access
+
 ## 1.0.10
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @cjkihl/find-root
 
+## 1.0.7
+
+### Patch Changes
+
+- Fixing publish access
+
 ## 1.0.6
 
 ### Patch Changes

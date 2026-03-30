@@ -1,6 +1,6 @@
 {
   "name": "@cjkihl/url",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Type-safe URL manipulation utilities for query parameters, URL validation, and sanitization",
   "keywords": [
     "url",
@@ -52,6 +52,7 @@
     "node": ">=18.0.0"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "provenance": true
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "@cjkihl/mcp-image",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "A TypeScript/JavaScript MCP Server for Image Processing. Resize, convert, and more.",
   "keywords": [
     "mcp",
@@ -54,6 +54,7 @@
     "node": ">=18.0.0"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "provenance": true
   }
 }

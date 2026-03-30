@@ -1,6 +1,6 @@
 {
   "name": "@cjkihl/mcp-google-ads",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "private": true,
   "description": "MCP Server for Google Ads API",
   "type": "module",
@@ -23,8 +23,12 @@
   },
   "devDependencies": {
     "@cjkihl/tsconfig": "workspace:*",
-    "@cjkihl/with-env": "^1.0.13",
+    "@cjkihl/with-env": "^1.0.15",
     "@types/node": "^20.19.33",
     "bun-types": "1.3.9"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
   }
 }

@@ -1,5 +1,13 @@
 # @cjkihl/turbo-env
 
+## 1.0.13
+
+### Patch Changes
+
+- Fixing publish access
+- Updated dependencies
+  - @cjkihl/find-root@1.0.7
+
 ## 1.0.12
 
 ### Patch Changes

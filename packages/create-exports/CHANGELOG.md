@@ -1,5 +1,11 @@
 # @cjkihl/create-exports
 
+## 1.0.12
+
+### Patch Changes
+
+- Fixing publish access
+
 ## 1.0.11
 
 ### Patch Changes
