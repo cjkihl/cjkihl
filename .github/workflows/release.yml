@@ -10,7 +10,7 @@ concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 permissions:
   contents: write
-  id-token: write
+  id-token: write # Required for OIDC
   pull-requests: write
 
 jobs:
@@ -23,10 +23,15 @@ jobs:
         with:
           token: ${{ secrets.PAT_TOKEN }}
 
-      - name: Setup Node.js 20.x
+      - name: Setup Node.js 22.x
         uses: actions/setup-node@v4
         with:
-          node-version: 20.x
+          node-version: 22.x
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Update npm
+        # Ensure npm is 10.x+ or 11.x which has the best OIDC support
+        run: npm install -g npm@latest
 
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
@@ -43,7 +48,10 @@ jobs:
         id: changesets
         uses: changesets/action@v1
         with:
-          # This expects you to have a script called release which does a build for your packages and calls changeset publish
           publish: bun run release
         env:
           GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
+          # The fix from Issue #542: 
+          # Providing an empty string prevents the action from failing 
+          # due to a "missing token" while allowing OIDC to take over.
+          NPM_TOKEN: ''
