@@ -1,5 +1,11 @@
 # @cjkihl/create-exports
 
+## 1.0.11
+
+### Patch Changes
+
+- Parse `tsconfig.json` with `get-tsconfig` instead of the `typescript` package so the CLI works in projects that only use `tsgo` (`@typescript/native-preview`) and do not install `typescript`.
+
 ## 1.0.10
 
 ### Patch Changes

@@ -1,9 +1,9 @@
 import node_fs from "node:fs";
 import node_path from "node:path";
 import fg from "fast-glob";
+import { parseTsconfig } from "get-tsconfig";
 import sortPackageJson from "sort-package-json";
 import type { PackageJson } from "type-fest";
-import { parseJsonConfigFileContent, readConfigFile, sys } from "typescript";
 
 /**
  * Options for configuring the exports generation
@@ -17,6 +17,16 @@ export interface CreateExportsOptions {
 	dryRun?: boolean;
 	/** If true, create exports for source files instead of build files */
 	source?: boolean;
+}
+
+/**
+ * Minimal tsconfig fields used for export path resolution
+ */
+export interface ParsedTsConfigForExports {
+	options: {
+		outDir?: string;
+		declarationDir?: string;
+	};
 }
 
 /**
@@ -42,18 +52,14 @@ export function readPackageJson(pkgPath: string): PackageJson {
 /**
  * Reads and parses tsconfig.json file
  */
-export function readTsConfig(tsconfigPath: string) {
-	const configFile = readConfigFile(tsconfigPath, sys.readFile);
-
-	if (configFile.error) {
-		throw new Error(`Error reading tsconfig: ${configFile.error.messageText}`);
+export function readTsConfig(tsconfigPath: string): ParsedTsConfigForExports {
+	try {
+		const config = parseTsconfig(tsconfigPath);
+		return { options: config.compilerOptions ?? {} };
+	} catch (error) {
+		const message = error instanceof Error ? error.message : String(error);
+		throw new Error(`Error reading tsconfig: ${message}`);
 	}
-
-	return parseJsonConfigFileContent(
-		configFile.config,
-		sys,
-		node_path.dirname(tsconfigPath),
-	);
 }
 
 /**

@@ -1,5 +1,9 @@
 // Mocks must be set up before importing the implementation
+
 import { mock } from "bun:test";
+import node_fs from "node:fs";
+import node_os from "node:os";
+import node_path from "node:path";
 
 mock.module("node:fs", () => ({
 	existsSync: (path: string) => path === "package.json",
@@ -13,25 +17,6 @@ mock.module("node:fs", () => ({
 }));
 
 mock.module("node:path", () => require("node:path"));
-
-mock.module("typescript", () => ({
-	parseJsonConfigFileContent: (config: {
-		compilerOptions: { outDir: string; declarationDir: string };
-	}) => ({
-		options: config.compilerOptions,
-	}),
-	readConfigFile: () => ({
-		config: {
-			compilerOptions: {
-				declarationDir: "types",
-				outDir: "dist",
-			},
-		},
-	}),
-	sys: {
-		readFile: () => "",
-	},
-}));
 
 import { describe, expect, test } from "bun:test";
 import type { PackageJson } from "type-fest";
@@ -64,22 +49,32 @@ describe("readPackageJson", () => {
 
 describe("readTsConfig", () => {
 	test("reads and parses tsconfig.json", () => {
-		const result = readTsConfig("tsconfig.json");
-		expect(result.options.outDir).toBe("dist");
-		expect(result.options.declarationDir).toBe("types");
+		const dir = node_fs.mkdtempSync(node_path.join(node_os.tmpdir(), "ce-ts-"));
+		const tsconfigPath = node_path.join(dir, "tsconfig.json");
+		node_fs.writeFileSync(
+			tsconfigPath,
+			JSON.stringify({
+				compilerOptions: { declarationDir: "types", outDir: "dist" },
+			}),
+		);
+		try {
+			const result = readTsConfig(tsconfigPath);
+			expect(result.options.outDir).toBe("./dist");
+			expect(result.options.declarationDir).toBe("./types");
+		} finally {
+			node_fs.rmSync(dir, { force: true, recursive: true });
+		}
 	});
 
-	test("throws error if tsconfig.json has errors", () => {
-		mock.module("typescript", () => ({
-			parseJsonConfigFileContent: () => ({}),
-			readConfigFile: () => ({
-				error: { messageText: "Invalid config" },
-			}),
-			sys: { readFile: () => "" },
-		}));
-		expect(() => readTsConfig("tsconfig.json")).toThrow(
-			"Error reading tsconfig: Invalid config",
-		);
+	test("throws error if tsconfig path does not exist", () => {
+		const dir = node_fs.mkdtempSync(node_path.join(node_os.tmpdir(), "ce-ts-"));
+		try {
+			expect(() => readTsConfig(node_path.join(dir, "missing.json"))).toThrow(
+				/Error reading tsconfig:/,
+			);
+		} finally {
+			node_fs.rmSync(dir, { force: true, recursive: true });
+		}
 	});
 });
 
