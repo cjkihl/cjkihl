@@ -20,6 +20,7 @@ async function main(): Promise<void> {
 			// For development or when NODE_ENV is not set, rely on loadEnv defaults:
 			// .env.default, .env, .env.local
 		}
+		console.log("loading env files:", envConfig.envFile?.join(", "));
 		await loadEnv(envConfig);
 
 		await spawn({ args, command });
