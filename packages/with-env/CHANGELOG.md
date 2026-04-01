@@ -1,5 +1,11 @@
 # @cjkihl/with-env
 
+## 1.0.16
+
+### Patch Changes
+
+- Fix loading .env vars for different environments
+
 ## 1.0.15
 
 ### Patch Changes

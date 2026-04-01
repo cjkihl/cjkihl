@@ -7,17 +7,20 @@ async function main(): Promise<void> {
 	const { command, args, envFile } = parseArgv(process.argv.slice(2));
 
 	try {
-		if (process.env.NODE_ENV === "production") {
-			console.log(
-				"NODE_ENV is production, skipping environment variable loading",
-			);
+		const envConfig: LoadEnvConfig = {};
+		if (envFile) {
+			// Explicit env file(s) always win
+			envConfig.envFile = envFile;
 		} else {
-			const envConfig: LoadEnvConfig = {};
-			if (envFile) {
-				envConfig.envFile = envFile;
+			const nodeEnv = process.env.NODE_ENV;
+			// For non-development environments, try .env.{NODE_ENV}
+			if (nodeEnv && nodeEnv !== "development") {
+				envConfig.envFile = [`.env.${nodeEnv}`];
 			}
-			await loadEnv(envConfig);
+			// For development or when NODE_ENV is not set, rely on loadEnv defaults:
+			// .env.default, .env, .env.local
 		}
+		await loadEnv(envConfig);
 
 		await spawn({ args, command });
 	} catch (error) {
