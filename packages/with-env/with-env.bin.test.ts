@@ -1,4 +1,183 @@
-import { describe, expect, test } from "bun:test";
+import {
+	afterEach,
+	beforeEach,
+	describe,
+	expect,
+	it,
+	mock,
+	spyOn,
+} from "bun:test";
+
+import { main } from "./with-env.bin.ts";
+
+const parseArgvModule = await import("./parse-argv.ts");
+const indexPubModule = await import("./index.pub.ts");
+
+describe("with-env CLI main", () => {
+	const originalEnv = process.env;
+	const originalExit = process.exit;
+	const originalArgv = process.argv;
+	let exitCalls: unknown[][] = [];
+
+	beforeEach(() => {
+		process.env = { ...originalEnv };
+		process.argv = [...originalArgv];
+		mock.restore();
+		exitCalls = [];
+		process.exit = ((code: unknown) => {
+			exitCalls.push([code]);
+		}) as never;
+	});
+
+	afterEach(() => {
+		process.env = originalEnv;
+		process.argv = originalArgv;
+		process.exit = originalExit;
+		mock.restore();
+	});
+
+	it("passes command and args from parseArgv to spawn", async () => {
+		delete process.env.NODE_ENV;
+		const { parseSpy, loadEnvSpy, spawnSpy } = makeMocks();
+
+		parseSpy.mockReturnValue({
+			args: ["hello", "world"],
+			command: "echo",
+		});
+
+		await main();
+
+		expect(loadEnvSpy).toHaveBeenCalledWith({});
+		expect(spawnSpy).toHaveBeenCalledWith({
+			args: ["hello", "world"],
+			command: "echo",
+		});
+	});
+
+	const makeMocks = () => {
+		const parseSpy = spyOn(parseArgvModule, "parseArgv");
+		const loadEnvSpy = spyOn(indexPubModule, "loadEnv").mockResolvedValue();
+		const spawnSpy = spyOn(indexPubModule, "spawn").mockResolvedValue();
+
+		return { loadEnvSpy, parseSpy, spawnSpy };
+	};
+
+	it("uses default env file behavior when NODE_ENV is unset", async () => {
+		delete process.env.NODE_ENV;
+		const { parseSpy, loadEnvSpy, spawnSpy } = makeMocks();
+
+		parseSpy.mockReturnValue({
+			args: [],
+			command: "echo",
+		});
+
+		await main();
+
+		expect(loadEnvSpy).toHaveBeenCalledWith({});
+		expect(spawnSpy).toHaveBeenCalled();
+	});
+
+	it("uses default env file behavior when NODE_ENV is development", async () => {
+		process.env.NODE_ENV = "development";
+		const { parseSpy, loadEnvSpy, spawnSpy } = makeMocks();
+
+		parseSpy.mockReturnValue({
+			args: [],
+			command: "echo",
+		});
+
+		await main();
+
+		expect(loadEnvSpy).toHaveBeenCalledWith({});
+		expect(spawnSpy).toHaveBeenCalled();
+	});
+
+	it("uses .env.test when NODE_ENV is test", async () => {
+		process.env.NODE_ENV = "test";
+		const { parseSpy, loadEnvSpy } = makeMocks();
+
+		parseSpy.mockReturnValue({
+			args: [],
+			command: "echo",
+		});
+
+		await main();
+
+		expect(loadEnvSpy).toHaveBeenCalledWith({ envFile: [".env.test"] });
+	});
+
+	it("uses .env.production when NODE_ENV is production", async () => {
+		process.env.NODE_ENV = "production";
+		const { parseSpy, loadEnvSpy } = makeMocks();
+
+		parseSpy.mockReturnValue({
+			args: [],
+			command: "echo",
+		});
+
+		await main();
+
+		expect(loadEnvSpy).toHaveBeenCalledWith({ envFile: [".env.production"] });
+	});
+
+	it("uses .env.staging when NODE_ENV is staging", async () => {
+		process.env.NODE_ENV = "staging";
+		const { parseSpy, loadEnvSpy } = makeMocks();
+
+		parseSpy.mockReturnValue({
+			args: [],
+			command: "echo",
+		});
+
+		await main();
+
+		expect(loadEnvSpy).toHaveBeenCalledWith({ envFile: [".env.staging"] });
+	});
+
+	it("exits with code 1 and logs when loadEnv throws", async () => {
+		const { parseSpy, loadEnvSpy, spawnSpy } = makeMocks();
+
+		parseSpy.mockReturnValue({
+			args: [],
+			command: "echo",
+		});
+
+		const error = new Error("load failed");
+		loadEnvSpy.mockRejectedValue(error);
+		const consoleErrorSpy = spyOn(console, "error").mockImplementation(
+			() => {},
+		);
+
+		await main();
+
+		expect(spawnSpy).not.toHaveBeenCalled();
+		expect(consoleErrorSpy).toHaveBeenCalledWith("Error:", error.message);
+		expect(exitCalls).toEqual([[1]]);
+	});
+
+	it("exits with code 1 and logs when spawn throws", async () => {
+		const { parseSpy, loadEnvSpy, spawnSpy } = makeMocks();
+
+		parseSpy.mockReturnValue({
+			args: [],
+			command: "echo",
+		});
+
+		loadEnvSpy.mockResolvedValue();
+		const error = new Error("spawn failed");
+		spawnSpy.mockRejectedValue(error);
+		const consoleErrorSpy = spyOn(console, "error").mockImplementation(
+			() => {},
+		);
+
+		await main();
+
+		expect(consoleErrorSpy).toHaveBeenCalledWith("Error:", error.message);
+		expect(exitCalls).toEqual([[1]]);
+	});
+});
+
+import { test } from "bun:test";
 import { existsSync } from "node:fs";
 import { join } from "node:path";
 

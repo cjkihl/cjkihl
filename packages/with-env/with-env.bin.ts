@@ -3,7 +3,7 @@
 import { type LoadEnvConfig, loadEnv, spawn } from "./index.pub.ts";
 import { parseArgv } from "./parse-argv.ts";
 
-async function main(): Promise<void> {
+export async function main(): Promise<void> {
 	const { command, args, envFile } = parseArgv(process.argv.slice(2));
 
 	try {
@@ -30,4 +30,6 @@ async function main(): Promise<void> {
 	}
 }
 
-main();
+if (import.meta.main) {
+	void main();
+}

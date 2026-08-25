@@ -1,6 +1,12 @@
 import { execa } from "execa";
 import { getEnvs } from "./get-env-from-file.ts";
 
+export {
+	type GetEnvsOptions,
+	getEnvs,
+	getEnvsSync,
+} from "./get-env-from-file.ts";
+
 /**
  * Configuration for loading environment variables
  */

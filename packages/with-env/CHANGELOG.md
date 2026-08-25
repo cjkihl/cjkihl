@@ -1,5 +1,19 @@
 # @cjkihl/with-env
 
+## 1.1.0
+
+### Minor Changes
+
+- Add sync APIs for sync-only contexts (e.g. Expo `app.config.js`, evaluated via `require-from-string`):
+
+  - `@cjkihl/find-root`: new `findRootSync()` using `findUpSync`; shared resolution logic extracted; removed unconditional `console.log`/`console.error` noise from library code (errors are still thrown)
+  - `@cjkihl/with-env`: new `getEnvsSync()`; `getEnvs` and `getEnvsSync` are now public exports (previously internal) and accept an optional `{ root }` option to skip lockfile auto-detection
+
+### Patch Changes
+
+- Updated dependencies
+  - @cjkihl/find-root@1.1.0
+
 ## 1.0.17
 
 ### Patch Changes

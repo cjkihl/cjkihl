@@ -1,24 +1,7 @@
-// Mocks must be set up before importing the implementation
-
-import { mock } from "bun:test";
+import { describe, expect, test } from "bun:test";
 import node_fs from "node:fs";
 import node_os from "node:os";
 import node_path from "node:path";
-
-mock.module("node:fs", () => ({
-	existsSync: (path: string) => path === "package.json",
-	readFileSync: (path: string) => {
-		if (path === "package.json") {
-			return JSON.stringify({ name: "test-package" });
-		}
-		throw new Error(`File not found: ${path}`);
-	},
-	writeFileSync: () => {},
-}));
-
-mock.module("node:path", () => require("node:path"));
-
-import { describe, expect, test } from "bun:test";
 import type { PackageJson } from "type-fest";
 import {
 	generateBin,

@@ -1,6 +1,6 @@
 {
   "name": "@cjkihl/with-env",
-  "version": "1.0.17",
+  "version": "1.1.0",
   "description": "Load environment variables in a monorepo",
   "keywords": [
     "environment",
@@ -27,8 +27,8 @@
   "type": "module",
   "exports": {
     ".": {
-      "default": "./dist/output/index.pub.js",
-      "types": "./dist/types/index.pub.d.ts"
+      "types": "./dist/types/index.pub.d.ts",
+      "default": "./dist/output/index.pub.js"
     }
   },
   "bin": {
@@ -44,7 +44,7 @@
     "type-check": "tsgo --noEmit"
   },
   "dependencies": {
-    "@cjkihl/find-root": "^1.0.7",
+    "@cjkihl/find-root": "^1.1.0",
     "dotenv": "^17.3.1",
     "execa": "^9.6.1"
   },

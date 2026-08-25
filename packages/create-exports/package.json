@@ -26,8 +26,8 @@
   "type": "module",
   "exports": {
     ".": {
-      "default": "./dist/output/index.pub.js",
-      "types": "./dist/types/index.pub.d.ts"
+      "types": "./dist/types/index.pub.d.ts",
+      "default": "./dist/output/index.pub.js"
     }
   },
   "bin": {
